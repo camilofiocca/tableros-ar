@@ -1,0 +1,62 @@
+name: Actualizar tableros (Macro y Energía)
+
+# Horarios en UTC (Argentina = UTC-3), de lunes a viernes:
+#  - Macro: cada 30 minutos de 08:00 a 20:00 (dólares, riesgo país y BCRA cambian en el día).
+#  - Energía: 2 veces por día, 09:10 y 18:10 (sus datos son mensuales; correrlo más seguido no cambia nada).
+on:
+  schedule:
+    - cron: "0,30 11-22 * * 1-5"   # Macro 08:00 ... 19:30 ART
+    - cron: "0 23 * * 1-5"         # Macro 20:00 ART
+    - cron: "10 12,21 * * 1-5"     # Energía 09:10 y 18:10 ART
+  workflow_dispatch:               # botón "Run workflow" para correrlo a mano
+    inputs:
+      tablero:
+        description: "Qué actualizar"
+        type: choice
+        options: [ambos, macro, energia]
+        default: ambos
+
+concurrency:                       # si una corrida se demora, la siguiente espera en vez de pisarla
+  group: tableros
+  cancel-in-progress: false
+
+jobs:
+  etl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CORRER_MACRO: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'macro') || github.event_name == 'schedule' && github.event.schedule != '10 12,21 * * 1-5' }}
+      CORRER_ENERGIA: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'energia') || github.event_name == 'schedule' && github.event.schedule == '10 12,21 * * 1-5' }}
+    steps:
+      - name: Bajar el repo
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Dependencias
+        run: pip install -r requirements.txt
+
+      - name: Credencial de Google (service account)
+        env:
+          SA: ${{ secrets.GOOGLE_SA_JSON }}
+        run: printf '%s' "$SA" > sa.json
+
+      - name: ETL Macro
+        if: env.CORRER_MACRO == 'true'
+        env:
+          GOOGLE_SA_JSON: sa.json
+        run: jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=900 --stdout "notebooks/Tablero Macro AR - ETL v3.ipynb" > /dev/null
+
+      - name: ETL Energía
+        if: always() && env.CORRER_ENERGIA == 'true'
+        env:
+          GOOGLE_SA_JSON: sa.json
+        run: jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=900 --stdout "notebooks/Tablero Energia AR - ETL v2.1.ipynb" > /dev/null
+
+      - name: Borrar credencial
+        if: always()
+        run: rm -f sa.json
