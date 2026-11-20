@@ -1,13 +1,14 @@
 name: Actualizar tableros (Macro y Energía)
 
 # Horarios en UTC (Argentina = UTC-3), de lunes a viernes:
-#  - Macro: cada 30 minutos de 08:00 a 20:00 (dólares, riesgo país y BCRA cambian en el día).
-#  - Energía: 2 veces por día, 09:10 y 18:10 (sus datos son mensuales; correrlo más seguido no cambia nada).
+#  - Macro: cada 30 minutos de 08:07 a 20:07 (dólares, riesgo país y BCRA cambian en el día).
+#  - Energía: 2 veces por día, 09:17 y 18:17 (sus datos son mensuales; correrlo más seguido no cambia nada).
+#  (minutos 7 y 37 en vez de 0 y 30: a la hora en punto GitHub posterga o saltea las corridas programadas)
 on:
   schedule:
-    - cron: "0,30 11-22 * * 1-5"   # Macro 08:00 ... 19:30 ART
-    - cron: "0 23 * * 1-5"         # Macro 20:00 ART
-    - cron: "10 12,21 * * 1-5"     # Energía 09:10 y 18:10 ART
+    - cron: "7,37 11-22 * * 1-5"   # Macro 08:07 ... 19:37 ART
+    - cron: "7 23 * * 1-5"         # Macro 20:07 ART
+    - cron: "17 12,21 * * 1-5"     # Energía 09:17 y 18:17 ART
   workflow_dispatch:               # botón "Run workflow" para correrlo a mano
     inputs:
       tablero:
@@ -25,8 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      CORRER_MACRO: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'macro') || github.event_name == 'schedule' && github.event.schedule != '10 12,21 * * 1-5' }}
-      CORRER_ENERGIA: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'energia') || github.event_name == 'schedule' && github.event.schedule == '10 12,21 * * 1-5' }}
+      CORRER_MACRO: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'macro') || github.event_name == 'schedule' && github.event.schedule != '17 12,21 * * 1-5' }}
+      CORRER_ENERGIA: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'energia') || github.event_name == 'schedule' && github.event.schedule == '17 12,21 * * 1-5' }}
     steps:
       - name: Bajar el repo
         uses: actions/checkout@v4
