@@ -48,13 +48,13 @@ jobs:
       - name: ETL Macro
         if: env.CORRER_MACRO == 'true'
         env:
-          GOOGLE_SA_JSON: sa.json
+          GOOGLE_SA_JSON: ${{ github.workspace }}/sa.json
         run: jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=900 --stdout "notebooks/Tablero Macro AR - ETL v3.ipynb" > /dev/null
 
       - name: ETL Energía
         if: always() && env.CORRER_ENERGIA == 'true'
         env:
-          GOOGLE_SA_JSON: sa.json
+          GOOGLE_SA_JSON: ${{ github.workspace }}/sa.json
         run: jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=900 --stdout "notebooks/Tablero Energia AR - ETL v2.1.ipynb" > /dev/null
 
       - name: Borrar credencial
