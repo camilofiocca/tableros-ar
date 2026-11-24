@@ -1,0 +1,11 @@
+id_espacio,espacio,espacio_corto,color,orden,descripcion
+PJ,Peronismo (PJ y frentes kirchneristas),Peronismo,#2A9FD6,1,"PJ y sus frentes nacionales: FREJULI, FREJUPO, Concertación Justicialista, Frente para la Victoria, Frente de Todos, Unión por la Patria y Fuerza Patria, con sus aliados provinciales."
+PF,Peronismo federal y terceras vías,Terceras vías,#00897B,2,"Peronismo no kirchnerista y frentes de centro: Menem y Rodríguez Saá 2003, Lavagna, Frente Renovador y UNA (Massa), Consenso Federal, Hacemos por Nuestro País y Provincias Unidas."
+UCR,UCR y aliados,UCR y aliados,#C62828,3,"Unión Cívica Radical y las alianzas que encabezó: Alianza (1997-1999), Acuerdo Cívico y Social (2009), UDESO (2011) y el Frente Progresista Cívico y Social / UNEN (2013)."
+PRO,PRO / Cambiemos / Juntos por el Cambio,PRO-JxC,#E0A100,4,"Propuesta Republicana y las coaliciones Cambiemos (2015-2017) y Juntos por el Cambio (2019-2023)."
+LLA,La Libertad Avanza,LLA,#4643A8,5,"La Libertad Avanza y Avanza Libertad (2021). En 2025 incluye las listas conjuntas con el PRO."
+CD,Centroderecha y derecha,Centroderecha,#EF6C00,6,"UCeDé y Alianza de Centro, MODIN, Acción por la República, Recrear, Frente NOS, UNITE y otros partidos de derecha."
+CI,Centroizquierda y progresismo,Centroizquierda,#2E7D33,7,"Partido Intransigente, Frente Grande y FREPASO, ARI y Coalición Cívica (hasta 2011), socialismo, Frente Amplio Progresista, Proyecto Sur, Libres del Sur y Progresistas."
+IZQ,Izquierda,Izquierda,#C2185B,8,"MAS, Izquierda Unida, Partido Obrero, MST, PTS, Frente de Izquierda y de Trabajadores (FIT y FIT-U) y otros partidos de izquierda."
+PROV,Partidos provinciales,Provinciales,#8D6E63,9,"Partidos de una sola provincia: MPN, Bloquista, Pacto Autonomista Liberal, Renovador de Salta, Fuerza Republicana, Frente Renovador de la Concordia, Juntos Somos Río Negro, Innovación Federal y otros."
+OTR,Otros,Otros,#A9ABBF,10,"Listas que no encajan en los espacios anteriores o con pocos votos."

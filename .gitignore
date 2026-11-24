@@ -3,3 +3,4 @@ sa.json
 tableros-ar-*.json
 __pycache__/
 .ipynb_checkpoints/
+salida_elecciones/

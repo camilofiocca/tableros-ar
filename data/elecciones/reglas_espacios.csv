@@ -1,0 +1,90 @@
+orden,ambito,desde,hasta,patron,formula,id_espacio,nota
+10,PRES,1983,1983,union civica radical|\bucr\b,Alfonsín - Martínez,UCR,
+11,PRES,1983,1983,justicialista,Luder - Bittel,PJ,
+12,PRES,1983,1983,intransigente,Alende - Viale,CI,
+13,PRES,1983,1983,integracion y desarrollo,Frigerio - Salonia,CD,
+14,PRES,1983,1983,alianza federal,Manrique - Rawson,CD,
+15,PRES,1983,1983,centro democratico,Alsogaray - Oria,CD,
+16,PRES,1983,1983,democrata cristian,Cerro - Ponsati,OTR,
+17,PRES,1983,1983,socialista popular|democrata socialista,Otras fórmulas,CI,
+18,PRES,1983,1983,movimiento al socialismo|izquierda popular|obrero,Otras fórmulas,IZQ,
+20,PRES,1989,1989,justicialista|frejupo,Menem - Duhalde,PJ,Frente Justicialista Popular y aliados
+21,PRES,1989,1989,union civica radical|confederacion federalista independiente|\bucr\b,Angeloz - Casella,UCR,UCR y Confederación Federalista Independiente
+22,PRES,1989,1989,alianza de centro|centro democratico,Alsogaray - Natale,CD,
+23,PRES,1989,1989,izquierda unida,Vicente - Zamora,IZQ,
+24,PRES,1989,1989,unidad socialista|socialista popular,Estévez Boero - Rodríguez,CI,
+30,PRES,1995,1995,justicialista|frejupo|frente de la esperanza|centro democratico|\bucd\b,Menem - Ruckauf,PJ,"PJ, frentes justicialistas provinciales y UCeDé"
+31,PRES,1995,1995,pais solidario|frepaso|frente grande|frente pais\b,Bordón - Álvarez,CI,FREPASO
+32,PRES,1995,1995,union civica radical|\bucr\b|alianza del pueblo|alianza para la patagonia,Massaccesi - Hernández,UCR,
+33,PRES,1995,1995,dignidad y la independencia|modin,Rico - Ibarra,CD,
+34,PRES,1995,1995,alianza sur,Solanas - Cafiero,CI,
+35,PRES,1995,1995,socialista de los trabajadores|movimiento al socialismo|obrero|patria libre|unidad de los trabajadores,Otras fórmulas,IZQ,
+40,PRES,1999,1999,de la rua,De la Rúa - Álvarez,UCR,Alianza para el Trabajo la Justicia y la Educación (UCR y FREPASO)
+41,PRES,1999,1999,duhalde,Duhalde - Ortega,PJ,Concertación Justicialista para el Cambio
+42,PRES,1999,1999,cavallo,Cavallo - Caro Figueroa,CD,Acción por la República
+43,PRES,1999,1999,walsh|altamira|montes|reyna|quarracino,Otras fórmulas,IZQ,
+50,PRES,2003,2003,menem,Menem - Romero,PF,Frente por la Lealtad
+51,PRES,2003,2003,kirchner,Kirchner - Scioli,PJ,Frente para la Victoria
+52,PRES,2003,2003,lopez murphy,López Murphy - Gómez Diez,CD,Movimiento Federal Recrear
+53,PRES,2003,2003,rodriguez saa,Rodríguez Saá - Posse,PF,Frente Movimiento Popular
+54,PRES,2003,2003,carrio,Carrió - Gutiérrez,CI,ARI
+55,PRES,2003,2003,moreau,Moreau - Losada,UCR,
+56,PRES,2003,2003,walsh|altamira|venturino|mazzitelli|teran,Otras fórmulas,IZQ,
+57,PRES,2003,2003,bravo,Otras fórmulas,CI,Socialista
+60,PRES,2007,2007,fernandez de kirchner,Fernández de Kirchner - Cobos,PJ,Frente para la Victoria
+61,PRES,2007,2007,carrio,Carrió - Giustiniani,CI,Coalición Cívica
+62,PRES,2007,2007,lavagna,Lavagna - Morales,PF,Concertación UNA
+63,PRES,2007,2007,rodriguez saa,Rodríguez Saá - Maya,PF,Frente Justicia Unión y Libertad
+64,PRES,2007,2007,lopez murphy|sobisch,Otras fórmulas,CD,Recrear y Movimiento de las Provincias Unidas
+65,PRES,2007,2007,pitrola|solanas|montes|sanchez|ripoll|amat|izquierda|obrero|socialis,Otras fórmulas,IZQ,
+70,PRES,2011,2011,fernandez de kirchner|frente para la victoria,Fernández de Kirchner - Boudou,PJ,Frente para la Victoria
+71,PRES,2011,2011,binner|frente amplio progresista,Binner - Morandini,CI,Frente Amplio Progresista
+72,PRES,2011,2011,alfonsin|desarrollo social,Alfonsín - González Fraga,UCR,UDESO
+73,PRES,2011,2011,rodriguez saa|compromiso federal,Rodríguez Saá - Vernet,PF,Compromiso Federal
+74,PRES,2011,2011,duhalde|frente popular,Duhalde - Das Neves,PF,Frente Popular
+75,PRES,2011,2011,altamira|izquierda,Altamira - Castillo,IZQ,Frente de Izquierda
+76,PRES,2011,2011,carrio|coalicion civica,Carrió - Pérez,CI,Coalición Cívica ARI
+80,PRES,2015,2015,scioli|frente para la victoria,Scioli - Zannini,PJ,Frente para la Victoria
+81,PRES,2015,2015,macri|cambiemos,Macri - Michetti,PRO,Cambiemos
+82,PRES,2015,2015,massa|nueva alternativa,Massa - Sáenz,PF,UNA
+83,PRES,2015,2015,del cano|izquierda,Del Caño - Bregman,IZQ,Frente de Izquierda
+84,PRES,2015,2015,stolbizer|progresistas,Stolbizer - Olaviaga,CI,Progresistas
+85,PRES,2015,2015,rodriguez saa|compromiso federal,Rodríguez Saá - Negre de Alonso,PF,Compromiso Federal
+90,PRES,2019,2019,frente de todos|fernandez fernandez de kirchner,Fernández - Fernández de Kirchner,PJ,Frente de Todos
+91,PRES,2019,2019,macri|juntos por el cambio,Macri - Pichetto,PRO,Juntos por el Cambio
+92,PRES,2019,2019,lavagna|consenso federal,Lavagna - Urtubey,PF,Consenso Federal
+93,PRES,2019,2019,del cano|izquierda,Del Caño - Del Plá,IZQ,Frente de Izquierda - Unidad
+94,PRES,2019,2019,gomez centurion|frente nos,Gómez Centurión - Hotton,CD,Frente NOS
+95,PRES,2019,2019,espert|unite|despertar,Espert - Rosales,CD,Frente Despertar
+100,PRES,2023,2023,massa|union por la patria,Massa - Rossi,PJ,Unión por la Patria
+101,PRES,2023,2023,milei|libertad avanza,Milei - Villarruel,LLA,La Libertad Avanza
+102,PRES,2023,2023,bullrich|juntos por el cambio,Bullrich - Petri,PRO,Juntos por el Cambio
+103,PRES,2023,2023,schiaretti|hacemos,Schiaretti - Randazzo,PF,Hacemos por Nuestro País
+104,PRES,2023,2023,bregman|izquierda,Bregman - Del Caño,IZQ,Frente de Izquierda y de Trabajadores - Unidad
+150,DIP,2003,2003,\bu c r\b|concert p desarrollo|frente civico y social|^al frente civico y social$|fte de todos,,UCR,"Diputados 2003: UCR y frentes radicales provinciales (Catamarca, Chaco, Corrientes, Río Negro)"
+151,DIP,2003,2003,fte ?compr p el cambio,,PRO,"Compromiso para el Cambio (Macri), Capital 2003"
+152,DIP,2003,2009,fuerza portena|frente nuevo,,CI,Fuerza Porteña (Ibarra) y Frente Nuevo (Juez)
+153,DIP,2003,2011,union por cordoba|frente de la unidad,,PJ,PJ de Córdoba y de Formosa
+154,DIP,2003,2011,^fte renovador$|^frente renovador$,,PROV,Frente Renovador de la Concordia (Misiones)
+155,DIP,2003,2003,mov pop mov nac|frente movimiento popular,,PF,Rodríguez Saá (San Luis)
+156,TODAS,1983,2099,fte para la victoria|fte just|frejuvi|fte justicialista,,PJ,Abreviaturas de frentes justicialistas
+157,TODAS,1983,2099,\ba r i\b|afirm p ?rep igualit|afirmacion para una rep|af p una rep ig,,CI,ARI (abreviaturas)
+158,TODAS,1983,2099,izq unida|autodeterm|frente amplio de liberacion,,IZQ,
+159,TODAS,1983,2099,mov pop(ular)? neuquino|fueguino|rionegrino|autonomista|^cod liber$|fuerza rep\b|defensa provincial|corriente renovadora,,PROV,
+160,TODAS,1983,2099,integracion y desarrollo,,CD,
+161,TODAS,1983,2099,\bdem soc\b|democrata socialista,,CI,Alianza Demócrata Socialista
+162,TODAS,2003,2011,paufe|unidad federalista,,CD,Partido Unidad Federalista (Luis Patti)
+200,TODAS,2021,2099,libertad avanza|avanza libertad,,LLA,
+201,TODAS,1983,2099,peronismo federal|peronismo no kirchnerista|tercera via|justicia union y libertad|frente popular propuesta republicana,,PF,Peronismo no kirchnerista; el Frente Popular-PRO de 2011 fue una alianza informal Duhalde-PRO
+202,TODAS,2013,2019,^frente renovador\b|frente renovador fr\b|nueva alternativa|\buna\b|1pais|consenso federal|union por cordoba|hacemos por cordoba|unidos por una nueva,,PF,Frente Renovador (Massa) y frentes afines
+203,TODAS,2021,2099,hacemos|provincias unidas|defendamos cordoba|propuesta federal para el cambio|compromiso federal,,PF,
+204,TODAS,2003,2012,concertacion para una nacion avanzada|compromiso federal|frente popular\b|frente movimiento popular|lealtad,,PF,
+210,TODAS,1983,2099,frente renovador de la concordia|\bfrc\b,,PROV,Frente Renovador de la Concordia (Misiones)
+211,TODAS,1983,2099,frejudepa|frente renovador y aliados,,PJ,Renovación peronista bonaerense (Cafiero) 1985
+220,TODAS,1983,2099,frente de izquierda|\bfit\b|izquierda unida|partido obrero|politica obrera|socialista de los trabajadores|socialismo|\bmas\b|\bmst\b|\bpts\b|nueva izquierda|comunista|trabajo y del pueblo|patria libre|frente del pueblo\b|autodeterminacion y libertad|socialista autentico|accion popular para la liberacion|izquierda|\bobrero\b|movimiento al socialismo|\bcod (po|mas|mst|pts|maspts|aiu|aiumst|aciu|mizq|afutpo|pc|cpl|psa)\b,,IZQ,
+230,TODAS,1983,2099,justicialista|frejuli|frejupo|frente para la victoria|\bfpv\b|frente de todos|union por la patria|fuerza patria|unidad ciudadana|kirchner|concertacion justicialista|frente civico por santiago|frente tucuman primero|fuerza (san juan|entre rios|justicialista mendoza)|frente de la victoria|frente defendemos la pampa|frente justicialista|\bcod (pj|acjc|cjc|cjcer|cjccha|cjccat|acjcfj|acjcmpu|afj|afjufe|afjbo|afjen|afju|afjupo|afjes|afjuso|apj|fj|fjuvi|fjub|fjpro|fjuso|frejupo|fpv|frep)\b,,PJ,
+240,TODAS,1983,2099,cambiemos|juntos por el cambio|propuesta republicana|\bpro\b|compromiso para el cambio,,PRO,
+250,TODAS,1983,2099,union civica radical|\bucr\b|acuerdo civico|desarrollo social|udeso|frente progresista civico y social|fpcys|alianza para el trabajo|\bcod (ali|alisal|alisj|alifcso|alifpso|aliscz|adp|aftod|ucr|ucrp|ucrfci|ucrppa|ucrtu|ucrfsol|aucrpu|aucrmid)\b,,UCR,"En 1997-1999, Alianza (UCR y FREPASO)"
+260,TODAS,1983,2099,centro democratico|\bucede\b|alianza de centro|accion por la republica|recrear|\bmodin\b|dignidad y la independencia|\bunite\b|frente nos\b|partido libertario|frente patriota|principios y valores|\bvalores\b|popular de la reconstruccion|nacionalista constitucional|partido federal\b|^federal$|\bcod (ucd|apr|aapr|aaprnd|aaprf|aaprmpatp|afifed|mod|fed|ubo)\b,,CD,
+270,TODAS,1983,2099,intransigente|frente grande|frepaso|pais solidario|afirmacion para una republica igualitaria|\bari\b|coalicion civica|socialista|unidad socialista|democrata progresista|frente amplio progresista|proyecto sur|progresistas|libres del sur|nuevo encuentro|ciudad futura|alianza sur|partido verde|frente verde|\bcod (afpaso|fpaso|frepaso|cfpaso|afgfpso|fg|acfg|afpais|pais|asur|pdp|psoc)\b,,CI,
+280,TODAS,1983,2099,movimiento popular neuquino|neuquinidad|bloquista|pacto autonomista|autonomista liberal|renovador de salta|\bpares\b|\bprs\b|fuerza republicana|accion chaquena|movimiento popular jujeno|accion chubutense|chubut para todos|chubut somos todos|movimiento popular fueguino|juntos somos rio negro|somos rio negro|cruzada renovadora|provincial rionegrino|innovacion federal|salta somos todos|por san juan|por santa cruz|convocatoria independiente|frente de accion provinciana|partido nuevo|vecinal|independiente del chubut|primero los saltenos|primero jujuy|despierta santiago|fuerza del trabajo chubutense|confederacion federalista independiente|partido democrata\b|^democrata$|movimiento federalista pampeano|unidos por salta|somos energia para renovar santa cruz|frente integrador|liberal|\bcod (mpn|prs|fr|blo|acha|ach|mpf|mpj|fpanu|pd|palpdp|palucd|dyj|pu|afcbio|fdto)\b,,PROV,

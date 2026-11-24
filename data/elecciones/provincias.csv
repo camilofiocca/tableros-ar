@@ -1,0 +1,25 @@
+id_prov,provincia,nombre_corto,region
+02,Ciudad de Buenos Aires,CABA,Centro
+06,Buenos Aires,Buenos Aires,Centro
+10,Catamarca,Catamarca,NOA
+14,Córdoba,Córdoba,Centro
+18,Corrientes,Corrientes,NEA
+22,Chaco,Chaco,NEA
+26,Chubut,Chubut,Patagonia
+30,Entre Ríos,Entre Ríos,Centro
+34,Formosa,Formosa,NEA
+38,Jujuy,Jujuy,NOA
+42,La Pampa,La Pampa,Centro
+46,La Rioja,La Rioja,NOA
+50,Mendoza,Mendoza,Cuyo
+54,Misiones,Misiones,NEA
+58,Neuquén,Neuquén,Patagonia
+62,Río Negro,Río Negro,Patagonia
+66,Salta,Salta,NOA
+70,San Juan,San Juan,Cuyo
+74,San Luis,San Luis,Cuyo
+78,Santa Cruz,Santa Cruz,Patagonia
+82,Santa Fe,Santa Fe,Centro
+86,Santiago del Estero,Santiago del Estero,NOA
+90,Tucumán,Tucumán,NOA
+94,Tierra del Fuego,Tierra del Fuego,Patagonia

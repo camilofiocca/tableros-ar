@@ -1,20 +1,22 @@
-name: Actualizar tableros (Macro y Energía)
+name: Actualizar tableros (Macro, Energía y Elecciones)
 
 # Horarios en UTC (Argentina = UTC-3), de lunes a viernes:
 #  - Macro: cada 30 minutos de 08:07 a 20:07 (dólares, riesgo país y BCRA cambian en el día).
 #  - Energía: 2 veces por día, 09:17 y 18:17 (sus datos son mensuales; correrlo más seguido no cambia nada).
+#  - Elecciones: 1 vez por semana, lunes 09:47 (los resultados solo cambian cuando hay una elección).
 #  (minutos 7 y 37 en vez de 0 y 30: a la hora en punto GitHub posterga o saltea las corridas programadas)
 on:
   schedule:
     - cron: "7,37 11-22 * * 1-5"   # Macro 08:07 ... 19:37 ART
     - cron: "7 23 * * 1-5"         # Macro 20:07 ART
     - cron: "17 12,21 * * 1-5"     # Energía 09:17 y 18:17 ART
+    - cron: "47 12 * * 1"          # Elecciones, lunes 09:47 ART
   workflow_dispatch:               # botón "Run workflow" para correrlo a mano
     inputs:
       tablero:
         description: "Qué actualizar"
         type: choice
-        options: [ambos, macro, energia]
+        options: [ambos, macro, energia, elecciones, todos]
         default: ambos
 
 concurrency:                       # si una corrida se demora, la siguiente espera en vez de pisarla
@@ -26,8 +28,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      CORRER_MACRO: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'macro') || github.event_name == 'schedule' && github.event.schedule != '17 12,21 * * 1-5' }}
-      CORRER_ENERGIA: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'energia') || github.event_name == 'schedule' && github.event.schedule == '17 12,21 * * 1-5' }}
+      CORRER_MACRO: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'todos' || inputs.tablero == 'macro') || github.event_name == 'schedule' && github.event.schedule != '17 12,21 * * 1-5' && github.event.schedule != '47 12 * * 1' }}
+      CORRER_ENERGIA: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'ambos' || inputs.tablero == 'todos' || inputs.tablero == 'energia') || github.event_name == 'schedule' && github.event.schedule == '17 12,21 * * 1-5' }}
+      CORRER_ELECCIONES: ${{ github.event_name == 'workflow_dispatch' && (inputs.tablero == 'elecciones' || inputs.tablero == 'todos') || github.event_name == 'schedule' && github.event.schedule == '47 12 * * 1' }}
     steps:
       - name: Bajar el repo
         uses: actions/checkout@v4
@@ -57,6 +60,12 @@ jobs:
         env:
           GOOGLE_SA_JSON: ${{ github.workspace }}/sa.json
         run: jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=900 --stdout "notebooks/Tablero Energia AR - ETL v2.1.ipynb" > /dev/null
+
+      - name: ETL Elecciones
+        if: always() && env.CORRER_ELECCIONES == 'true'
+        env:
+          GOOGLE_SA_JSON: ${{ github.workspace }}/sa.json
+        run: jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=900 --stdout "notebooks/Tablero Elecciones AR - ETL v1.ipynb" > /dev/null
 
       - name: Borrar credencial
         if: always()

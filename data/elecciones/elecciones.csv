@@ -1,0 +1,38 @@
+id_eleccion,anio,fecha,tipo,instancia,cargo
+1983-PRES-1V,1983,1983-10-30,Presidencial,Primera vuelta,Presidente
+1989-PRES-1V,1989,1989-05-14,Presidencial,Primera vuelta,Presidente
+1995-PRES-1V,1995,1995-05-14,Presidencial,Primera vuelta,Presidente
+1999-PRES-1V,1999,1999-10-24,Presidencial,Primera vuelta,Presidente
+2003-PRES-1V,2003,2003-04-27,Presidencial,Primera vuelta,Presidente
+2007-PRES-1V,2007,2007-10-28,Presidencial,Primera vuelta,Presidente
+2011-PRES-1V,2011,2011-10-23,Presidencial,Primera vuelta,Presidente
+2015-PRES-1V,2015,2015-10-25,Presidencial,Primera vuelta,Presidente
+2019-PRES-1V,2019,2019-10-27,Presidencial,Primera vuelta,Presidente
+2023-PRES-1V,2023,2023-10-22,Presidencial,Primera vuelta,Presidente
+2015-PRES-BAL,2015,2015-11-22,Presidencial,Balotaje,Presidente
+2023-PRES-BAL,2023,2023-11-19,Presidencial,Balotaje,Presidente
+2011-PRES-PASO,2011,2011-08-14,Presidencial,PASO,Presidente
+2015-PRES-PASO,2015,2015-08-09,Presidencial,PASO,Presidente
+2019-PRES-PASO,2019,2019-08-11,Presidencial,PASO,Presidente
+2023-PRES-PASO,2023,2023-08-13,Presidencial,PASO,Presidente
+1983-DIP,1983,1983-10-30,Presidencial,General,Diputados nacionales
+1985-DIP,1985,1985-11-03,Legislativa,General,Diputados nacionales
+1987-DIP,1987,1987-09-06,Legislativa,General,Diputados nacionales
+1989-DIP,1989,1989-05-14,Presidencial,General,Diputados nacionales
+1991-DIP,1991,1991-09-08,Legislativa,General,Diputados nacionales
+1993-DIP,1993,1993-10-03,Legislativa,General,Diputados nacionales
+1995-DIP,1995,1995-05-14,Presidencial,General,Diputados nacionales
+1997-DIP,1997,1997-10-26,Legislativa,General,Diputados nacionales
+1999-DIP,1999,1999-10-24,Presidencial,General,Diputados nacionales
+2003-DIP,2003,2003-04-27,Presidencial,General,Diputados nacionales
+2005-DIP,2005,2005-10-23,Legislativa,General,Diputados nacionales
+2007-DIP,2007,2007-10-28,Presidencial,General,Diputados nacionales
+2009-DIP,2009,2009-06-28,Legislativa,General,Diputados nacionales
+2011-DIP,2011,2011-10-23,Presidencial,General,Diputados nacionales
+2013-DIP,2013,2013-10-27,Legislativa,General,Diputados nacionales
+2015-DIP,2015,2015-10-25,Presidencial,General,Diputados nacionales
+2017-DIP,2017,2017-10-22,Legislativa,General,Diputados nacionales
+2019-DIP,2019,2019-10-27,Presidencial,General,Diputados nacionales
+2021-DIP,2021,2021-11-14,Legislativa,General,Diputados nacionales
+2023-DIP,2023,2023-10-22,Presidencial,General,Diputados nacionales
+2025-DIP,2025,2025-10-26,Legislativa,General,Diputados nacionales

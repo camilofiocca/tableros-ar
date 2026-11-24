@@ -1,7 +1,8 @@
-# Automatización de los tableros Macro AR y Energía AR
+# Automatización de los tableros Macro AR, Energía AR y Elecciones AR
 
-Este repo corre solo los días hábiles: el ETL Macro cada 30 minutos de 8 a 20 h y el de Energía dos veces por día
-(sus datos son mensuales). Los notebooks están en `notebooks/` y actualizan las planillas **Macro AR - Datos limpios** y **Energía AR - Datos limpios** en Google Drive.
+Este repo corre solo los días hábiles: el ETL Macro cada 30 minutos de 8 a 20 h, el de Energía dos veces por día
+(sus datos son mensuales) y el de Elecciones una vez por semana, los lunes (los resultados solo cambian cuando hay elecciones;
+ver [docs/elecciones.md](docs/elecciones.md)). Los notebooks están en `notebooks/` y actualizan las planillas **Macro AR - Datos limpios** y **Energía AR - Datos limpios** en Google Drive.
 Power BI (web) después se refresca contra esas planillas con su propia actualización programada.
 
 ```
@@ -41,7 +42,8 @@ planillas tengan la `ultima_actualizacion` de recién (hojas `metadata` e `info`
 ## Horarios
 Definidos en `.github/workflows/actualizar.yml` (en UTC; Argentina es UTC-3):
 - Macro: cada 30 minutos de 08:00 a 20:00 (hora argentina), de lunes a viernes (25 corridas por día).
-- Energía: 09:10 y 18:10, de lunes a viernes.
+- Energía: 09:17 y 18:17, de lunes a viernes.
+- Elecciones: lunes 09:47. También a mano: Run workflow → opción `elecciones` (o `todos`).
 GitHub puede demorar los crons algunos minutos; es normal. Feriados: corre igual (no molesta).
 
 ## Refresco de Power BI web (importante: depende de la licencia)

@@ -30,3 +30,11 @@ Deuda pública bruta de la Administración Central, externa e interna, con y sin
 - **Interpretación:** externa = legislación extranjera, interna = legislación argentina (no depende de quién tiene el bono). "Con intereses" = tasa fija o variable; "sin intereses" = tasa cero (LECAP, letras y bonos CER sin cupón), que no paga cupón pero rinde por descuento o inflación. Los intereses pagados son solo los intereses en efectivo: en cupón cero todo el pago figura como capital.
 - **Control:** a octubre de 2026 el total es USD 489,6 mil M (externa 162,9; interna 326,7; con intereses 348,4; sin intereses 138,7).
 - **Pendiente:** la página se armó a mano en Power BI web; el PBIP local no es idéntico a la versión publicada (los respaldos están en `_respaldo\antes de Deuda 2026-11-24` en la carpeta local del tablero).
+
+## Tablero Elecciones AR (24/11/2026)
+
+Tercer tablero: presidenciales 1983-2023 (con balotajes y PASO) y diputados nacionales 1983-2025, con foco en las intermedias, por provincia y con mapas interactivos. Toda la documentación está en [docs/elecciones.md](elecciones.md).
+
+- Planilla: https://docs.google.com/spreadsheets/d/1gD1noYKGiWRA_XywAkbpqzelKTGvAwEzuoikLlu1KE8
+- Carpeta de Drive: https://drive.google.com/drive/folders/1H-LQNWTWrgwUOOo2qOGjrV_4bb2jS7WN
+- Notebook: [notebooks/Tablero Elecciones AR - ETL v1.ipynb](../notebooks/Tablero%20Elecciones%20AR%20-%20ETL%20v1.ipynb)
