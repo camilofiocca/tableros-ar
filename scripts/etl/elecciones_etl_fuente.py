@@ -28,6 +28,9 @@ VERIFICAR_DINE = True                              # comparar los últimos resul
 SOLO_LOCAL = bool(os.environ.get("ELECCIONES_SOLO_LOCAL"))  # para pruebas: escribe CSV en vez de la planilla
 
 errores = []  # (paso, mensaje) -> hoja "info"
+# TopoJSON de provincias fijado a un commit (no depende de la rama ni de main)
+URL_MAPA = ("https://raw.githubusercontent.com/camilofiocca/tableros-ar/57ffa60d5570d5fd331581972481f727e112f239/"
+            "data/elecciones/mapa/provincias_ar.topojson")
 
 def ruta_repo():
     """Carpeta raíz del repo si el notebook corre dentro de él (GitHub Actions o local)."""
@@ -69,6 +72,13 @@ provincias = leer_csv("data/elecciones/provincias.csv", **S)
 espacios = leer_csv("data/elecciones/espacios.csv")
 reglas = leer_csv("data/elecciones/reglas_espacios.csv").sort_values("orden")
 svg = leer_csv("data/elecciones/mapa/provincias_svg.csv", **S)
+gob_listas = leer_csv("data/elecciones/base_gob_listas.csv", **S)
+gob_totales = leer_csv("data/elecciones/base_gob_totales.csv", **S)
+gob_electos = leer_csv("data/elecciones/manual/gobernadores_electos.csv", **S)
+sen_listas = leer_csv("data/elecciones/base_sen_listas.csv", **S)
+sen_totales = leer_csv("data/elecciones/base_sen_totales.csv", **S)
+for d_ in (gob_listas, gob_totales, gob_electos, sen_listas, sen_totales):
+    d_["id_prov"] = d_.id_prov.str.zfill(2)
 # tonos de cada espacio para el mapa de intensidad (de casi blanco al color pleno)
 def mezclar(hexc, t):
     r, g, b = (int(hexc[i:i + 2], 16) for i in (1, 3, 5))
@@ -281,6 +291,204 @@ prov["provincia_mapa"] = prov.provincia   # clave que usa el mapa de formas (pro
 print(el[["id_eleccion", "ganador", "ganador_pct", "segundo", "segundo_pct", "participacion", "prov_ganadas"]].tail(8).round(1).to_string(index=False))
 
 # %% [markdown]
+# ## Gobernadores, Senado, bancas y presidentes
+# - **Gobernadores**: resultados por elección (con balotaje cuando lo hubo) y quién gobierna cada provincia año por año.
+#   El gobernador electo y su espacio salen de `manual/gobernadores_electos.csv` (resuelve colegios electorales,
+#   intervenciones y frentes con nombre de candidato).
+# - **Bancas**: diputados por sistema D'Hondt en cada distrito con piso del 3% del padrón (Ley 19.945, art. 160) y
+#   la cantidad de bancas que renueva cada provincia; senadores: 2 a la lista más votada y 1 a la segunda.
+#   Son bancas *obtenidas en la elección*: no reflejan cambios posteriores de bloque.
+
+# %%
+# =============================================================
+# 4b) GOBERNADORES, SENADO, BANCAS Y PRESIDENTES
+# =============================================================
+def espacio_de(anio, *textos):
+    return clasificar(int(anio), False, False, " || ".join(norm(t) for t in textos if isinstance(t, str) and t))[1]
+
+# --- Gobernadores: resultados ---
+g = gob_listas.copy()
+ROTOS = {"C?Vica": "Cívica", "Coalici?N": "Coalición", "Uni?N": "Unión"}   # tildes perdidas en la fuente
+g["opcion"] = g.opcion.astype(str).replace(ROTOS, regex=True).str.replace(r"\s+", " ", regex=True).str.strip()
+g["partido"] = g.partido.fillna("").astype(str).replace(ROTOS, regex=True).str.replace(r"\s+", " ", regex=True).str.strip()
+g["candidato"] = g.candidato.fillna("").astype(str).str.replace(r"\s+", " ", regex=True).str.strip()
+g["id_espacio"] = g.id_espacio_fijo
+sin_esp = g.id_espacio.isna()
+g.loc[sin_esp, "id_espacio"] = [espacio_de(a, p, o) for a, p, o in zip(g.loc[sin_esp, "anio"], g.loc[sin_esp, "partido"], g.loc[sin_esp, "opcion"])]
+g["pct"] = g.pct_fuente
+falta = g.pct.isna()
+g.loc[falta, "pct"] = g.votos / g.groupby(["anio", "id_prov", "vuelta"]).votos.transform("sum") * 100
+g = g.sort_values(["anio", "id_prov", "vuelta", "pct"], ascending=[True, True, True, False])
+g["posicion"] = g.groupby(["anio", "id_prov", "vuelta"]).cumcount() + 1
+g["id_gob"] = g.anio.astype(str) + "-" + g.id_prov
+g["final"] = g.groupby("id_gob").vuelta.transform(lambda s: "BAL" if (s == "BAL").any() else "1V")
+electos = gob_electos.assign(id_gob=lambda d: d.anio.astype(str) + "-" + d.id_prov)
+# la lista ganadora toma el espacio del gobernador electo (salvo colegio electoral / sin gobernador)
+gan = (g.vuelta == g.final) & (g.posicion == 1)
+esp_electo = g.id_gob.map(dict(zip(electos.id_gob, electos.id_espacio)))
+corrige = gan & esp_electo.notna() & ~g.id_gob.isin(["1987-90", "1991-18"])
+g.loc[corrige, "id_espacio"] = esp_electo[corrige]
+g["vuelta_txt"] = g.vuelta.map({"1V": "Primera vuelta", "BAL": "Balotaje"})
+# nombre presentable: partido o frente (los códigos de Calvo se traducen) y, aparte, el candidato
+g["lista"] = [presentable(p_ if p_ else o_) for p_, o_ in zip(g.partido, g.opcion)]
+g["etiqueta"] = np.where(g.candidato != "", g.candidato.str.split(r"\s*-\s*").str[0] + " (" + g.lista + ")", g.lista)
+gob_res = g[["id_gob", "anio", "id_prov", "vuelta", "vuelta_txt", "etiqueta", "lista", "candidato", "id_espacio", "votos", "pct", "posicion", "fuente"]].copy()
+
+# --- Gobernadores: una fila por elección ---
+fin = g[g.vuelta == g.final]
+p1 = fin[fin.posicion == 1].set_index("id_gob")
+p2 = fin[fin.posicion == 2].set_index("id_gob")
+ge = electos.set_index("id_gob")[["anio", "id_prov", "gobernador", "id_espacio", "nota"]].copy()
+ge["vuelta_final"] = ge.index.map(p1.vuelta)
+ge["hubo_balotaje"] = ge.vuelta_final.eq("BAL")
+ge["lista_ganadora"] = ge.index.map(p1.lista)
+ge["ganador_pct"] = ge.index.map(p1.pct)
+ge["segundo"] = ge.index.map(p2.etiqueta)
+ge["segundo_espacio"] = ge.index.map(p2.id_espacio)
+ge["segundo_pct"] = ge.index.map(p2.pct)
+ge["margen_pp"] = ge.ganador_pct - ge.segundo_pct
+t1 = gob_totales[gob_totales.vuelta == "1V"].assign(id_gob=lambda d: d.anio.astype(str) + "-" + d.id_prov).set_index("id_gob")
+ge["electores"] = ge.index.map(t1.electores)
+ge["participacion"] = (ge.index.map(t1.votantes) / ge.electores * 100)
+ge.loc[~ge.participacion.between(35, 100), "participacion"] = np.nan
+ge["fuente"] = ge.index.map(fin.groupby("id_gob").fuente.first())
+ge = ge.reset_index().sort_values(["id_prov", "anio"])
+ge["gobernador_anterior"] = ge.groupby("id_prov").gobernador.shift(1)
+ge["espacio_anterior"] = ge.groupby("id_prov").id_espacio.shift(1)
+ge["cambio"] = np.where(ge.espacio_anterior.isna(), "", np.where(ge.id_espacio == ge.espacio_anterior, "Continuidad", "Alternancia"))
+ge["reelecto"] = ge.gobernador.eq(ge.gobernador_anterior)
+ge["hasta"] = ge.groupby("id_prov").anio.shift(-1)
+ge["mandato"] = ge.anio.astype(str) + "–" + ge.hasta.map(lambda x: str(int(x)) if pd.notna(x) else "hoy")
+ge["foto_url"] = ""   # opcional: link a una foto (lo completa el usuario; el tablero la muestra si existe)
+ge["etiqueta"] = ge.gobernador + " (" + ge.mandato + ")"
+gob_el = ge[["id_gob", "anio", "id_prov", "gobernador", "id_espacio", "mandato", "hasta", "vuelta_final", "hubo_balotaje",
+             "lista_ganadora", "ganador_pct", "segundo", "segundo_espacio", "segundo_pct", "margen_pp", "participacion",
+             "electores", "cambio", "reelecto", "gobernador_anterior", "espacio_anterior", "nota", "fuente", "foto_url", "etiqueta"]]
+
+# --- Quién gobierna cada provincia al cierre de cada año ---
+filas = []
+for a in range(1983, int(max(el.anio.max(), ge.anio.max())) + 1):
+    vig = ge[ge.anio <= a].sort_values("anio").groupby("id_prov").tail(1).set_index("id_prov")
+    for p in provincias.id_prov:
+        if p in vig.index:
+            v = vig.loc[p]
+            filas.append((a, p, v.id_gob, v.gobernador, v.id_espacio, int(v.anio), v.mandato))
+        else:
+            filas.append((a, p, None, "Sin gobernador electo" if p != "94" else "Territorio nacional", None, None, ""))
+gob_mapa = pd.DataFrame(filas, columns=["anio_corte", "id_prov", "id_gob", "gobernador", "id_espacio", "electo_en", "mandato"])
+gob_mapa.loc[(gob_mapa.id_prov == "02") & gob_mapa.id_gob.isna(), "gobernador"] = "Intendente designado"
+# Corrientes 1991-1993: intervención federal
+gob_mapa.loc[gob_mapa.id_gob.eq("1991-18"), ["gobernador", "id_espacio"]] = ["Intervención federal", None]
+gob_mapa["etiqueta_anio"] = gob_mapa.anio_corte.astype(str)
+
+# --- Senado: resultados y bancas (2 + 1) ---
+s = sen_listas.copy()
+s["anio"] = s.id_eleccion.str[:4].astype(int)
+s["textos"] = s.fuerza.map(norm) + " || " + s.bloque_fuente.fillna("").map(norm)
+s["id_espacio"] = [clasificar(a, False, False, t)[1] for a, t in zip(s.anio, s.textos)]
+s["opcion"] = s.fuerza.map(presentable)
+sen = (s.groupby(["id_eleccion", "anio", "id_prov", "opcion"])
+       .apply(lambda q: pd.Series({"votos": q.votos.sum(), "id_espacio": q.loc[q.votos.idxmax(), "id_espacio"]}))
+       .reset_index())
+sen["pct"] = sen.votos / sen.groupby(["id_eleccion", "id_prov"]).votos.transform("sum") * 100
+sen["posicion"] = sen.groupby(["id_eleccion", "id_prov"]).votos.rank(ascending=False, method="first").astype(int)
+sen["bancas"] = sen.posicion.map({1: 2, 2: 1}).fillna(0).astype(int)
+
+# --- Diputados: bancas por D'Hondt ---
+BANCAS_PROV = {"02": 25, "06": 70, "10": 5, "14": 18, "18": 7, "22": 7, "26": 5, "30": 9, "34": 5, "38": 6, "42": 5, "46": 5,
+               "50": 10, "54": 7, "58": 5, "62": 5, "66": 7, "70": 6, "74": 5, "78": 5, "82": 19, "86": 7, "90": 9, "94": 5}
+# bancas que renueva cada distrito en los años 1985, 1989, ..., 2025 (127 en total); el resto renueva en los otros años (130)
+MITAD_A = {"02": 13, "06": 35, "10": 3, "14": 9, "18": 3, "22": 4, "26": 2, "30": 5, "34": 2, "38": 3, "42": 3, "46": 2,
+           "50": 5, "54": 3, "58": 3, "62": 2, "66": 3, "70": 3, "74": 2, "78": 3, "82": 9, "86": 4, "90": 4, "94": 2}
+
+def bancas_en_juego(anio, p):
+    if anio == 1983:
+        return 2 if p == "94" else BANCAS_PROV[p]           # renovación total (Tierra del Fuego era territorio: 2)
+    if p == "94" and anio < 1991:
+        return 1
+    return MITAD_A[p] if anio % 4 == 1 else BANCAS_PROV[p] - MITAD_A[p]
+
+def dhondt(votos, n):
+    cocientes = sorted(((v / d, i) for i, v in enumerate(votos) for d in range(1, n + 1)), key=lambda t: -t[0])
+    out = [0] * len(votos)
+    for _, i in cocientes[:n]:
+        out[i] += 1
+    return out
+
+dip = res[res.id_eleccion.str.endswith("-DIP")].copy()
+dip["bancas"] = 0
+elec_prov = pe.set_index(["id_eleccion", "id_prov"]).electores
+for (e, p), q in dip.groupby(["id_eleccion", "id_prov"]):
+    n = bancas_en_juego(int(e[:4]), p)
+    ele = elec_prov.get((e, p), np.nan)
+    ok = q.votos >= 0.03 * ele if pd.notna(ele) else q.votos > 0
+    if not ok.any():
+        ok = q.votos > 0
+    dip.loc[q.index[ok.values], "bancas"] = dhondt(q.votos[ok].tolist(), n)
+dip["anio"] = dip.id_eleccion.str[:4].astype(int)
+bancas = pd.concat([
+    dip.assign(camara="Diputados")[["camara", "id_eleccion", "anio", "id_prov", "opcion", "id_espacio", "votos", "pct", "posicion", "bancas"]],
+    sen.assign(camara="Senado")[["camara", "id_eleccion", "anio", "id_prov", "opcion", "id_espacio", "votos", "pct", "posicion", "bancas"]],
+], ignore_index=True)
+bancas["id_camara_anio"] = bancas.camara + " " + bancas.anio.astype(str)
+
+# --- Composición de cada cámara (bancas obtenidas en las elecciones que siguen en curso) ---
+comp = []
+for cam, ventana, total in (("Diputados", 2, 257), ("Senado", 3, 72)):
+    b = bancas[bancas.camara == cam]
+    anios = sorted(b.anio.unique())
+    for a in anios:
+        previos = [a - 2 * k for k in range(ventana)]
+        if not all(x in anios for x in previos):
+            continue      # falta una elección de la ventana (2001, o 1983 para diputados)
+        x = b[b.anio.isin(previos)].groupby("id_espacio").bancas.sum()
+        for esp, n in x.items():
+            if n > 0:
+                comp.append((cam, a, esp, int(n), int(x.sum())))
+composicion = pd.DataFrame(comp, columns=["camara", "anio", "id_espacio", "bancas", "total_bancas"])
+composicion["pct"] = composicion.bancas / composicion.total_bancas * 100
+composicion["mayoria"] = np.where(composicion.camara == "Diputados", 129, 37)
+composicion["id_camara_anio"] = composicion.camara + " " + composicion.anio.astype(str)
+
+def iniciales(nombre):
+    if nombre == "Cristina Fernández de Kirchner":
+        return "CFK"
+    w = [x for x in str(nombre).split() if x[:1].isupper()]
+    return (w[0][0] + w[-1][0]).upper() if len(w) >= 2 else str(nombre)[:2].upper()
+
+# --- Presidentes electos ---
+PRESIDENTES = [  # (id_eleccion donde se define, fórmula como figura en la base, presidente, desde, hasta, nota)
+    ("1983-PRES-1V", "Alfonsín - Martínez", "Raúl Alfonsín", "1983-12-10", "1989-07-08", "Entregó el mando cinco meses antes, en medio de la hiperinflación."),
+    ("1989-PRES-1V", "Menem - Duhalde", "Carlos Menem", "1989-07-08", "1995-07-08", ""),
+    ("1995-PRES-1V", "Menem - Ruckauf", "Carlos Menem", "1995-07-08", "1999-12-10", "Reelecto tras la reforma constitucional de 1994."),
+    ("1999-PRES-1V", "De la Rúa - Álvarez", "Fernando de la Rúa", "1999-12-10", "2001-12-21", "Renunció en la crisis de 2001; lo sucedieron Puerta, Rodríguez Saá, Camaño y Duhalde (designados por el Congreso)."),
+    ("2003-PRES-1V", "Kirchner - Scioli", "Néstor Kirchner", "2003-05-25", "2007-12-10", "Segundo en primera vuelta (22,2%); asumió porque Menem no se presentó al balotaje."),
+    ("2007-PRES-1V", "Fernández de Kirchner - Cobos", "Cristina Fernández de Kirchner", "2007-12-10", "2011-12-10", ""),
+    ("2011-PRES-1V", "Fernández de Kirchner - Boudou", "Cristina Fernández de Kirchner", "2011-12-10", "2015-12-10", "Reelecta con el 54,1%, el mayor porcentaje desde 1983."),
+    ("2015-PRES-BAL", "Macri - Michetti", "Mauricio Macri", "2015-12-10", "2019-12-10", "Primer balotaje presidencial de la historia."),
+    ("2019-PRES-1V", "Fernández - Fernández de Kirchner", "Alberto Fernández", "2019-12-10", "2023-12-10", ""),
+    ("2023-PRES-BAL", "Milei - Villarruel", "Javier Milei", "2023-12-10", "", "Ganó el balotaje con el 55,7%."),
+]
+pres = []
+for i, (ide, formula, nombre, desde, hasta, nota) in enumerate(PRESIDENTES, start=1):
+    v = nacional[(nacional.id_eleccion == ide) & (nacional.opcion == formula)]
+    if v.empty:
+        errores.append(("presidentes", f"no se encontró {formula} en {ide}"))
+        continue
+    pres.append({"orden": i, "anio": int(ide[:4]), "id_eleccion": ide, "presidente": nombre, "formula": formula,
+                 "id_espacio": v.id_espacio.iloc[0], "pct": float(v.pct.iloc[0]),
+                 "instancia": "Balotaje" if ide.endswith("BAL") else "Primera vuelta",
+                 "desde": desde, "hasta": hasta, "mandato": desde[:4] + "–" + (hasta[:4] if hasta else "hoy"),
+                 "nota": nota, "foto_url": "",
+                 "iniciales": iniciales(nombre)})
+presidentes = pd.DataFrame(pres)
+gob_el = gob_el.assign(iniciales=gob_el.gobernador.map(iniciales))
+
+print(f"gobernadores: {len(gob_el)} elecciones · senado: {sen.groupby(['id_eleccion', 'id_prov']).ngroups} distritos · "
+      f"bancas diputados por año: {dip.groupby('anio').bancas.sum().to_dict()}")
+print(composicion[composicion.anio == composicion.anio.max()].sort_values(["camara", "bancas"], ascending=[True, False]).to_string(index=False))
+
+# %% [markdown]
 # ## KPIs y lectura automática
 
 # %%
@@ -372,6 +580,17 @@ extra = [("todas", "suma de % por provincia = 100", 100.0, round(cons.mean(), 4)
           "ok" if (cons - 100).abs().max() < 1e-6 else "⚠ revisar"),
          ("todas", "elecciones con 24 distritos", len(el), int((el.provincias == 24).sum()), None,
           "ok" if (el.provincias >= 22).all() else "⚠ revisar")]
+# bancas: cada renovación de diputados debe repartir 127 o 130 (o 254 en 1983) salvo distritos sin datos
+for a, n in dip.groupby("anio").bancas.sum().items():
+    esperado = sum(bancas_en_juego(a, p_) for p_ in dip[dip.anio == a].id_prov.unique())
+    extra.append((f"{a}-DIP", "bancas repartidas = bancas en juego", esperado, int(n), int(n - esperado),
+                  "ok" if n == esperado else "⚠ revisar"))
+for e, n in sen.groupby("id_eleccion").bancas.sum().items():
+    esperado = 3 * sen[sen.id_eleccion == e].id_prov.nunique()
+    extra.append((e, "bancas de senador = 3 por provincia", esperado, int(n), int(n - esperado), "ok" if n == esperado else "⚠ revisar"))
+ult_corte = gob_mapa[gob_mapa.anio_corte == gob_mapa.anio_corte.max()]
+extra.append(("gobernadores", "provincias con gobernador electo hoy", 24, int(ult_corte.id_espacio.notna().sum()), None,
+              "ok" if ult_corte.id_espacio.notna().sum() == 24 else "⚠ revisar"))
 control = pd.concat([control, pd.DataFrame(extra, columns=control.columns)], ignore_index=True)
 print(control.to_string(index=False))
 mal = control[control.estado.str.startswith("⚠")]
@@ -428,15 +647,19 @@ nac_out = nacional[["id_eleccion", "nivel", "opcion", "id_espacio", "votos", "pc
 prov_out = prov[["id_prov", "provincia", "nombre_corto", "provincia_mapa", "region", "orden", "electores_ultimo", "peso_padron", "svg_path", "label_x", "label_y"]]
 info = pd.DataFrame([{
     "ultima_actualizacion": pd.Timestamp.now(tz="America/Argentina/Buenos_Aires").strftime("%Y-%m-%d %H:%M"),
-    "cobertura": f"{len(el)} elecciones: presidenciales 1983-2023 (con balotajes 2015 y 2023 y PASO 2011-2023) y diputados nacionales 1983-2025 (falta 2001)",
+    "cobertura": f"{len(el)} elecciones nacionales: presidenciales 1983-2023 (con balotajes 2015 y 2023 y PASO 2011-2023) y diputados "
+                 f"nacionales 1983-2025 (falta 2001); {len(gob_el)} elecciones de gobernador 1983-2025; senadores 2003-2025",
     "fuentes": "Atlas Electoral de Andy Tow vía PolAr (presidenciales 1983-2019, definitivo); Cámara Nacional Electoral (2023, definitivo); "
-               "Dirección Nacional Electoral (diputados 2011-2025 y PASO, provisorio); PolAr y base de Ernesto Calvo (diputados 1983-2009); compilación por departamento: repositorio 257arg",
-    "mapa": REPO_RAW + "data/elecciones/mapa/provincias_ar.topojson",
+               "Dirección Nacional Electoral (diputados y senadores 2011-2025 y PASO, provisorio); PolAr y base de Ernesto Calvo (diputados 1983-2009); "
+               "gobernadores: Atlas de Andy Tow vía PolAr (1983-2019) y carga manual verificada (2013, 2021-2025); compilación por departamento: repositorio 257arg",
+    "mapa": URL_MAPA,
     "errores": "; ".join(f"{a}: {b}" for a, b in errores) or "ninguno"}])
 
 HOJAS = {"elecciones": el_out, "provincias": prov_out, "espacios": espacios, "resultados": res_out,
          "prov_eleccion": pe_out, "nacional": nac_out, "kpis": kpis, "resumen": resumen, "control": control,
-         "control_dine": control_dine, "clasificacion": clasificacion, "info": info}
+         "control_dine": control_dine, "clasificacion": clasificacion, "info": info,
+         "gob_elecciones": gob_el, "gob_resultados": gob_res, "gob_mapa": gob_mapa, "bancas": bancas,
+         "composicion": composicion, "presidentes": presidentes}
 
 def preparar(data):
     d_ = data.copy()

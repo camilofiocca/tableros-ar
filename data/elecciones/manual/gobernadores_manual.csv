@@ -1,0 +1,76 @@
+anio,id_prov,vuelta,orden,opcion,candidato,id_espacio,votos,pct,fuente
+2013,18,1V,1,Encuentro por Corrientes (ECO),Ricardo Colombi,UCR,286597.0,50.87,"Escrutinio total, 2.203 mesas (Diario de Cuyo / La Capital, 16-09-2013)"
+2013,18,1V,2,Frente para la Victoria,Carlos Espínola,PJ,258070.0,45.81,"Escrutinio total, 2.203 mesas (Diario de Cuyo / La Capital, 16-09-2013)"
+2013,18,1V,3,Cambio Popular,Eugenio Artaza,UCR,16803.0,2.98,"Escrutinio total, 2.203 mesas (Diario de Cuyo / La Capital, 16-09-2013)"
+2021,18,1V,1,ECO + Vamos Corrientes,Gustavo Valdés,PRO,,76.76,"Escrutinio definitivo (A24 / Cadena 3, 2021): 76,76% contra 23,24%"
+2021,18,1V,2,Frente Corrientes de Todos,Fabián Ríos,PJ,140260.0,23.24,"Escrutinio definitivo (El Litoral, 08-09-2021)"
+2023,02,1V,1,Juntos por el Cambio,Jorge Macri,PRO,,49.61,"Escrutinio (Chequeado / El Economista): 49,61%; Santoro declinó el balotaje"
+2023,02,1V,2,Unión por la Patria,Leandro Santoro,PJ,,32.26,"Escrutinio (Chequeado): 32,26%"
+2023,06,1V,1,Unión por la Patria,Axel Kicillof,PJ,4330482.0,44.94,"Escrutinio definitivo (Wikipedia, 2023 Buenos Aires provincial election)"
+2023,06,1V,2,Juntos por el Cambio,Néstor Grindetti,PRO,2563582.0,26.61,Escrutinio definitivo (Wikipedia)
+2023,06,1V,3,La Libertad Avanza,Carolina Píparo,LLA,2367294.0,24.57,Escrutinio definitivo (Wikipedia)
+2023,06,1V,4,Frente de Izquierda - Unidad,Rubén Sobrero,IZQ,373819.0,3.88,Escrutinio definitivo (Wikipedia)
+2023,10,1V,1,Unión por la Patria,Raúl Jalil,PJ,,54.08,"Escrutinio (Chequeado / El Cronista): 54,08%"
+2023,10,1V,2,La Libertad Avanza,José Jalil Colomé,LLA,,23.4,"Escrutinio (Chequeado): 23,4%"
+2023,10,1V,3,Juntos por el Cambio,Flavio Fama,PRO,,22.51,"Escrutinio (Chequeado): 22,51%"
+2023,14,1V,1,Hacemos Unidos por Córdoba,Martín Llaryora,PF,822057.0,,"DINE, informe Córdoba 2023"
+2023,14,1V,2,Juntos por el Cambio,Luis Juez,PRO,764406.0,,"DINE, informe Córdoba 2023"
+2023,14,1V,3,Encuentro Vecinal,Aurelio García Elorrio,PROV,57903.0,,"DINE, informe Córdoba 2023"
+2023,14,1V,4,La Libertad Avanza,Agustín Spaccesi,LLA,47822.0,,"DINE, informe Córdoba 2023"
+2023,14,1V,5,Frente de Izquierda - Unidad,Liliana Olivero,IZQ,45553.0,,"DINE, informe Córdoba 2023"
+2023,14,1V,6,Creo en Córdoba de Todos,Federico Alessandri,PJ,41523.0,,"DINE, informe Córdoba 2023"
+2023,14,1V,7,Otras listas (5),,OTR,48783.0,,"DINE, informe Córdoba 2023"
+2023,22,1V,1,Juntos por el Cambio,Leandro Zdero,PRO,,46.14,"Escrutinio provisorio 99,7% (A24)"
+2023,22,1V,2,Frente Chaqueño,Jorge Capitanich,PJ,,41.49,Escrutinio provisorio (C5N)
+2023,26,1V,1,Despierta Chubut (Juntos por el Cambio),Ignacio Torres,PRO,,35.71,Wikipedia (2023 Argentine provincial elections) / El Doce
+2023,26,1V,2,Arriba Chubut (Unión por la Patria),Juan Pablo Luque,PJ,,34.11,Wikipedia (2023 Argentine provincial elections)
+2023,30,1V,1,Juntos por Entre Ríos,Rogelio Frigerio,PRO,326658.0,,"Escrutinio 99,80% (Elonce)"
+2023,30,1V,2,Más para Entre Ríos,Adán Bahl,PJ,309174.0,,"Escrutinio 99,80% (Elonce)"
+2023,30,1V,3,La Libertad Avanza,Sebastián Etchevehere,LLA,144752.0,,"Escrutinio 99,80% (Elonce)"
+2023,34,1V,1,Partido Justicialista,Gildo Insfrán,PJ,,69.92,"Escrutinio (La Nación / Infobae): 69,92%"
+2023,34,1V,2,Frente Amplio Formoseño,Fernando Carbajal,PRO,,20.24,"Escrutinio (La Nación): 20,24%"
+2023,38,1V,1,Frente Cambia Jujuy,Carlos Sadir,PRO,196714.0,49.59,"DINE, informe Jujuy 2023"
+2023,38,1V,2,Frente Justicialista,Rubén Rivarola,PJ,88958.0,22.43,"DINE, informe Jujuy 2023"
+2023,38,1V,3,Frente de Izquierda,Alejandro Vilca,IZQ,50500.0,12.73,"DINE, informe Jujuy 2023"
+2023,38,1V,4,Unidad por Jujuy,Juan Cardozo,OTR,26464.0,6.67,"DINE, informe Jujuy 2023"
+2023,42,1V,1,Justicialista Pampeano,Sergio Ziliotto,PJ,97198.0,47.66,"DINE, informe La Pampa 2023"
+2023,42,1V,2,Juntos por el Cambio,Martín Berhongaray,PRO,85855.0,42.1,"DINE, informe La Pampa 2023"
+2023,42,1V,3,Comunidad Organizada,Juan Carlos Tierno,PROV,13907.0,6.82,"DINE, informe La Pampa 2023"
+2023,42,1V,4,Frente de Izquierda,Luciano González Cabiati,IZQ,2842.0,1.39,"DINE, informe La Pampa 2023"
+2023,46,1V,1,Frente de Todos,Ricardo Quintela,PJ,,50.63,Wikipedia (2023 Argentine provincial elections)
+2023,46,1V,2,Juntos por el Cambio,Felipe Álvarez,PRO,,32.55,Escrutinio (El Sol)
+2023,46,1V,3,La Libertad Avanza,Martín Menem,LLA,,15.65,Escrutinio (El Sol)
+2023,50,1V,1,Cambia Mendoza,Alfredo Cornejo,PRO,,39.52,Escrutinio (A24)
+2023,50,1V,2,La Unión Mendocina,Omar De Marchi,PROV,,29.65,Escrutinio (A24)
+2023,50,1V,3,Frente Elegí Mendoza,Omar Parisi,PJ,,14.74,Escrutinio (A24)
+2023,50,1V,4,Partido Verde,Mario Vadillo,PROV,,11.86,Escrutinio (A24)
+2023,54,1V,1,Frente Renovador de la Concordia,Hugo Passalacqua,PROV,424533.0,64.18,"DINE / Observatorio Electoral, Misiones 2023"
+2023,54,1V,2,Juntos por el Cambio,Martín Arjol,PRO,175759.0,26.57,"DINE / Observatorio Electoral, Misiones 2023"
+2023,54,1V,3,Frente La Fuerza de Todos,,PJ,31952.0,4.83,"DINE / Observatorio Electoral, Misiones 2023"
+2023,58,1V,1,Comunidad,Rolando Figueroa,PROV,148136.0,36.94,Observatorio Electoral (votos) / Wikipedia (%)
+2023,58,1V,2,Movimiento Popular Neuquino,Marcos Koopmann,PROV,,34.4,"Observatorio Electoral: 33,15% de los válidos, llevado a afirmativos con la proporción del ganador"
+2023,62,1V,1,Juntos Somos Río Negro + Nos Une Río Negro,Alberto Weretilneck,PROV,154089.0,42.43,"DINE, informe Río Negro 2023"
+2023,62,1V,2,Cambia Río Negro,Aníbal Tortoriello,PRO,86660.0,23.86,"DINE, informe Río Negro 2023"
+2023,62,1V,3,Vamos con Todos,Silvia Horne,PJ,38298.0,10.54,"DINE, informe Río Negro 2023"
+2023,66,1V,1,Alianza Gustavo Gobernador,Gustavo Sáenz,PROV,337621.0,47.51,"Observatorio Electoral, Salta 2023"
+2023,66,1V,2,Juntos por el Cambio,Miguel Nanni,PRO,122766.0,17.27,"Observatorio Electoral, Salta 2023"
+2023,66,1V,3,Frente Avancemos,Emiliano Estrada,PJ,114867.0,16.16,"Observatorio Electoral, Salta 2023"
+2023,70,1V,1,Unidos por San Juan (lema),Marcelo Orrego,PRO,,51.1,"Chequeado: lema 51,1%"
+2023,70,1V,2,San Juan por Todos (lema),José Luis Gioja,PJ,,44.2,"Chequeado: lema 44,2%"
+2023,74,1V,1,Cambia San Luis,Claudio Poggi,PRO,,53.25,"Observatorio Electoral, San Luis 2023"
+2023,74,1V,2,Unión por San Luis,Jorge Fernández,PJ,,45.79,"Observatorio Electoral, San Luis 2023"
+2023,78,1V,1,Por Santa Cruz (lema),Claudio Vidal,PROV,,46.4,"Chequeado: lema 46,4%"
+2023,78,1V,2,Unión por la Patria (lema),Pablo Grasso,PJ,,43.8,"Chequeado: lema 43,8%"
+2023,78,1V,3,Cambia Santa Cruz (lema),Roxana Reyes,PRO,,8.5,"Chequeado: lema 8,5%"
+2023,82,1V,1,Unidos para Cambiar Santa Fe,Maximiliano Pullaro,PRO,,58.47,Escrutinio (Minuto Uno)
+2023,82,1V,2,Juntos Avancemos,Marcelo Lewandowski,PJ,,30.81,Escrutinio (Minuto Uno)
+2023,82,1V,3,Viva la Libertad,Edelvino Bodoira,CD,,6.48,Escrutinio (Minuto Uno)
+2023,90,1V,1,Frente de Todos por Tucumán,Osvaldo Jaldo,PJ,540881.0,58.02,"DINE, informe Tucumán 2023"
+2023,90,1V,2,Frente Juntos por el Cambio,Roberto Sánchez,PRO,327140.0,35.09,"DINE, informe Tucumán 2023"
+2023,90,1V,3,Fuerza Republicana,Ricardo Bussi,PROV,37846.0,4.06,"DINE, informe Tucumán 2023"
+2023,90,1V,4,Otras listas (5),,OTR,26445.0,,"DINE, informe Tucumán 2023"
+2023,94,1V,1,Unidos Hacemos Futuro,Gustavo Melella,PJ,,65.63,Wikipedia (2023 Argentine provincial elections)
+2025,18,1V,1,Vamos Corrientes,Juan Pablo Valdés,PF,,51.89,Escrutinio 100% (Chequeado / La Nación)
+2025,18,1V,2,Limpiar Corrientes,Martín Ascúa,PJ,,19.97,Escrutinio 100% (BAE Negocios)
+2025,18,1V,3,Ricardo Colombi,Ricardo Colombi,UCR,,16.69,Escrutinio 100% (BAE Negocios)
+2025,86,1V,1,Frente Cívico por Santiago,Elías Suárez,PJ,,73.85,"Escrutinio definitivo (Frente Cívico / Diario Panorama, 31-10-2025)"

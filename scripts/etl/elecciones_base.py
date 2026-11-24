@@ -183,8 +183,8 @@ def presidenciales_2023(master_tot):
     return pd.DataFrame(listas), pd.DataFrame(totales)
 
 
-def master_257(cache=None):
-    """Diputados 1983-2025 y PASO presidenciales 2011-2023 (por departamento -> provincia)."""
+def master_257_completo(cache=None):
+    """Base 257arg desde 1983, todos los cargos, con código de provincia y familia de fuente."""
     p = os.path.join(cache, 'master_largo.csv.gz') if cache else None
     if p and os.path.exists(p):
         d = pd.read_csv(p, low_memory=False)
@@ -193,10 +193,7 @@ def master_257(cache=None):
         d = pd.read_excel(io.BytesIO(raw), 'largo')
         if p:
             d.to_csv(p, index=False)
-    d = d[(d.anio >= 1983) & (d.fuente_id == 'principal') &
-          d.cargo.isin(['diputados', 'presidente_paso', 'presidente', 'presidente_balotaje'])].copy()
-    d['id_eleccion'] = d.anio.astype(str) + d.cargo.map({'diputados': '-DIP', 'presidente_paso': '-PRES-PASO',
-                                                         'presidente': '-PRES-1V', 'presidente_balotaje': '-PRES-BAL'})
+    d = d[(d.anio >= 1983) & (d.fuente_id == 'principal')].copy()
     d['id_prov'] = d.provincia.map(cod_prov)
     d['familia'] = 'dine'
     d.loc[d.anio <= 1999, 'familia'] = 'calvo'
@@ -205,6 +202,19 @@ def master_257(cache=None):
     es_pos = d.codigo_partido.fillna('').str.match(r'^pos\d*$')
     d.loc[es_pos & (d.tipo_fila == 'agrupacion'), 'tipo_fila'] = 'positivos'
     return d
+
+
+def master_257(cache=None):
+    """Diputados 1983-2025 y PASO presidenciales 2011-2023 (por departamento -> provincia)."""
+    d = master_257_completo(cache)
+    d = d[d.cargo.isin(['diputados', 'presidente_paso', 'presidente', 'presidente_balotaje'])].copy()
+    d['id_eleccion'] = d.anio.astype(str) + d.cargo.map({'diputados': '-DIP', 'presidente_paso': '-PRES-PASO',
+                                                         'presidente': '-PRES-1V', 'presidente_balotaje': '-PRES-BAL'})
+    return d
+
+
+# Neuquén 1993: la base de Calvo rotula como MST a la lista del MPN (su bloque es 'Movimiento Popular Neuquino').
+CORRECCIONES = {('1993-DIP', '58', 'mov. socialista de los trabajadores'): 'Movimiento Popular Neuquino'}
 
 
 def nombre_master(r):
@@ -222,6 +232,10 @@ def desde_master(d, ids):
     listas = (a.groupby(['id_eleccion', 'id_prov', 'fuerza', 'familia'], dropna=False)
               .agg(votos=('votos', 'sum'), bloque_fuente=('bloque_fuente', 'first')).reset_index())
     listas = listas[listas.votos > 0]
+    # Correcciones puntuales de rótulos de la fuente (el bloque que trae la propia fuente confirma la corrección)
+    for (ide, cp, malo), bueno in CORRECCIONES.items():
+        m = (listas.id_eleccion == ide) & (listas.id_prov == cp) & (listas.fuerza.str.lower() == malo)
+        listas.loc[m, 'fuerza'] = bueno
     listas['fuente'] = listas.familia.map(FUENTE_257)
     t = x[x.tipo_fila.isin(['electores', 'votantes', 'blancos', 'nulos', 'impugnados', 'recurridos',
                             'impugnados_recurridos'])]

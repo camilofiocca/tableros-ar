@@ -70,10 +70,12 @@ orden,ambito,desde,hasta,patron,formula,id_espacio,nota
 156,TODAS,1983,2099,fte para la victoria|fte just|frejuvi|fte justicialista,,PJ,Abreviaturas de frentes justicialistas
 157,TODAS,1983,2099,\ba r i\b|afirm p ?rep igualit|afirmacion para una rep|af p una rep ig,,CI,ARI (abreviaturas)
 158,TODAS,1983,2099,izq unida|autodeterm|frente amplio de liberacion,,IZQ,
-159,TODAS,1983,2099,mov pop(ular)? neuquino|fueguino|rionegrino|autonomista|^cod liber$|fuerza rep\b|defensa provincial|corriente renovadora,,PROV,
+159,TODAS,1983,2099,mov pop(ular)? neuquino|movimiento popular neuquino|fueguino|rionegrino|autonomista|^cod liber$|fuerza rep\b|defensa provincial|corriente renovadora,,PROV,
 160,TODAS,1983,2099,integracion y desarrollo,,CD,
 161,TODAS,1983,2099,\bdem soc\b|democrata socialista,,CI,Alianza Demócrata Socialista
 162,TODAS,2003,2011,paufe|unidad federalista,,CD,Partido Unidad Federalista (Luis Patti)
+163,TODAS,1983,2099,chaco merece mas|mas para entre rios,,PJ,"Frentes peronistas con ""Más"" en el nombre (no son el MAS de izquierda)"
+164,TODAS,1983,2099,vocacion sanluisena,,PROV,MAS Vocación Sanluiseña (partido provincial)
 200,TODAS,2021,2099,libertad avanza|avanza libertad,,LLA,
 201,TODAS,1983,2099,peronismo federal|peronismo no kirchnerista|tercera via|justicia union y libertad|frente popular propuesta republicana,,PF,Peronismo no kirchnerista; el Frente Popular-PRO de 2011 fue una alianza informal Duhalde-PRO
 202,TODAS,2013,2019,^frente renovador\b|frente renovador fr\b|nueva alternativa|\buna\b|1pais|consenso federal|union por cordoba|hacemos por cordoba|unidos por una nueva,,PF,Frente Renovador (Massa) y frentes afines
