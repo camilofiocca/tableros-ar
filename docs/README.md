@@ -20,3 +20,13 @@ Fin del período = CALCULATE ( MAX ( Calendario[Fecha] ), REMOVEFILTERS ( Rangos
 ```
 
 No usar `REMOVEFILTERS ( Rangos )` entera: también tira el filtro de fechas del segmentador. Los scripts que generan el `Medidas.tmdl` nuevo están en `scripts/powerbi/`. Límites: el segmentador "desde/hasta" y los botones de período se intersectan (usar uno u otro), y el semáforo y los textos del Resumen muestran siempre el último dato publicado.
+
+## Página Deuda (24/11/2026)
+
+Deuda pública bruta de la Administración Central, externa e interna, con y sin intereses. Fuente: Boletín Mensual de la Secretaría de Finanzas (cuadros A.2, A.3 y A.5), en millones de dólares; la deuda en pesos se convierte al tipo de cambio de cada fecha.
+
+- **ETL:** `scripts/etl/deuda_etl.py`, ejecutado por el notebook de Macro (celdas del paso de deuda). Escribe dos pestañas en la planilla de datos: `deuda` (fecha, id, valor) y `deuda_series` (id, grupo, serie, orden).
+- **Modelo:** tablas `deuda` y `deuda_series`, relacionadas por `id`; `deuda['Año-Mes']` (oculta) se relaciona con `Calendario['Año-Mes']` igual que el resto de las series, así que el filtro de fechas funciona igual. 36 medidas nuevas en las carpetas "Deuda" y "Etiquetas" de `Medidas`.
+- **Interpretación:** externa = legislación extranjera, interna = legislación argentina (no depende de quién tiene el bono). "Con intereses" = tasa fija o variable; "sin intereses" = tasa cero (LECAP, letras y bonos CER sin cupón), que no paga cupón pero rinde por descuento o inflación. Los intereses pagados son solo los intereses en efectivo: en cupón cero todo el pago figura como capital.
+- **Control:** a octubre de 2026 el total es USD 489,6 mil M (externa 162,9; interna 326,7; con intereses 348,4; sin intereses 138,7).
+- **Pendiente:** la página se armó a mano en Power BI web; el PBIP local no es idéntico a la versión publicada (los respaldos están en `_respaldo\antes de Deuda 2026-11-24` en la carpeta local del tablero).
