@@ -52,7 +52,11 @@ La página Actividad muestra ahora los 16 sectores del EMAE (INDEC) y no solo in
 | Macro AR | las 12 páginas de contenido (Resumen, Pulso, Precios, Actividad, Dólar, Convertibilidad, Monetario, Externo y fiscal, Deuda, Mapa, Explorador, Datos) |
 | Energía AR | las 7 (Resumen, Matriz eléctrica, Petróleo y gas, Empresas, Electricidad, Gas natural, Comercio exterior) |
 
-No llevan "?" los segmentadores, el navegador de páginas, los cuadros de texto y la tarjeta "Actualizado". Verificado en vista de lectura (pasando el mouse por el "?") en una muestra de cada tablero; el resto se cargó con el mismo procedimiento y se revisó en el editor.
+No llevan "?" los segmentadores, el navegador de páginas, los cuadros de texto, la tarjeta "Actualizado", la lectura de la deuda (visual "Tarjeta" nuevo, sin encabezado) ni los dos objetos de la página Glosario.
+
+**Verificación (Macro, 24/11/2026):** se descargó el `.pbix` y se revisó por dentro. En ese formato (PBIR) cada visual es `Report/definition/pages/<página>/visuals/<visual>/visual.json` y el texto de la ayuda está en `visual.visualContainerObjects.visualHeaderTooltip[0].properties.text`. La primera descarga mostró 97 visuales con ayuda y 5 sin texto, aunque se habían escrito (tarjeta de salario real de Actividad, lectura y velocímetro de Pulso, cascada y lectura de Convertibilidad). Se corrigieron y la copia final tiene 102 visuales con ayuda; solo quedan sin ella los excluidos de arriba y la página oculta de tooltip. **Energía todavía no se auditó así**: se verificó solo una muestra en vista de lectura. Para auditarlo hay que bajar el `.pbix` de Energía y contar los `visualHeaderTooltip`.
+
+**Causa de los textos perdidos:** escribir en el cuadro "Texto de información" y no confirmar. Lo que funcionó: después de escribir, presionar **Tab** (o hacer clic en una zona neutra del panel, como la etiqueta "Formato visual") y recién ahí Ctrl+S; hacer clic en los encabezados del panel (por ejemplo "Visualizaciones" o la sección "Íconos de encabezado") contrae la sección o el panel y puede perder el texto. Después de guardar hay que comprobarlo en vista de lectura o, mejor, en el `.pbix` descargado.
 
 **Convención de los textos:** `Qué mide: … (fuente: …). Cómo leerlo: … Comparación: …`. No se escriben valores que se desactualicen (los números cambian con cada corrida del ETL); la fuente se cita al final de "Qué mide". Si cambia la definición de un indicador, hay que actualizar también su texto de ayuda y la entrada del Glosario.
 
@@ -73,3 +77,4 @@ Carpeta única en la computadora de Camilo: `Documentos\BI INTELLIGENCE\POWER BI
 - Si se edita en la web: descargar de nuevo el `.pbix` (Archivo → Descargar este archivo → copia con datos) y reemplazar el de la carpeta.
 - Si se edita en Desktop: abrir el `.pbix` de esa carpeta y publicar desde ahí.
 - No publicar nunca un archivo viejo. Las carpetas `Documentos\Tablero Macro Argentina` y `Documentos\Tablero Energia Argentina` son versiones viejas.
+- **Estado al 24/11/2026:** el `.pbix` de `01 Macro AR` es la copia descargada de la web después del Glosario y de todos los "?" (995.174 bytes); la copia anterior quedó en `01 Macro AR\_respaldo`. El `.pbix` de `02 Energia AR` sigue siendo la copia anterior a los "?" de Energía: falta volver a bajarlo.
