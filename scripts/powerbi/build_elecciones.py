@@ -577,7 +577,7 @@ def construir_reporte():
 
     # ---------------------------------------------------------------- Gobernadores
     P = 'gobernadores'
-    pagina(P, 'Gobernadores', interacciones=[('gob_anio', 'gob_tendencia'), ('gob_mapa', 'gob_tendencia'), ('gob_prov', 'gob_tendencia'),
+    pagina(P, 'Gobernadores', interacciones=[('gob_anio', 'gob_tendencia'), ('gob_mapa', 'gob_tendencia'), ('gobernadores_prov', 'gob_tendencia'),
                                              ('gob_mapa', 'gob_barras', 'DataFilter')])
     encabezado(P, 'Gobernadores 1983-2025', 'Quién gobernó cada provincia y con qué espacio · elegí el año y hacé clic en una provincia para ver su historia')
     put(P, segmentador('gob_anio', (16, 110, 180, 58, 300), 'gob_mapa', 'anio_corte', 'Año (a fin de año)', None))
