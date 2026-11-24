@@ -1,0 +1,818 @@
+[
+ {
+  "pagina": "Resumen",
+  "visual": "res_k0",
+  "tipo": "card",
+  "x": 16,
+  "y": 112,
+  "texto": "Qué es: el IPC (Índice de Precios al Consumidor) del INDEC mide cada mes cuánto cambia el precio de una canasta de bienes y servicios de consumo de los hogares; su variación es la inflación.\nQué muestra esta tarjeta: la inflación del último mes publicado: cuánto subieron los precios respecto del mes anterior (variación mensual).\nCómo leerlo: cuanto más alta, más rápido suben los precios; el mes figura en el título.\nComparación: contra el mes inmediato anterior; no es la inflación acumulada del año.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Resumen",
+  "visual": "res_k1",
+  "tipo": "card",
+  "x": 173.2,
+  "y": 112,
+  "texto": "Qué es: el IPC (Índice de Precios al Consumidor) del INDEC mide cada mes cuánto cambia el precio de una canasta de bienes y servicios de consumo de los hogares; su variación es la inflación.\nQué muestra esta tarjeta: la inflación de los últimos 12 meses: cuánto subieron los precios contra el mismo mes del año anterior (variación interanual).\nCómo leerlo: muestra la tendencia de fondo; si sube, la inflación se acelera.\nComparación: mes actual contra el mismo mes del año anterior; la estacionalidad no la afecta.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Resumen",
+  "visual": "res_k2",
+  "tipo": "card",
+  "x": 330.5,
+  "y": 112,
+  "texto": "Qué es: el EMAE (Estimador Mensual de Actividad Económica) es el índice con el que el INDEC mide mes a mes cuánto produce la economía argentina en todos sus sectores; funciona como un adelanto mensual del PIB.\nQué muestra esta tarjeta: la variación interanual de la actividad económica en el último mes publicado, el mejor termómetro mensual del PIB.\nCómo leerlo: positivo = la economía produce más que hace un año; negativo = produce menos.\nComparación: mes actual contra el mismo mes del año anterior, serie original sin desestacionalizar.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Resumen",
+  "visual": "res_k3",
+  "tipo": "card",
+  "x": 487.8,
+  "y": 112,
+  "texto": "Qué es: la tasa de desocupación es el porcentaje de la población activa (la que trabaja o busca trabajo) que no tiene empleo y lo busca. Se mide con la EPH (Encuesta Permanente de Hogares) del INDEC, trimestral y de 31 aglomerados urbanos.\nQué muestra esta tarjeta: la desocupación del último trimestre publicado.\nCómo leerlo: más alta = peor mercado laboral; más baja = más empleo.\nComparación: es un dato trimestral de grandes aglomerados urbanos: se compara con el trimestre anterior o con el mismo trimestre del año pasado, no con el mes.\nFuente: INDEC (EPH)."
+ },
+ {
+  "pagina": "Resumen",
+  "visual": "res_k4",
+  "tipo": "card",
+  "x": 645,
+  "y": 112,
+  "texto": "Qué es: el dólar oficial mayorista es la cotización con la que operan bancos y empresas en el mercado de cambios; el BCRA la publica como Comunicación A 3500.\nQué muestra esta tarjeta: cuántos pesos cuesta un dólar mayorista, último dato disponible.\nCómo leerlo: es la referencia del tipo de cambio oficial; si sube, el peso se deprecia.\nComparación: se contrasta con el techo de la banda cambiaria y con el dólar MEP/CCL (brecha) en la página Dólar.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Resumen",
+  "visual": "res_k5",
+  "tipo": "card",
+  "x": 802.2,
+  "y": 112,
+  "texto": "Qué es: el dólar MEP (Mercado Electrónico de Pagos) es un dólar financiero legal: se obtiene comprando un bono en pesos y vendiéndolo por dólares dentro del país.\nQué muestra esta tarjeta: cuántos pesos cuesta un dólar MEP, último dato disponible.\nCómo leerlo: refleja el precio de mercado del dólar; si se aleja del oficial, crece la brecha.\nComparación: contra el dólar mayorista oficial; la diferencia porcentual entre ambos es la brecha cambiaria (página Dólar).\nFuente: ArgentinaDatos."
+ },
+ {
+  "pagina": "Resumen",
+  "visual": "res_k6",
+  "tipo": "card",
+  "x": 959.5,
+  "y": 112,
+  "texto": "Qué es: las reservas internacionales son los activos en moneda extranjera que tiene el BCRA (dólares, oro, DEG y yuanes del swap con China). Las reservas brutas son el total, sin descontar compromisos.\nQué muestra esta tarjeta: las reservas brutas en millones de dólares (USD M), último dato disponible.\nCómo leerlo: más reservas = más respaldo para sostener el tipo de cambio y pagar deuda, pero las brutas incluyen el swap con China, los encajes y pasivos de corto plazo.\nComparación: se contrasta con las reservas netas (estimación propia) y con la base monetaria en la página Convertibilidad.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Resumen",
+  "visual": "res_k7",
+  "tipo": "card",
+  "x": 1116.8,
+  "y": 112,
+  "texto": "Qué es: el resultado fiscal es la diferencia entre lo que recauda y lo que gasta el sector público nacional: superávit si sobra plata, déficit si falta.\nQué muestra esta tarjeta: el resultado acumulado de los últimos 12 meses, en billones de pesos.\nCómo leerlo: positivo = superávit (el Estado gasta menos de lo que recauda); negativo = déficit.\nComparación: es una suma móvil de 12 meses, que evita la estacionalidad; la referencia es el cero. Detalle en la página Externo y fiscal.\nFuente: Secretaría de Hacienda."
+ },
+ {
+  "pagina": "Resumen",
+  "visual": "res_lectura",
+  "tipo": "tableEx",
+  "x": 16,
+  "y": 206,
+  "texto": "Qué es: un resumen escrito en lenguaje simple que el proceso de actualización redacta solo, a partir de los últimos datos publicados.\nQué muestra esta tabla: qué está pasando en cada tema: precios, actividad y empleo, cambiario y monetario, externo y fiscal.\nCómo leerlo: cada fila es un tema; se actualiza con cada corrida, así que siempre refleja el dato más reciente; no es una opinión.\nComparación: cada frase compara el último dato con el período anterior y con el mismo período del año pasado.\nFuente: INDEC, BCRA y Secretaría de Hacienda."
+ },
+ {
+  "pagina": "Resumen",
+  "visual": "res_semaforo",
+  "tipo": "tableEx",
+  "x": 793.6,
+  "y": 206,
+  "texto": "Qué es: un semáforo es un panel de control que pinta cada indicador según si su último dato es favorable, neutro o desfavorable. La polaridad define qué sentido es bueno: en inflación, que baje; en actividad o salarios, que suba.\nQué muestra esta tabla: los indicadores clave (precios, actividad, empleo, salarios) con su período, último dato y variación.\nCómo leerlo: círculo verde = favorable, amarillo = neutro, rojo = desfavorable. Pasá el mouse por una fila para ver su evolución.\nComparación: cada fila compara el último dato con el período anterior o con el mismo período del año pasado (m/m o i.a., según indica la columna).\nFuente: INDEC y BCRA."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_movimientos",
+  "tipo": "image",
+  "x": 16,
+  "y": 112,
+  "texto": "Qué es: son las series diarias que sigue el tablero (reservas, dólar mayorista, MEP, CCL, blue, riesgo país, etc.). Las reservas netas son una estimación propia: reservas brutas menos encajes en dólares, swap con China y deuda de corto plazo.\nQué muestra este panel: las tres series que más se movieron en los últimos 7 días, con su último valor.\nCómo leerlo: debajo de cada valor figura la variación a 7 días: triángulo rojo hacia abajo = baja; hacia arriba = suba.\nComparación: último dato contra el de hace 7 días.\nFuente: BCRA y ArgentinaDatos."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_velocimetro",
+  "tipo": "image",
+  "x": 834,
+  "y": 112,
+  "texto": "Qué es: la banda cambiaria es el esquema en el que el dólar mayorista se mueve libremente entre un piso y un techo, y el BCRA interviene en los límites. Ambos valores se ajustan con el tiempo.\nQué muestra este gráfico: en qué punto de la banda está el dólar mayorista (Comunicación A 3500): el piso a la izquierda, el techo a la derecha y la aguja en la cotización actual.\nCómo leerlo: cuanto más a la derecha está la aguja, más cerca del techo; el porcentaje de abajo dice cuánto tendría que subir el dólar para tocarlo.\nComparación: la cotización contra el piso y el techo vigentes, no contra otro período.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_tabla",
+  "tipo": "tableEx",
+  "x": 16,
+  "y": 294,
+  "texto": "Qué es: el último dato de todas las series diarias del tablero. Reservas netas es una estimación propia: reservas brutas menos encajes en dólares, swap con China y deuda de corto plazo.\nQué muestra esta tabla: reservas, dólar mayorista, MEP, contado con liquidación, blue, etc., con su último valor y su evolución reciente.\nCómo leerlo: Último es el valor más reciente; Hace 7 días y las variaciones a 7 y 30 días muestran hacia dónde se movió la serie.\nComparación: cada serie contra sí misma una semana y un mes atrás.\nFuente: BCRA y ArgentinaDatos."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_k0",
+  "tipo": "card",
+  "x": 834,
+  "y": 384,
+  "texto": "Qué es: la TAMAR es la tasa de interés que pagan los bancos privados por plazos fijos de montos grandes. El REM (Relevamiento de Expectativas de Mercado) es la encuesta mensual del BCRA a analistas sobre inflación y otras variables. La tasa real es la tasa descontada la inflación.\nQué muestra esta tarjeta: la tasa real que rinde la TAMAR una vez descontada la inflación que espera el mercado en el REM.\nCómo leerlo: positivo = la tasa en pesos le gana a la inflación esperada; negativo = le pierde.\nComparación: TAMAR efectiva anual contra la inflación esperada a 12 meses (REM).\nFuente: BCRA."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_k1",
+  "tipo": "card",
+  "x": 1054,
+  "y": 384,
+  "texto": "Qué es: el carry trade en pesos consiste en quedarse en pesos para cobrar la tasa de interés en vez de comprar dólares: conviene mientras la tasa rinda más de lo que sube el dólar. Acá se mide en dólares oficiales.\nQué muestra esta tarjeta: lo que rindió en el último mes la tasa en pesos medido en dólares oficiales (es el último valor del gráfico de carry mensual).\nCómo leerlo: positivo = la tasa le ganó a la suba del dólar oficial; negativo = el dólar subió más que la tasa.\nComparación: tasa mensual en pesos contra variación mensual del dólar oficial.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_k2",
+  "tipo": "card",
+  "x": 834,
+  "y": 478,
+  "texto": "Qué es: el carry trade en pesos consiste en quedarse en pesos para cobrar la tasa de interés en vez de comprar dólares: conviene mientras la tasa rinda más de lo que sube el dólar. Acá se mide en dólares oficiales.\nQué muestra esta tarjeta: lo que rindió en los últimos 12 meses la tasa en pesos medido en dólares oficiales (carry acumulado).\nCómo leerlo: positivo = quien se quedó en pesos ganó en dólares oficiales en el año; negativo = habría ganado más comprando dólares.\nComparación: tasa acumulada en pesos de 12 meses contra la variación del dólar oficial en el mismo período.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_k3",
+  "tipo": "card",
+  "x": 1054,
+  "y": 478,
+  "texto": "Qué es: el salario real es el salario descontada la inflación: indica cuánto puede comprar. El salario privado registrado es el de los trabajadores en relación de dependencia declarados al sistema de seguridad social.\nQué muestra esta tarjeta: cuánto cambió en un año el salario privado registrado, descontada la inflación (variación interanual real, último dato disponible).\nCómo leerlo: negativo = los salarios perdieron poder de compra frente a hace un año; positivo = lo ganaron.\nComparación: salario privado registrado de este mes contra el mismo mes del año anterior, ajustado por IPC.\nFuente: INDEC (índice de salarios e IPC)."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_salarios",
+  "tipo": "lineChart",
+  "x": 16,
+  "y": 510,
+  "texto": "Qué es: el salario real es el salario descontada la inflación: indica cuánto puede comprar. Se muestra en tres grupos (total, privado registrado y público) como índice que arranca en 100.\nQué muestra este gráfico: cómo evolucionan los salarios descontada la inflación.\nCómo leerlo: la línea sube cuando los salarios le ganan a los precios y baja cuando pierden; todas arrancan en 100 al inicio del período elegido en los botones de arriba.\nComparación: cada grupo contra su propio nivel inicial y entre sí (por ejemplo, si el público quedó por debajo del privado).\nFuente: INDEC (índice de salarios e IPC)."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_carry",
+  "tipo": "clusteredColumnChart",
+  "x": 425,
+  "y": 510,
+  "texto": "Qué es: el carry trade en pesos consiste en quedarse en pesos para cobrar la tasa de interés en vez de comprar dólares: conviene mientras la tasa rinda más de lo que sube el dólar. Acá se mide en dólares oficiales.\nQué muestra este gráfico: cuánto rindió cada mes, en dólares oficiales, tener plata en pesos a la tasa de mercado.\nCómo leerlo: barra hacia arriba = la tasa en pesos le ganó a la suba del dólar oficial; barra hacia abajo = el dólar subió más que la tasa y quedarse en pesos resultó peor que comprar dólares.\nComparación: tasa mensual en pesos contra variación mensual del dólar oficial.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Pulso",
+  "visual": "pul_lectura",
+  "tipo": "card",
+  "x": 834,
+  "y": 572,
+  "texto": "Qué es: un texto que se redacta solo, en cada actualización de datos, con los últimos valores (BCRA, INDEC).\nQué muestra esta tarjeta: en palabras, la tasa real esperada (TAMAR contra la inflación esperada del REM), el carry en dólares y el salario real.\nCómo leerlo: cambia solo con cada actualización; no se edita a mano ni es una opinión.\nComparación: junta en un párrafo lo que muestran las tarjetas y los gráficos de tasa, carry y salarios de esta página.\nFuente: BCRA e INDEC."
+ },
+ {
+  "pagina": "Precios",
+  "visual": "pre_k0",
+  "tipo": "card",
+  "x": 16,
+  "y": 112,
+  "texto": "Qué es: el IPC (Índice de Precios al Consumidor) del INDEC mide cada mes cuánto cambia el precio de una canasta de bienes y servicios de consumo de los hogares; su variación es la inflación.\nQué muestra esta tarjeta: cuánto subieron los precios al consumidor (nivel general) en el último mes publicado, respecto del mes anterior.\nCómo leerlo: cuanto más alto, más rápido suben los precios.\nComparación: mes contra mes anterior; el gráfico de barras de abajo muestra la serie completa.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Precios",
+  "visual": "pre_k1",
+  "tipo": "card",
+  "x": 267.6,
+  "y": 112,
+  "texto": "Qué es: el IPC (Índice de Precios al Consumidor) del INDEC mide cada mes cuánto cambia el precio de una canasta de bienes y servicios de consumo de los hogares; su variación es la inflación.\nQué muestra esta tarjeta: cuánto subieron los precios al consumidor en los últimos 12 meses (inflación interanual).\nCómo leerlo: un 30% significa que algo que costaba 100 hace un año hoy cuesta 130; es la medida de inflación más usada para comparar con salarios y tasas.\nComparación: último mes contra el mismo mes del año anterior.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Precios",
+  "visual": "pre_k2",
+  "tipo": "card",
+  "x": 519.2,
+  "y": 112,
+  "texto": "Qué es: el IPC (Índice de Precios al Consumidor) del INDEC mide cada mes cuánto cambia el precio de una canasta de bienes y servicios de consumo de los hogares; su variación es la inflación.\nQué muestra esta tarjeta: cuánto subieron los precios desde diciembre del año anterior hasta el último mes publicado (inflación acumulada del año).\nCómo leerlo: es la suma compuesta de todos los meses del año en curso; un 20% significa que algo que costaba 100 en diciembre hoy cuesta 120.\nComparación: último mes contra diciembre del año anterior.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Precios",
+  "visual": "pre_k3",
+  "tipo": "card",
+  "x": 770.8,
+  "y": 112,
+  "texto": "Qué es: El IPC núcleo deja afuera los precios regulados (tarifas, combustibles, transporte) y los estacionales (frutas, verduras, ropa de temporada), que son los más volátiles: muestra la inflación de fondo.\nQué muestra esta tarjeta: la suba mensual del IPC núcleo en el último mes publicado.\nCómo leerlo: si es menor que la inflación general, el aumento del mes vino de regulados o estacionales; si es mayor, la presión viene de los precios de fondo.\nComparación: mes contra mes anterior y contra la tarjeta de inflación mensual general.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Precios",
+  "visual": "pre_k4",
+  "tipo": "card",
+  "x": 1022.4,
+  "y": 112,
+  "texto": "Qué es: el REM (Relevamiento de Expectativas de Mercado) es la encuesta mensual del BCRA a analistas económicos sobre cómo esperan que evolucionen la inflación, el dólar, el PIB y otras variables.\nQué muestra esta tarjeta: la inflación que esperan los analistas para los próximos 12 meses.\nCómo leerlo: es una expectativa, no un dato observado; se actualiza una vez por mes.\nComparación: contra la inflación interanual real (tarjeta de al lado); si la esperada es menor, el mercado espera que la inflación siga bajando.\nFuente: BCRA (REM)."
+ },
+ {
+  "pagina": "Precios",
+  "visual": "pre_mensual",
+  "tipo": "lineChart",
+  "x": 16,
+  "y": 206,
+  "texto": "Qué es: el IPC (Índice de Precios al Consumidor) del INDEC mide cada mes cuánto cambia el precio de una canasta de bienes y servicios de consumo de los hogares; su variación es la inflación. Se abre en núcleo, regulados (tarifas, combustibles, transporte) y estacionales (frutas, verduras, ropa de temporada).\nQué muestra este gráfico: la suba mensual de precios del nivel general y de esos tres grupos.\nCómo leerlo: cada línea es la variación de un mes contra el anterior; regulados y estacionales son más volátiles y el núcleo muestra la tendencia de fondo.\nComparación: cada categoría contra el nivel general y entre sí.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Precios",
+  "visual": "pre_interanual",
+  "tipo": "lineChart",
+  "x": 645,
+  "y": 206,
+  "texto": "Qué es: la inflación interanual es la suba del IPC contra el mismo mes del año anterior; el núcleo es la inflación de fondo, sin regulados ni estacionales. El REM (BCRA) es la encuesta mensual de expectativas a analistas.\nQué muestra este gráfico: la inflación de los últimos 12 meses (general y núcleo) frente a la inflación que esperan los analistas para los próximos 12 meses.\nCómo leerlo: las dos líneas de arriba son lo que ya pasó y la línea Esperada es lo que se proyecta; si la esperada está por debajo de la observada, el mercado espera que la inflación siga bajando.\nComparación: inflación interanual observada contra expectativa a 12 meses en cada fecha.\nFuente: INDEC y BCRA (REM)."
+ },
+ {
+  "pagina": "Precios",
+  "visual": "pre_columnas",
+  "tipo": "clusteredColumnChart",
+  "x": 16,
+  "y": 486.6,
+  "texto": "Qué es: el IPC (Índice de Precios al Consumidor) del INDEC mide cada mes cuánto cambia el precio de una canasta de bienes y servicios de consumo de los hogares; su variación es la inflación.\nQué muestra este gráfico: cuánto subieron los precios al consumidor (nivel general) en cada mes respecto del mes anterior.\nCómo leerlo: cada barra es un mes; barras más bajas = los precios suben más despacio, barras más altas = se aceleran.\nComparación: cada mes contra los anteriores, para ver si la inflación se desacelera o se acelera.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Precios",
+  "visual": "pre_acum",
+  "tipo": "clusteredColumnChart",
+  "x": 645,
+  "y": 486.6,
+  "texto": "Qué es: el IPC (Índice de Precios al Consumidor) del INDEC mide cada mes cuánto cambia el precio de una canasta de bienes y servicios de consumo de los hogares; su variación es la inflación. La inflación acumulada del año es la suba de precios desde diciembre del año anterior hasta cada mes.\nQué muestra este gráfico: cuánto subieron los precios (nivel general) en lo que va de cada año, mes a mes.\nCómo leerlo: cada barra es el acumulado hasta ese mes y vuelve a empezar en enero; barras más altas = los precios subieron más en lo que va del año.\nComparación: el mismo mes en distintos años (por ejemplo, octubre de 2025 contra octubre de 2026).\nFuente: INDEC."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "act_k0",
+  "tipo": "card",
+  "x": 16,
+  "y": 112,
+  "texto": "Qué es: el EMAE (Estimador Mensual de Actividad Económica) es el índice con el que el INDEC mide mes a mes cuánto produce la economía argentina en todos sus sectores; funciona como un adelanto mensual del PIB. \"Desestacionalizado\" significa sin los efectos de la época del año (vacaciones, aguinaldo, feriados).\nQué muestra esta tarjeta: cuánto varió la actividad en el último mes publicado respecto del mes anterior.\nCómo leerlo: verde = la economía creció en el mes; rojo = cayó.\nComparación: mes contra mes anterior; es la señal más rápida del rumbo de corto plazo, pero es volátil: conviene leerla junto con la variación interanual.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "act_k1",
+  "tipo": "card",
+  "x": 267.6,
+  "y": 112,
+  "texto": "Qué es: el EMAE (Estimador Mensual de Actividad Económica) es el índice con el que el INDEC mide mes a mes cuánto produce la economía argentina en todos sus sectores; funciona como un adelanto mensual del PIB.\nQué muestra esta tarjeta: cuánto varió la actividad en el último mes publicado frente al mismo mes del año anterior (variación interanual, serie original).\nCómo leerlo: verde = hoy se produce más que hace un año; rojo = se produce menos.\nComparación: mes actual contra el mismo mes de un año antes, lo que descuenta la estacionalidad; se lee junto con la tarjeta mensual.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "act_k2",
+  "tipo": "card",
+  "x": 519.2,
+  "y": 112,
+  "texto": "Qué es: el PIB (Producto Interno Bruto) es el valor de todos los bienes y servicios que produce el país en un período. \"Real\" significa a precios constantes, es decir, sin el efecto de la inflación.\nQué muestra esta tarjeta: cuánto creció o cayó el PIB real en el último trimestre publicado frente al mismo trimestre del año anterior.\nCómo leerlo: verde = la economía es más grande que hace un año; rojo = es más chica.\nComparación: trimestre contra el mismo trimestre de un año antes; es la medida oficial más completa, pero sale con rezago (el EMAE la anticipa mes a mes).\nFuente: INDEC, cuentas nacionales."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "act_k3",
+  "tipo": "card",
+  "x": 770.8,
+  "y": 112,
+  "texto": "Qué es: la tasa de desocupación es el porcentaje de la población activa (la que trabaja o busca trabajo) que no tiene empleo y lo busca. Se mide con la EPH (Encuesta Permanente de Hogares), trimestral y de 31 aglomerados urbanos.\nQué muestra esta tarjeta: la desocupación del último trimestre publicado.\nCómo leerlo: cuanto más baja, mejor mercado laboral; puede subir aunque se creen empleos si más gente sale a buscar trabajo.\nComparación: la evolución trimestre a trimestre, junto con la tasa de empleo, está en el gráfico Mercado laboral.\nFuente: INDEC (EPH)."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "act_k4",
+  "tipo": "card",
+  "x": 1022.4,
+  "y": 112,
+  "texto": "Qué es: el índice de salarios del INDEC mide cómo evolucionan los salarios (privado registrado, no registrado y público). El salario real es el salario descontada la inflación (IPC): indica cuánto puede comprar.\nQué muestra esta tarjeta: la variación interanual del salario real total en el último mes publicado.\nCómo leerlo: verde (positivo) = los salarios le ganaron a la inflación; rojo (negativo) = perdieron poder de compra.\nComparación: contra el mismo mes de un año atrás; la evolución, junto con los salarios privados registrados y públicos, está en el gráfico Salario real.\nFuente: INDEC (índice de salarios e IPC)."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "ce644091bcbe4f662e2e",
+  "tipo": "clusteredBarChart",
+  "x": 16,
+  "y": 208,
+  "texto": "Qué es: el EMAE (Estimador Mensual de Actividad Económica) es el índice con el que el INDEC mide mes a mes cuánto produce la economía argentina en todos sus sectores; funciona como un adelanto mensual del PIB. Se abre en 16 sectores (industria, comercio, agro, construcción, minería, etc.).\nQué muestra este gráfico: cuánto creció o cayó la actividad de cada sector frente al mismo mes del año anterior, ordenados de mayor a menor.\nCómo leerlo: barra a la derecha = el sector produce más que hace un año; a la izquierda = produce menos; cuanto más larga, mayor el cambio.\nComparación: cada sector contra sí mismo un año atrás y contra los demás: muestra qué sectores empujan y cuáles frenan a la economía.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "act_emae",
+  "tipo": "lineChart",
+  "x": 576,
+  "y": 208,
+  "texto": "Qué es: el EMAE (Estimador Mensual de Actividad Económica) es el índice con el que el INDEC mide mes a mes cuánto produce la economía argentina en todos sus sectores; funciona como un adelanto mensual del PIB. Base 2004 = 100: el índice vale 100 en el promedio de 2004. \"Desestacionalizado\" significa sin los efectos de la época del año (vacaciones, aguinaldo, feriados).\nQué muestra este gráfico: el nivel de la actividad total mes a mes, ya corregido por estacionalidad.\nCómo leerlo: línea que sube = la economía crece; línea que baja = se achica. Un punto más alto que otro significa más producción.\nComparación: cada mes contra los anteriores; permite ver la tendencia de fondo sin el ruido del calendario.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "act_emae_ia",
+  "tipo": "clusteredColumnChart",
+  "x": 924,
+  "y": 208,
+  "texto": "Qué es: el EMAE (Estimador Mensual de Actividad Económica) es el índice con el que el INDEC mide mes a mes cuánto produce la economía argentina en todos sus sectores; funciona como un adelanto mensual del PIB.\nQué muestra este gráfico: cuánto creció o cayó la actividad total en cada mes frente al mismo mes del año anterior (variación interanual).\nCómo leerlo: barra hacia arriba = la economía produce más que hace un año; hacia abajo = produce menos.\nComparación: cada mes contra el mismo mes de un año antes, lo que elimina el efecto estacional; muestra si la recuperación se sostiene.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "act_empleo",
+  "tipo": "lineChart",
+  "x": 576,
+  "y": 460,
+  "texto": "Qué es: la EPH (Encuesta Permanente de Hogares) del INDEC mide el mercado laboral en 31 aglomerados urbanos. Tasa de empleo = porcentaje de la población total que trabaja. Tasa de desocupación = porcentaje de la población activa (la que trabaja o busca trabajo) que no tiene empleo y lo busca.\nQué muestra este gráfico: cómo evolucionan ambas tasas trimestre a trimestre.\nCómo leerlo: si el empleo sube y la desocupación baja, el mercado laboral mejora; si las dos suben, más gente sale a buscar trabajo.\nComparación: empleo contra desocupación y cada trimestre contra los anteriores.\nFuente: INDEC (EPH)."
+ },
+ {
+  "pagina": "Actividad",
+  "visual": "act_salarios",
+  "tipo": "lineChart",
+  "x": 924,
+  "y": 460,
+  "texto": "Qué es: el índice de salarios del INDEC sigue cómo cambian los salarios. El salario real es el salario descontada la inflación (IPC): indica cuánto puede comprar. Se muestra el total y su apertura en privado registrado y público.\nQué muestra este gráfico: cuánto creció o cayó el salario real frente al mismo mes del año anterior.\nCómo leerlo: sobre 0% = el salario compra más que hace un año; bajo 0% = compra menos.\nComparación: privado registrado contra público y contra el total.\nFuente: INDEC (índice de salarios e IPC)."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_k0",
+  "tipo": "card",
+  "x": 16,
+  "y": 112,
+  "texto": "Qué es: el dólar oficial mayorista es la cotización con la que operan bancos y empresas en el mercado de cambios; el BCRA la publica como Comunicación A 3500. Es la referencia del tipo de cambio oficial.\nQué muestra esta tarjeta: cuántos pesos cuesta un dólar según ese precio, último dato disponible.\nCómo leerlo: si sube, el peso se deprecia. Es la cotización de referencia de la banda cambiaria.\nComparación: contra el MEP, el CCL y el blue, y contra el dólar de convertibilidad.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_k1",
+  "tipo": "card",
+  "x": 225.7,
+  "y": 112,
+  "texto": "Qué es: el dólar MEP (Mercado Electrónico de Pagos) es un dólar financiero legal: se obtiene comprando un bono o una acción en pesos y vendiéndolo por dólares dentro del país.\nQué muestra esta tarjeta: cuántos pesos cuesta un dólar MEP, último dato disponible.\nCómo leerlo: es el dólar financiero más usado como referencia; si se aleja del oficial, crece la brecha.\nComparación: contra el oficial mayorista (la diferencia es la brecha MEP, tarjeta de la derecha) y contra el CCL.\nFuente: ArgentinaDatos."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_k2",
+  "tipo": "card",
+  "x": 435.3,
+  "y": 112,
+  "texto": "Qué es: el dólar CCL (contado con liquidación) se obtiene comprando un activo en pesos y vendiéndolo por dólares en el exterior; permite sacar dólares del país.\nQué muestra esta tarjeta: cuántos pesos cuesta un dólar CCL, último dato disponible.\nCómo leerlo: es una referencia del dólar financiero para operar fuera del país; suele estar cerca del MEP.\nComparación: contra el MEP (el otro dólar financiero) y contra el oficial mayorista.\nFuente: ArgentinaDatos."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_k3",
+  "tipo": "card",
+  "x": 645,
+  "y": 112,
+  "texto": "Qué es: el dólar blue es el que se compra y vende en el mercado informal, fuera del sistema bancario y sin registro oficial.\nQué muestra esta tarjeta: cuántos pesos cuesta un dólar blue, último dato disponible (la fecha figura en el título).\nCómo leerlo: refleja el precio informal; su distancia con el oficial indica tensión cambiaria.\nComparación: contra el oficial mayorista, el MEP y el CCL, y en el gráfico de cotizaciones de abajo a la izquierda.\nFuente: ArgentinaDatos."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_k4",
+  "tipo": "card",
+  "x": 854.7,
+  "y": 112,
+  "texto": "Qué es: el dólar de convertibilidad es un valor teórico, de estimación propia: la base monetaria (los pesos emitidos) dividida por las reservas netas del BCRA. Dice a qué precio se podrían respaldar todos los pesos en circulación con esas reservas.\nQué muestra esta tarjeta: ese valor, en pesos por dólar, al último dato.\nCómo leerlo: no es una cotización de mercado; cuanto más alto respecto del oficial, menos cubren las reservas netas a los pesos en circulación.\nComparación: contra el dólar oficial mayorista (tarjeta de la izquierda).\nFuente: BCRA; cálculo propio."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_k5",
+  "tipo": "card",
+  "x": 1064.3,
+  "y": 112,
+  "texto": "Qué es: la brecha cambiaria es la diferencia porcentual entre el dólar MEP (financiero) y el oficial mayorista: MEP dividido oficial, menos 1.\nQué muestra esta tarjeta: cuánto más caro es hoy el MEP que el oficial.\nCómo leerlo: 0% = valen lo mismo; cuanto mayor, más se separa el dólar financiero del oficial, lo que suele reflejar tensión o restricciones cambiarias.\nComparación: MEP contra oficial en el último dato; el gráfico de brecha de abajo muestra cómo evolucionó.\nFuente: BCRA y ArgentinaDatos; cálculo propio."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_diario",
+  "tipo": "lineChart",
+  "x": 16,
+  "y": 206,
+  "texto": "Qué es: este gráfico compara cuatro precios de mercado del dólar (oficial mayorista, MEP, contado con liquidación y blue) con el dólar de convertibilidad, un valor teórico de estimación propia (base monetaria dividida reservas netas).\nQué muestra este gráfico: cuántos pesos cuesta un dólar en cada fecha según cada cotización.\nCómo leerlo: las cuatro primeras se mueven juntas y su distancia es la brecha; la de convertibilidad es lo que valdría el dólar si cada peso emitido estuviera respaldado por reservas netas.\nComparación: cotizaciones de mercado entre sí y contra el dólar de convertibilidad.\nFuente: BCRA y ArgentinaDatos; convertibilidad: cálculo propio."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_lectura",
+  "tipo": "card",
+  "x": 843.1,
+  "y": 358.6,
+  "texto": "Qué es: un texto que se redacta solo, en cada actualización de datos, con los últimos valores. Compara el dólar oficial y el MEP con el dólar de convertibilidad (base monetaria dividida reservas netas, estimación propia).\nQué muestra esta tarjeta: cuánto valdría el dólar si la base monetaria estuviera respaldada por reservas netas, qué tan por debajo de ese valor está el oficial y cuál es la brecha del MEP.\nCómo leerlo: es una explicación en palabras de lo que muestran las tarjetas y gráficos de esta página; no es una opinión.\nComparación: oficial y MEP contra el dólar de convertibilidad.\nFuente: BCRA y ArgentinaDatos."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_brecha",
+  "tipo": "lineChart",
+  "x": 16,
+  "y": 511.2,
+  "texto": "Qué es: la brecha cambiaria es cuánto más caro es el dólar MEP (financiero) que el oficial mayorista: MEP dividido oficial, menos 1.\nQué muestra este gráfico: cómo evolucionó esa diferencia en el tiempo.\nCómo leerlo: 0% = valen lo mismo; cuanto más alta la línea, más se separa el dólar financiero del oficial, lo que suele reflejar tensión o restricciones cambiarias.\nComparación: MEP contra oficial mayorista a lo largo del tiempo.\nFuente: BCRA y ArgentinaDatos; cálculo propio."
+ },
+ {
+  "pagina": "Dólar",
+  "visual": "dol_real",
+  "tipo": "lineChart",
+  "x": 645,
+  "y": 511.2,
+  "texto": "Qué es: el dólar real (o a pesos constantes) es el precio del dólar corregido por inflación: cuántos pesos de hoy costaba un dólar en cada mes (promedio mensual deflactado por el IPC).\nQué muestra este gráfico: el oficial, el MEP y el dólar de convertibilidad en pesos constantes.\nCómo leerlo: si la línea sube, el dólar se encareció más que los precios; si baja, se abarató en términos reales (el peso se aprecia).\nComparación: permite comparar épocas distintas sin el efecto de la inflación, y las tres series entre sí.\nFuente: BCRA, ArgentinaDatos e INDEC; cálculo propio."
+ },
+ {
+  "pagina": "Convertibilidad",
+  "visual": "con_k0",
+  "tipo": "card",
+  "x": 16,
+  "y": 112,
+  "texto": "Qué es: la base monetaria es el total de pesos que emitió el BCRA: billetes y monedas en circulación más los depósitos de los bancos en el BCRA.\nQué muestra esta tarjeta: la base monetaria, en billones de pesos, al último dato.\nCómo leerlo: es el numerador del dólar de convertibilidad; con las mismas reservas, más pesos emitidos significa un dólar de convertibilidad más alto.\nComparación: contra las reservas (tarjetas de la derecha).\nFuente: BCRA."
+ },
+ {
+  "pagina": "Convertibilidad",
+  "visual": "con_k1",
+  "tipo": "card",
+  "x": 267.2,
+  "y": 112,
+  "texto": "Qué es: las reservas internacionales son los activos en moneda extranjera que tiene el BCRA. Las brutas son el total, sin descontar compromisos.\nQué muestra esta tarjeta: el total de reservas brutas, en millones de USD (dato diario).\nCómo leerlo: incluye dólares que no son del BCRA (encajes de depósitos en dólares) y activos comprometidos (swap con China), por eso no es lo que el Banco puede usar libremente.\nComparación: contra las reservas netas (tarjetas de la derecha), que descuentan esos compromisos.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Convertibilidad",
+  "visual": "con_k2",
+  "tipo": "card",
+  "x": 518.4,
+  "y": 112,
+  "texto": "Qué es: las reservas netas son las brutas menos lo que el BCRA no puede usar libremente. No hay una definición oficial única: acá es una estimación propia, en dos versiones (escalones 2 y 3).\nQué muestra esta tarjeta: las reservas netas del escalón 2: brutas menos encajes en dólares y menos el swap con China (USD 18.000 M fijos), sin descontar la deuda de corto plazo; en millones de USD.\nCómo leerlo: es la base con la que se calcula el escalón 2 del dólar de convertibilidad.\nComparación: contra las reservas brutas (cuánto se descuenta) y contra las netas estrictas.\nFuente: BCRA; cálculo propio."
+ },
+ {
+  "pagina": "Convertibilidad",
+  "visual": "con_k3",
+  "tipo": "card",
+  "x": 769.6,
+  "y": 112,
+  "texto": "Qué es: las reservas netas son las brutas menos lo que el BCRA no puede usar libremente. No hay una definición oficial única: acá es una estimación propia, en dos versiones (escalones 2 y 3).\nQué muestra esta tarjeta: las reservas netas con el criterio más exigente (escalón 3): brutas menos encajes en dólares, menos el swap con China y menos la deuda de corto plazo (repos, BOPREAL y organismos, USD 6.000 M fijos); en millones de USD.\nCómo leerlo: es lo que quedaría disponible si se descuentan todos los compromisos de corto plazo.\nComparación: contra las netas sin deuda corta y contra las brutas.\nFuente: BCRA; cálculo propio."
+ },
+ {
+  "pagina": "Convertibilidad",
+  "visual": "con_k4",
+  "tipo": "card",
+  "x": 1020.8,
+  "y": 112,
+  "texto": "Qué es: el dólar de convertibilidad es un valor teórico, de estimación propia: la base monetaria dividida por las reservas del BCRA. Dice a qué precio se podrían respaldar todos los pesos en circulación con esas reservas, como en la convertibilidad de los años 90 (1 peso = 1 dólar). El escalón 2 usa reservas netas de encajes y swap con China, sin descontar la deuda de corto plazo.\nQué muestra esta tarjeta: cuánto por debajo (o por encima) de ese valor está hoy el dólar oficial mayorista (oficial dividido escalón 2, menos 1).\nCómo leerlo: negativo = el oficial vale menos que lo que valdría con ese respaldo de reservas (por ejemplo, -56% es 56% más barato); positivo = vale más.\nComparación: oficial contra el escalón 2.\nFuente: BCRA; cálculo propio."
+ },
+ {
+  "pagina": "Convertibilidad",
+  "visual": "con_escalones",
+  "tipo": "image",
+  "x": 16,
+  "y": 206,
+  "texto": "Qué es: el dólar de convertibilidad es un valor teórico, de estimación propia: la base monetaria dividida por las reservas del BCRA. Dice a qué precio se podrían respaldar todos los pesos en circulación con esas reservas, como en la convertibilidad de los años 90 (1 peso = 1 dólar). Se calcula en tres escalones según cuántas reservas se cuenten: 1 = reservas brutas; 2 = netas de encajes y swap con China; 3 = además netas de la deuda de corto plazo (repos, BOPREAL y organismos).\nQué muestra este gráfico: cuánto valdría hoy el dólar en cada escalón, comparado con el oficial mayorista y el MEP.\nCómo leerlo: cuanto más alta la barra de un escalón respecto del oficial, menos cubren las reservas a los pesos en circulación con ese criterio.\nComparación: cada escalón contra el oficial y el MEP.\nFuente: BCRA y ArgentinaDatos; cálculo propio."
+ },
+ {
+  "pagina": "Convertibilidad",
+  "visual": "con_evolucion",
+  "tipo": "lineChart",
+  "x": 645,
+  "y": 206,
+  "texto": "Qué es: el dólar de convertibilidad es un valor teórico, de estimación propia: la base monetaria dividida por las reservas del BCRA. Dice a qué precio se podrían respaldar todos los pesos en circulación con esas reservas, como en la convertibilidad de los años 90 (1 peso = 1 dólar). Se calcula en tres escalones: 1 con reservas brutas, 2 con netas sin deuda de corto plazo y 3 con netas estrictas.\nQué muestra este gráfico: cómo se movieron día a día los tres escalones y el dólar oficial.\nCómo leerlo: la línea de un escalón sube cuando la base monetaria crece más que las reservas (o las reservas caen).\nComparación: el oficial contra cada escalón a lo largo del tiempo; cuanto más abajo del escalón está el oficial, menos respaldo de reservas hay por cada peso.\nFuente: BCRA; cálculo propio."
+ },
+ {
+  "pagina": "Convertibilidad",
+  "visual": "con_cascada",
+  "tipo": "image",
+  "x": 16,
+  "y": 506,
+  "texto": "Qué es: las reservas brutas son el total de activos en moneda extranjera del BCRA. Las netas (estimación propia) restan lo comprometido: encajes en dólares (depósitos en dólares que los bancos tienen en el BCRA), swap con China y pasivos de corto plazo (repos, BOPREAL y organismos).\nQué muestra este gráfico (cascada): cómo se pasa de las reservas brutas a las netas, en millones de USD.\nCómo leerlo: cada barra que baja es lo que se resta; las columnas Netas muestran lo que queda en cada paso, primero sin deuda de corto plazo y después la versión estricta.\nComparación: de izquierda a derecha, de la cifra bruta a las dos versiones netas que usan los escalones 2 y 3 del dólar de convertibilidad.\nFuente: BCRA; cálculo propio."
+ },
+ {
+  "pagina": "Convertibilidad",
+  "visual": "con_lectura",
+  "tipo": "card",
+  "x": 645,
+  "y": 506,
+  "texto": "Qué es: un texto que se redacta solo, en cada actualización, con los últimos datos del BCRA. Explica en palabras el dólar de convertibilidad (base monetaria dividida reservas) en sus tres escalones.\nQué muestra esta tarjeta: los tres escalones y cuánto se aleja de ellos el dólar oficial mayorista.\nCómo leerlo: cambia solo con cada actualización de los datos; los pasivos que se restan (swap con China y deuda de corto plazo) son valores fijos de referencia.\nComparación: pone en palabras lo que muestran las tarjetas, las barras y el gráfico de evolución de esta página.\nFuente: BCRA; cálculo propio."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_k0",
+  "tipo": "card",
+  "x": 16,
+  "y": 112,
+  "texto": "Qué es: el dólar oficial mayorista es la cotización con la que operan bancos y empresas en el mercado de cambios; el BCRA la publica como Comunicación A 3500. Es la referencia de la banda cambiaria.\nQué muestra esta tarjeta: cuántos pesos cuesta un dólar mayorista, último dato disponible.\nCómo leerlo: si sube, el peso se deprecia; mientras no toque el techo de la banda, flota libremente.\nComparación: contra el techo y el piso de la banda (gráfico de abajo a la izquierda y tarjeta de al lado).\nFuente: BCRA."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_k1",
+  "tipo": "card",
+  "x": 267.6,
+  "y": 112,
+  "texto": "Qué es: la banda cambiaria es el esquema en el que el dólar mayorista se mueve libremente entre un piso y un techo, y el BCRA interviene en los límites; ambos valores se ajustan con el tiempo.\nQué muestra esta tarjeta: cuánto tendría que subir el dólar mayorista para tocar el techo de la banda (techo dividido mayorista, menos 1).\nCómo leerlo: cuanto más alto el porcentaje, más lejos está el dólar del techo; 0% sería estar tocándolo.\nComparación: mayorista contra el techo vigente de la banda en la última fecha.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_k2",
+  "tipo": "card",
+  "x": 519.2,
+  "y": 112,
+  "texto": "Qué es: las reservas internacionales son los activos en moneda extranjera que tiene el BCRA. Las brutas son el total, sin descontar compromisos; las netas (estimación propia) restan encajes en dólares, swap con China y deuda de corto plazo.\nQué muestra esta tarjeta: el total de reservas brutas, en millones de USD (dato diario).\nCómo leerlo: incluye dólares que no son del BCRA (encajes de depósitos en dólares) y activos comprometidos (swap con China), por eso no es lo que el Banco puede usar libremente.\nComparación: contra las reservas netas, que se ven en el gráfico de reservas brutas y netas.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_k3",
+  "tipo": "card",
+  "x": 770.8,
+  "y": 112,
+  "texto": "Qué es: la TAMAR es la tasa de interés que pagan los bancos privados por plazos fijos de montos grandes. La TNA (tasa nominal anual) es el rendimiento de un año sin descontar la inflación.\nQué muestra esta tarjeta: la TNA de la TAMAR, último dato disponible.\nCómo leerlo: es un rendimiento nominal, sin descontar inflación; sirve de referencia para la tasa en pesos de la economía.\nComparación: contra la inflación (la tarjeta de al lado muestra la tasa real del mes, que ya descuenta los precios).\nFuente: BCRA."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_k4",
+  "tipo": "card",
+  "x": 1022.4,
+  "y": 112,
+  "texto": "Qué es: la tasa real es la tasa de interés descontada la inflación: dice si quien ahorró en pesos le ganó o le perdió a los precios. la TAMAR es la tasa de interés que pagan los bancos privados por plazos fijos de montos grandes.\nQué muestra esta tarjeta: lo que rindió la TAMAR en el último mes, una vez descontada la inflación mensual.\nCómo leerlo: negativo = la tasa en pesos le perdió a los precios del mes; positivo = les ganó.\nComparación: TAMAR mensual contra IPC mensual (el gráfico de TAMAR vs. inflación muestra la serie completa).\nFuente: BCRA e INDEC."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_banda",
+  "tipo": "lineChart",
+  "x": 16,
+  "y": 206,
+  "texto": "Qué es: la banda cambiaria es el esquema en el que el dólar mayorista se mueve libremente entre un piso y un techo, y el BCRA interviene en los límites; ambos valores se ajustan con el tiempo.\nQué muestra este gráfico: el dólar mayorista dentro de la banda cambiaria, con el techo y el piso vigentes en cada fecha.\nCómo leerlo: la línea del mayorista se mueve entre el piso (abajo) y el techo (arriba); las bandas se van ajustando con el tiempo.\nComparación: mayorista contra techo y piso; cuanto más cerca del techo, menos margen queda para que suba sin tocar el límite.\nFuente: BCRA."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_reservas",
+  "tipo": "lineChart",
+  "x": 645,
+  "y": 206,
+  "texto": "Qué es: las reservas internacionales son los activos en moneda extranjera que tiene el BCRA. Las brutas son el total, sin descontar compromisos; las netas (estimación propia) restan encajes en dólares, swap con China y deuda de corto plazo.\nQué muestra este gráfico: las reservas del BCRA en millones de USD, brutas y netas, a lo largo del tiempo.\nCómo leerlo: la distancia entre las dos líneas es lo que está comprometido o no disponible; las netas pueden ser negativas si los compromisos superan a las brutas.\nComparación: reservas brutas contra netas.\nFuente: BCRA; netas: cálculo propio."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_real",
+  "tipo": "lineChart",
+  "x": 16,
+  "y": 471.8,
+  "texto": "Qué es: el dólar nominal es el que cotiza hoy en pesos; el real (a pesos de hoy) lo corrige por la inflación, para saber si el peso se apreció o depreció en términos reales. Se usa el mayorista oficial.\nQué muestra este gráfico: el dólar mayorista nominal y corregido por inflación.\nCómo leerlo: si la línea a pesos de hoy baja mientras la nominal sube, el dólar subió menos que los precios y el peso se aprecia en términos reales; si sube, ocurre lo contrario.\nComparación: dólar nominal contra dólar real (ajustado por IPC).\nFuente: BCRA e INDEC."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_tasas",
+  "tipo": "lineChart",
+  "x": 435.3,
+  "y": 471.8,
+  "texto": "Qué es: la TAMAR es la tasa de interés que pagan los bancos privados por plazos fijos de montos grandes. La inflación mensual es la variación del IPC de un mes contra el anterior.\nQué muestra este gráfico: lo que rinde por mes la TAMAR frente a la inflación mensual.\nCómo leerlo: cuando la línea de la TAMAR está por encima de la de inflación, la tasa en pesos le gana a los precios (tasa real positiva); cuando está por debajo, les pierde.\nComparación: TAMAR mensual contra IPC mensual, mes a mes.\nFuente: BCRA e INDEC."
+ },
+ {
+  "pagina": "Monetario",
+  "visual": "cam_credito",
+  "tipo": "lineChart",
+  "x": 854.7,
+  "y": 471.8,
+  "texto": "Qué es: la variación real interanual es cuánto creció cada magnitud en 12 meses, descontada la inflación. Préstamos = crédito en pesos al sector privado; plazos fijos = ahorro en pesos; base monetaria = pesos emitidos por el BCRA.\nQué muestra este gráfico: cómo evolucionan en términos reales el crédito, el ahorro en pesos y la emisión.\nCómo leerlo: sobre 0% = la serie crece por encima de la inflación; bajo 0% = cae en términos reales.\nComparación: las tres series entre sí y contra el 0%.\nFuente: BCRA e INDEC."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_k0",
+  "tipo": "card",
+  "x": 16,
+  "y": 112,
+  "texto": "Qué es: la balanza comercial es la diferencia entre lo que el país exporta y lo que importa en bienes: si vende más de lo que compra hay superávit comercial; si compra más, déficit.\nQué muestra esta tarjeta: el saldo comercial de bienes acumulado en lo que va del año hasta el último mes publicado (exportaciones menos importaciones, en millones de USD).\nCómo leerlo: positivo = superávit comercial en el año: entraron más dólares por comercio de los que salieron; negativo = déficit.\nComparación: se acumula desde enero, por eso crece mes a mes; el gráfico de saldo muestra la evolución completa.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_k1",
+  "tipo": "card",
+  "x": 225.7,
+  "y": 112,
+  "texto": "Qué es: las exportaciones son los bienes que el país vende al exterior (granos, energía, manufacturas, minerales, etc.).\nQué muestra esta tarjeta: cuánto cambiaron las exportaciones de bienes del último mes publicado respecto del mismo mes del año anterior (variación interanual, en %).\nCómo leerlo: positivo = se exportó más que hace un año; negativo = se exportó menos.\nComparación: contra el mismo mes del año anterior; se lee junto a la tarjeta de importaciones para ver si el saldo mejora o empeora.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_k2",
+  "tipo": "card",
+  "x": 435.3,
+  "y": 112,
+  "texto": "Qué es: las importaciones son los bienes que el país compra al exterior (insumos, maquinaria, energía, bienes de consumo, etc.).\nQué muestra esta tarjeta: cuánto cambiaron las importaciones de bienes del último mes publicado respecto del mismo mes del año anterior (variación interanual, en %).\nCómo leerlo: positivo = se importó más que hace un año (suele acompañar a una mayor actividad); negativo = se importó menos.\nComparación: contra el mismo mes del año anterior; se lee junto a la tarjeta de exportaciones.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_k3",
+  "tipo": "card",
+  "x": 645,
+  "y": 112,
+  "texto": "Qué es: el resultado primario es lo que le queda al Estado nacional después de pagar sus gastos sin contar los intereses de la deuda; el financiero descuenta además esos intereses.\nQué muestra esta tarjeta: el resultado primario del sector público nacional acumulado en los últimos 12 meses, en billones de pesos de hoy.\nCómo leerlo: positivo = superávit primario (el Estado cobra más de lo que gasta en su funcionamiento); negativo = déficit.\nComparación: contra el resultado financiero de la tarjeta vecina; la diferencia entre ambos son los intereses.\nFuente: Secretaría de Hacienda."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_k4",
+  "tipo": "card",
+  "x": 854.7,
+  "y": 112,
+  "texto": "Qué es: el resultado primario es lo que le queda al Estado nacional después de pagar sus gastos sin contar los intereses de la deuda; el financiero descuenta además esos intereses.\nQué muestra esta tarjeta: el resultado financiero del sector público nacional acumulado en los últimos 12 meses, en billones de pesos de hoy: ingresos menos gastos, incluyendo los intereses de la deuda.\nCómo leerlo: positivo = superávit financiero (el Estado cobra más de lo que gasta, intereses incluidos); negativo = déficit.\nComparación: contra el resultado primario de la tarjeta vecina; la diferencia entre ambos son los intereses.\nFuente: Secretaría de Hacienda."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_k5",
+  "tipo": "card",
+  "x": 1064.3,
+  "y": 112,
+  "texto": "Qué es: la recaudación tributaria nacional es lo que cobra el Estado nacional en impuestos (IVA, Ganancias, derechos de exportación, aportes, etc.). En términos reales significa descontada la inflación.\nQué muestra esta tarjeta: la variación real de la recaudación del último mes publicado frente al mismo mes del año anterior.\nCómo leerlo: positivo = el Estado recauda más, en términos reales, que hace un año; negativo = recauda menos.\nComparación: contra el mismo mes de un año atrás; el gráfico de abajo muestra toda la serie.\nFuente: Secretaría de Hacienda."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_comercio",
+  "tipo": "clusteredColumnChart",
+  "x": 16,
+  "y": 206,
+  "texto": "Qué es: las exportaciones son los bienes que el país vende al exterior y las importaciones, los que compra. Ambas se miden en millones de dólares.\nQué muestra este gráfico: lo que Argentina vende y compra de bienes cada mes.\nCómo leerlo: barras más altas = más comercio; cuando la barra de exportaciones supera a la de importaciones el mes cierra con superávit.\nComparación: exportaciones contra importaciones, mes a mes; las importaciones suelen moverse con la actividad y las exportaciones con la cosecha y los precios internacionales.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_saldo",
+  "tipo": "lineChart",
+  "x": 645,
+  "y": 206,
+  "texto": "Qué es: la balanza comercial es la diferencia entre lo que el país exporta y lo que importa en bienes: si vende más de lo que compra hay superávit comercial; si compra más, déficit.\nQué muestra este gráfico: el saldo del comercio de bienes (exportaciones menos importaciones): el del mes y la suma de los últimos 12 meses, en millones de USD.\nCómo leerlo: sobre 0 = superávit (entran más dólares por comercio de los que salen); el acumulado de 12 meses elimina los picos estacionales y muestra la tendencia.\nComparación: saldo del mes contra su acumulado anual.\nFuente: INDEC."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_fiscal",
+  "tipo": "clusteredColumnChart",
+  "x": 16,
+  "y": 471.8,
+  "texto": "Qué es: el resultado primario es lo que le queda al Estado nacional después de pagar sus gastos sin contar los intereses de la deuda; el financiero descuenta además esos intereses. El sector público nacional (SPN) es el Estado nacional.\nQué muestra este gráfico: el resultado de cada mes, en billones de pesos de hoy: el primario y el financiero.\nCómo leerlo: barra hacia arriba = superávit; hacia abajo = déficit.\nComparación: primario contra financiero; la diferencia entre ambos son los intereses.\nFuente: Secretaría de Hacienda."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_riesgo",
+  "tipo": "lineChart",
+  "x": 429,
+  "y": 471.8,
+  "texto": "Qué es: el riesgo país (EMBI, un índice de JP Morgan) mide la sobretasa que pagan los bonos soberanos argentinos en dólares por encima de los bonos del Tesoro de EE.UU.; se expresa en puntos básicos.\nQué muestra este gráfico: la evolución diaria del riesgo país.\nCómo leerlo: 100 puntos básicos = 1 punto porcentual; cuanto más alto, más caro le sale al país financiarse en dólares y mayor es la desconfianza del mercado.\nComparación: cada fecha contra su propia historia, para ver cuándo se afloja o se tensa el acceso al crédito externo.\nFuente: ArgentinaDatos."
+ },
+ {
+  "pagina": "Externo y fiscal",
+  "visual": "ext_recaud",
+  "tipo": "lineChart",
+  "x": 843.1,
+  "y": 471.8,
+  "texto": "Qué es: la recaudación tributaria nacional es lo que cobra el Estado nacional en impuestos (IVA, Ganancias, derechos de exportación, aportes, etc.). En términos reales significa descontada la inflación.\nQué muestra este gráfico: cuánto creció o cayó, en términos reales, la recaudación respecto del mismo mes del año anterior.\nCómo leerlo: sobre 0% = la recaudación crece por encima de la inflación; bajo 0% = cae en términos reales; es un termómetro de la actividad y de la capacidad fiscal.\nComparación: cada mes contra el mismo mes del año anterior, descontada la inflación.\nFuente: Secretaría de Hacienda."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "fd32a345ba9e827465fa",
+  "tipo": "card",
+  "x": 16,
+  "y": 108,
+  "texto": "Qué es: la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores.\nQué muestra esta tarjeta: la deuda total, en miles de millones de dólares, al último mes disponible (la parte en pesos se convierte al tipo de cambio de cada fecha).\nCómo leerlo: es el total que las demás tarjetas y gráficos reparten por ley, moneda, interés e instrumento.\nComparación: contra el mismo mes del año anterior (tarjeta de variación interanual).\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "618a9166b993c4eb2b92",
+  "tipo": "card",
+  "x": 332,
+  "y": 108,
+  "texto": "Qué es: la deuda externa, en esta página, es la que se rige por ley extranjera: si hay un conflicto, se resuelve en tribunales del exterior. No depende de quién tenga el bono. Es parte de la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores.\nQué muestra esta tarjeta: esa deuda en miles de millones de dólares; el título muestra qué porcentaje es del total.\nCómo leerlo: cuanto mayor la parte externa, más deuda está sujeta a legislación y tribunales extranjeros.\nComparación: contra la deuda interna (ley argentina); entre las dos suman el 100% de la deuda total.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "ea2399d750f133e0e75f",
+  "tipo": "card",
+  "x": 648,
+  "y": 108,
+  "texto": "Qué es: la deuda interna, en esta página, es la que se rige por ley argentina (títulos, letras y otros compromisos bajo legislación local). No depende de quién tenga el bono. Es parte de la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores.\nQué muestra esta tarjeta: esa deuda en miles de millones de dólares; el título muestra qué porcentaje es del total.\nCómo leerlo: cuanto mayor la parte interna, más deuda se rige por la legislación y los tribunales del país.\nComparación: contra la deuda externa (ley extranjera); entre las dos suman el 100% de la deuda total.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "ab20eb0d33a87e23910f",
+  "tipo": "card",
+  "x": 964,
+  "y": 108,
+  "texto": "Qué es: la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores.\nQué muestra esta tarjeta: cuánto creció o cayó la deuda total, en dólares, respecto del mismo mes del año anterior (variación interanual).\nCómo leerlo: positivo = más deuda que hace 12 meses; negativo = menos.\nComparación: mes actual contra el mismo mes de hace un año. Ojo: también refleja el tipo de cambio, porque la deuda en pesos se convierte a dólares.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "2c0a4bb070abfb3276d1",
+  "tipo": "card",
+  "x": 16,
+  "y": 184,
+  "texto": "Qué es: la deuda en moneda extranjera es la que debe pagarse en dólares u otra moneda extranjera. Es parte de la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores.\nQué muestra esta tarjeta: esa deuda en miles de millones de dólares; el título muestra qué porcentaje es del total.\nCómo leerlo: es la parte de la deuda cuyo valor en pesos sube cuando sube el dólar.\nComparación: contra la deuda total (tarjeta 1); lo que falta para llegar al total es deuda en pesos.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "0559cff3d36fe3c26b7e",
+  "tipo": "card",
+  "x": 332,
+  "y": 184,
+  "texto": "Qué es: la deuda sin intereses es la que no paga intereses periódicos (cupón cero): LECAP, letras y bonos CER sin cupón. No paga cupón, pero rinde por descuento o por inflación (CER). Es parte de la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores.\nQué muestra esta tarjeta: esa deuda en miles de millones de dólares.\nCómo leerlo: todo su costo se paga al vencimiento, junto con el capital.\nComparación: contra la deuda que sí paga intereses (tarjeta siguiente); entre las dos suman el 100% de la deuda total.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "f5b49aa66cc95b42dc08",
+  "tipo": "card",
+  "x": 648,
+  "y": 184,
+  "texto": "Qué es: la deuda con intereses es la que paga intereses periódicos, con tasa fija o variable. Es parte de la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores.\nQué muestra esta tarjeta: esa deuda en miles de millones de dólares.\nCómo leerlo: es la parte que genera pagos de intereses en efectivo mes a mes.\nComparación: contra la deuda sin intereses (cupón cero); entre las dos suman el 100% de la deuda total.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "7acc7092d9ec5956c24e",
+  "tipo": "card",
+  "x": 964,
+  "y": 184,
+  "texto": "Qué es: los intereses pagados son los intereses de la deuda que el Estado pagó en efectivo; en los instrumentos cupón cero todo el pago figura como capital.\nQué muestra esta tarjeta: los intereses pagados en los últimos 12 meses (suma de los meses), en miles de millones de dólares.\nCómo leerlo: la deuda cupón cero no figura acá porque su costo se paga como capital.\nComparación: contra la deuda total (tarjeta 1), para dimensionar el costo anual en efectivo.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "6c072ad7c5dc440f33f0",
+  "tipo": "stackedAreaChart",
+  "x": 16,
+  "y": 254,
+  "texto": "Qué es: la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores, partida según la ley que rige el contrato: interna = ley argentina; externa = ley extranjera.\nQué muestra este gráfico: cómo evolucionó la deuda bruta total, en miles de millones de dólares, dividida en esas dos partes.\nCómo leerlo: las dos áreas suman el total; si crece la parte externa, aumenta la deuda con acreedores regidos por ley extranjera.\nComparación: interna contra externa y su peso a lo largo del tiempo.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "e71916be89045f313c2a",
+  "tipo": "stackedAreaChart",
+  "x": 648,
+  "y": 254,
+  "texto": "Qué es: la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores. Con intereses = paga cupón (tasa fija o variable); sin intereses = cupón cero (LECAP, letras y bonos CER sin cupón).\nQué muestra este gráfico: la deuda total según en qué moneda está (pesos o moneda extranjera) y si paga intereses o no, en miles de millones de dólares.\nCómo leerlo: son cuatro capas apiladas y su suma es la deuda total.\nComparación: pesos contra moneda extranjera, y con contra sin intereses.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "dae614e5478f9520953b",
+  "tipo": "stackedAreaChart",
+  "x": 16,
+  "y": 464,
+  "texto": "Qué es: la deuda pública bruta de la Administración Central es todo lo que debe el Estado nacional: bonos, letras del Tesoro y préstamos de organismos internacionales y otros acreedores. Un instrumento es el tipo de título con el que se emitió: títulos públicos (bonos), letras del Tesoro, préstamos de organismos internacionales, FMI y otros préstamos y avales.\nQué muestra este gráfico: la deuda total según el instrumento con que se emitió, en miles de millones de dólares.\nCómo leerlo: las capas apiladas suman la deuda total; el grosor de cada capa es su peso.\nComparación: entre instrumentos y a lo largo del tiempo.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Deuda",
+  "visual": "0d9dac12962e348bdb71",
+  "tipo": "columnChart",
+  "x": 332,
+  "y": 464,
+  "texto": "Qué es: los intereses pagados son los intereses de la deuda que el Estado pagó en efectivo; la deuda cupón cero no figura porque no paga intereses en efectivo.\nQué muestra este gráfico: los intereses pagados cada mes, en millones de dólares, separados entre los que se pagan en pesos y los que se pagan en moneda extranjera.\nCómo leerlo: cada barra es un mes; los picos coinciden con los meses de pago de cupones de bonos.\nComparación: entre meses y entre las dos monedas.\nFuente: Boletín Mensual de la Secretaría de Finanzas."
+ },
+ {
+  "pagina": "Mapa",
+  "visual": "map_svg",
+  "tipo": "image",
+  "x": 333,
+  "y": 112,
+  "texto": "Qué es: un mapa coroplético de Argentina: cada provincia se pinta con un tono de violeta según el valor del indicador elegido en el filtro de la izquierda. Los indicadores son empleo privado registrado (el empleo privado registrado es la cantidad de trabajadores en relación de dependencia del sector privado que figuran en el SIPA (Sistema Integrado Previsional Argentino), el registro de aportes de la seguridad social) o exportaciones (las exportaciones son los bienes que cada provincia vende al exterior; el INDEC (Instituto Nacional de Estadística y Censos) las publica por provincia de origen).\nQué muestra este gráfico: cómo se reparte ese indicador entre las provincias, con el último dato disponible.\nCómo leerlo: cuanto más oscuro el violeta, mayor el valor de esa provincia (o mayor la variación, si elegiste un indicador en %); la leyenda va de menor a mayor.\nComparación: cada provincia contra las demás; el ranking de al lado ordena los mismos valores y, al hacer clic en una barra, resalta la provincia en el mapa.\nFuente: SIPA (empleo) e INDEC (exportaciones)."
+ },
+ {
+  "pagina": "Mapa",
+  "visual": "map_titulo",
+  "tipo": "card",
+  "x": 674.6,
+  "y": 112,
+  "texto": "Qué es: es el título dinámico de la página: se arma solo según el indicador elegido en el filtro de la izquierda (empleo privado registrado del SIPA o exportaciones por provincia del INDEC).\nQué muestra esta tarjeta: qué indicador están mostrando el mapa, el ranking y las tarjetas, y a qué mes corresponde el último dato.\nCómo leerlo: cambia solo cuando elegís otro indicador; fijate siempre en la unidad (personas, USD o variación %) antes de comparar provincias.\nComparación: no compara nada por sí mismo; es la referencia para leer el resto de la página.\nFuente: SIPA e INDEC."
+ },
+ {
+  "pagina": "Mapa",
+  "visual": "map_barras",
+  "tipo": "clusteredBarChart",
+  "x": 674.6,
+  "y": 172,
+  "texto": "Qué es: un ranking de provincias: ordena a las 24 jurisdicciones según el valor del indicador elegido (empleo privado registrado del SIPA o exportaciones del INDEC).\nQué muestra este gráfico: el valor de cada provincia en ese indicador, de mayor a menor.\nCómo leerlo: la barra más larga es la provincia con mayor valor; al hacer clic en una barra, esa provincia se resalta en el mapa.\nComparación: cada provincia contra las demás; los valores absolutos dependen del tamaño de la provincia, por eso conviene mirar también los indicadores en variación %.\nFuente: SIPA e INDEC."
+ },
+ {
+  "pagina": "Mapa",
+  "visual": "map_total",
+  "tipo": "card",
+  "x": 16,
+  "y": 524.2,
+  "texto": "Qué es: el total país es la suma de todas las provincias en el indicador elegido (por ejemplo, miles de personas con empleo privado registrado del SIPA, o millones de USD exportados según el INDEC).\nQué muestra esta tarjeta: ese total, con el último dato disponible.\nCómo leerlo: es el número del país entero; cambia con el filtro de Región, así que si elegiste una región muestra solo el total de esa región.\nComparación: contra la provincia líder de la tarjeta de abajo y contra cada barra del ranking.\nFuente: SIPA e INDEC."
+ },
+ {
+  "pagina": "Mapa",
+  "visual": "map_lider",
+  "tipo": "card",
+  "x": 16,
+  "y": 621.1,
+  "texto": "Qué es: la provincia líder es la que ocupa el primer puesto del ranking en el indicador elegido (empleo privado registrado del SIPA o exportaciones del INDEC).\nQué muestra esta tarjeta: el nombre de esa provincia y cuánto vale su indicador, en la unidad del indicador (miles de personas, USD, etc.).\nCómo leerlo: si el indicador es una variación %, la líder es la provincia que más creció, no la más grande.\nComparación: contra el total país de la tarjeta de arriba, para ver cuánto pesa la líder en el conjunto.\nFuente: SIPA e INDEC."
+ },
+ {
+  "pagina": "Explorador",
+  "visual": "exp_desc",
+  "tipo": "card",
+  "x": 286,
+  "y": 112,
+  "texto": "Qué es: el Explorador es una página para mirar cualquiera de los indicadores del tablero (inflación, actividad, empleo, salarios, reservas, tipo de cambio, etc.) uno por vez. Esta tarjeta es su título dinámico.\nQué muestra esta tarjeta: qué indicador estás mirando, su unidad o base (por ejemplo, índice con base dic-16 = 100) y la fuente oficial de donde sale.\nCómo leerlo: cambia cuando elegís otro indicador en la lista de la izquierda; la unidad es clave para interpretar los gráficos y la tabla.\nComparación: no compara nada por sí misma; es la referencia para leer el resto de la página.\nFuente: la del indicador elegido, que figura en la propia tarjeta."
+ },
+ {
+  "pagina": "Explorador",
+  "visual": "exp_ult",
+  "tipo": "card",
+  "x": 1002.6,
+  "y": 112,
+  "texto": "Qué es: el último dato es el valor más reciente publicado del indicador que elegiste en el Explorador.\nQué muestra esta tarjeta: ese valor, en su unidad original (la unidad figura en el título de al lado).\nCómo leerlo: es el último punto de la línea del gráfico de valor; no es una variación, es el nivel.\nComparación: contra los valores anteriores de la tabla de datos o contra el recorrido de la línea, para ver si está en máximos, mínimos o en el medio de su historia.\nFuente: la del indicador elegido (se indica en el título de la página); los datos salen de las APIs oficiales del INDEC, el BCRA, la Secretaría de Energía y otros organismos."
+ },
+ {
+  "pagina": "Explorador",
+  "visual": "exp_valor",
+  "tipo": "lineChart",
+  "x": 286,
+  "y": 186,
+  "texto": "Qué es: una serie de tiempo es el mismo indicador medido período tras período. Acá se grafica el indicador que elegiste en la lista de la izquierda (inflación, actividad, empleo, salarios, reservas, tipo de cambio, etc.).\nQué muestra este gráfico: cómo evolucionó ese indicador en el tiempo, en su unidad original; el título de arriba dice cuál es y de qué fuente sale.\nCómo leerlo: cada punto es un dato de la serie; línea que sube = el valor aumenta, que baja = disminuye (fijate en la unidad del título).\nComparación: el dato contra su propia historia; el gráfico de abajo muestra la variación interanual del mismo indicador.\nFuente: la del indicador elegido (se indica en el título de la página); los datos salen de las APIs oficiales del INDEC, el BCRA, la Secretaría de Energía y otros organismos."
+ },
+ {
+  "pagina": "Explorador",
+  "visual": "exp_var",
+  "tipo": "clusteredColumnChart",
+  "x": 286,
+  "y": 441.8,
+  "texto": "Qué es: la variación interanual (i.a.) compara cada dato con el mismo período del año anterior; al comparar mismo mes contra mismo mes se elimina el efecto de la estacionalidad (por ejemplo, las vacaciones o el aguinaldo).\nQué muestra este gráfico: cuánto cambió el indicador elegido respecto de hace un año (en % o, en las tasas, en diferencia de puntos, según el indicador).\nCómo leerlo: barra sobre 0 = el indicador está por encima de hace un año; barra bajo 0 = está por debajo; cuanto más alta la barra, mayor el cambio.\nComparación: cada dato contra el mismo período de un año atrás; se lee junto al gráfico de nivel de arriba.\nFuente: la del indicador elegido (se indica en el título de la página); los datos salen de las APIs oficiales del INDEC, el BCRA, la Secretaría de Energía y otros organismos."
+ },
+ {
+  "pagina": "Explorador",
+  "visual": "exp_tabla",
+  "tipo": "tableEx",
+  "x": 915.5,
+  "y": 441.8,
+  "texto": "Qué es: la tabla de datos es el detalle numérico que hay detrás de los gráficos de esta página, para el indicador elegido. Var. mensual = cambio contra el período anterior; Var. i.a. = interanual, cambio contra el mismo mes del año anterior.\nQué muestra esta tabla: fecha por fecha, el valor del indicador, su variación mensual y su variación interanual.\nCómo leerlo: la fila más reciente está arriba; hacé scroll para ver el historial.\nComparación: cada fila contra la anterior (mensual) y contra un año atrás (i.a.); sirve para verificar el número exacto de un punto del gráfico.\nFuente: la del indicador elegido (se indica en el título de la página); los datos salen de las APIs oficiales del INDEC, el BCRA, la Secretaría de Energía y otros organismos."
+ },
+ {
+  "pagina": "Datos",
+  "visual": "dat_cobertura",
+  "tipo": "tableEx",
+  "x": 16,
+  "y": 112,
+  "texto": "Qué es: la cobertura de datos es el inventario de todos los indicadores que alimentan el tablero, con el período que abarca cada uno. Es una tabla de control, no un indicador económico.\nQué muestra esta tabla: de cada indicador, a qué bloque temático pertenece, cada cuánto se publica (frecuencia), desde y hasta qué fecha hay datos y cuál es la fuente oficial.\nCómo leerlo: la columna Hasta muestra el último dato disponible de cada indicador; las fechas no coinciden entre indicadores porque cada organismo publica con un rezago distinto.\nComparación: unos indicadores contra otros según qué tan actualizados están (Hasta más viejo = dato menos reciente) y según la fuente.\nFuente: elaboración propia a partir de las APIs oficiales (INDEC, BCRA, Secretaría de Finanzas, ArgentinaDatos y otras), actualizada con cada corrida automática."
+ }
+]
