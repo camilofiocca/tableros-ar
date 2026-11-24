@@ -30,8 +30,10 @@ Archivos en Drive (Tableros AR → Elecciones AR):
 2. Abrir `_proyecto\Tablero Elecciones Argentina\Tablero Elecciones AR.pbip` (doble clic).
 3. Inicio → **Actualizar**. Si pide credenciales para `docs.google.com`: **Anónimo** → Conectar. Nivel de privacidad: **Público**.
 4. Revisar las 8 páginas (Resumen, Mapa, Por espacio, Presidenciales, Intermedias, Evolución, Participación, Datos).
-   - Si un **mapa de formas** aparece vacío: seleccionarlo → Formato → *Configuración del mapa* → Tipo: **URL** → pegar
-     `https://raw.githubusercontent.com/camilofiocca/tableros-ar/main/data/elecciones/mapa/provincias_ar.topojson`.
+   - Si un **mapa de formas** aparece vacío: seleccionarlo → Formato → *Configuración del mapa* → Tipo: **Dirección URL** → pegar
+     `https://raw.githubusercontent.com/camilofiocca/tableros-ar/57ffa60d5570d5fd331581972481f727e112f239/data/elecciones/mapa/provincias_ar.topojson`
+     (fijada a un commit: funciona aunque se borre la rama y sin depender de `main`). No usar "Carga de archivos": en Desktop cierra la ventana.
+   - Interacción: clic en una provincia filtra toda la página; en Mapa, Presidenciales e Intermedias el gráfico de barras pasa a mostrar esa provincia (interacción *Filtrar*).
    - Si las provincias salen grises: Formato → *Colores* → *Predeterminado* → **fx** → Estilo: *Valor del campo* → medida `Color ganador` (en "Por espacio": `Color intensidad del espacio`; en "Participación": `Color participación`).
    - Si en tu versión de Power BI no aparece el mapa de formas: Archivo → Opciones → Características en versión preliminar → *Objeto visual de mapa de formas* → reiniciar.
 5. **Archivo → Guardar como** → `04 Elecciones AR\Tablero Elecciones AR.pbix` (tipo: archivo de Power BI .pbix). Desde ahí se trabaja siempre con ese `.pbix`.

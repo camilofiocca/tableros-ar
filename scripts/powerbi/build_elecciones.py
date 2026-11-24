@@ -17,7 +17,9 @@ NOMBRE = 'Tablero Elecciones AR'
 REP = NOMBRE + '.Report'
 MOD = NOMBRE + '.SemanticModel'
 PAGES = os.path.join(OUT, REP, 'definition', 'pages')
-URL_MAPA = 'https://raw.githubusercontent.com/camilofiocca/tableros-ar/main/data/elecciones/mapa/provincias_ar.topojson'
+# Fijado a un commit: el mapa no depende de main ni de que exista la rama (el archivo no cambia).
+URL_MAPA = ('https://raw.githubusercontent.com/camilofiocca/tableros-ar/'
+            '57ffa60d5570d5fd331581972481f727e112f239/data/elecciones/mapa/provincias_ar.topojson')
 BASE_THEME = os.path.join(AQUI, 'recursos', 'CY24SU10.json')
 
 SCH = 'https://developer.microsoft.com/json-schemas/fabric/'
@@ -277,7 +279,7 @@ def pagina(name, display, filtros=None, interacciones=None, tooltip=False):
     if filtros:
         d['filterConfig'] = {'filters': filtros}
     if interacciones:
-        d['visualInteractions'] = [{'source': s, 'target': t, 'type': 'NoFilter'} for s, t in interacciones]
+        d['visualInteractions'] = [{'source': i[0], 'target': i[1], 'type': i[2] if len(i) > 2 else 'NoFilter'} for i in interacciones]
     wjson(os.path.join(PAGES, name, 'page.json'), d)
 
 
@@ -343,7 +345,7 @@ def construir_reporte():
 
     # ---------------------------------------------------------------- Mapa
     P = 'mapa'
-    pagina(P, 'Mapa')
+    pagina(P, 'Mapa', interacciones=[('map_mapa', 'map_barras', 'DataFilter')])
     encabezado(P, 'Mapa electoral interactivo', 'Elegí una elección y hacé clic en una provincia: toda la página pasa a mostrar esa provincia')
     put(P, segmentador('map_eleccion', (16, 110, 360, 58, 300), 'elecciones', 'etiqueta', 'Elección', ['2025 · Diputados (intermedia)']))
     put(P, tarjeta_texto('map_nota', (386, 110, 878, 58, 310), 'Nota de la elección', size=9, color=INK2))
@@ -374,7 +376,7 @@ def construir_reporte():
     # ---------------------------------------------------------------- Presidenciales
     P = 'presidenciales'
     pagina(P, 'Presidenciales', filtros=[filtro_cfg('f_pres', 'elecciones', 'cargo', ['Presidente'])],
-           interacciones=[('pre_eleccion', 'pre_hist'), ('pre_mapa', 'pre_hist')])
+           interacciones=[('pre_eleccion', 'pre_hist'), ('pre_mapa', 'pre_hist'), ('pre_mapa', 'pre_barras', 'DataFilter')])
     encabezado(P, 'Elecciones presidenciales', 'Primera vuelta 1983-2023, balotajes 2015 y 2023 y PASO 2011-2023 · hacé clic en el mapa para ver una provincia')
     put(P, segmentador('pre_eleccion', (16, 110, 360, 58, 300), 'elecciones', 'etiqueta', 'Elección', ['2023 · Presidente balotaje']))
     put(P, tarjeta_texto('pre_nota', (386, 110, 878, 58, 310), 'Nota de la elección', size=9, color=INK2))
@@ -396,7 +398,7 @@ def construir_reporte():
     # ---------------------------------------------------------------- Intermedias
     P = 'intermedias'
     pagina(P, 'Intermedias', filtros=[filtro_cfg('f_dip', 'elecciones', 'cargo', ['Diputados nacionales'])],
-           interacciones=[('int_eleccion', 'int_hist'), ('int_mapa', 'int_hist')])
+           interacciones=[('int_eleccion', 'int_hist'), ('int_mapa', 'int_hist'), ('int_mapa', 'int_barras', 'DataFilter')])
     encabezado(P, 'Elecciones intermedias y diputados nacionales', 'Legislativas 1985-2025 (y diputados de años presidenciales) · cada provincia elige su lista')
     put(P, segmentador('int_eleccion', (16, 110, 360, 58, 300), 'elecciones', 'etiqueta', 'Elección', ['2025 · Diputados (intermedia)']))
     put(P, tarjeta_texto('int_nota', (386, 110, 878, 58, 310), 'Nota de la elección', size=9, color=INK2))
