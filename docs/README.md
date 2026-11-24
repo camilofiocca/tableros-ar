@@ -41,9 +41,30 @@ La página Actividad muestra ahora los 16 sectores del EMAE (INDEC) y no solo in
 - **Visual principal:** barras horizontales "¿Qué sectores crecen y cuáles caen?" con la variación interanual de cada sector, filtro de nivel de objeto visual `Grupo actividad = Sector EMAE`, etiquetas de datos, letra 10 y nombres completos (sin puntos suspensivos). Reemplaza al gráfico de 3 líneas (industria, construcción, agro), que se eliminó.
 - **Distribución:** a la izquierda el gráfico de sectores; a la derecha una grilla de 2 × 2 (EMAE desestacionalizado, EMAE interanual, mercado laboral EPH y salario real), cada uno de 340 × 244 px.
 
-## Ayuda "?" en cada indicador y gráfico (24/11/2026)
+## Glosario y ayuda "?" en todos los tableros (24/11/2026)
 
-Cada tarjeta y gráfico de las páginas **Deuda** y **Actividad** tiene un ícono "?" en el encabezado; al pasar el mouse muestra un texto con tres partes: *Qué mide*, *Cómo leerlo* y *Comparación* (contra qué se compara el dato). Se configura en Formato → General → Íconos de encabezado → Íconos → "Información sobre herramientas" (activar) y en la sección "Información sobre herramientas" de esos íconos → "Texto de información en…". No confundir con la sección "Información sobre herramientas" de General, que es el tooltip al pasar sobre los datos. El texto se guarda con el informe (hay que guardar con Ctrl+S) y se ve en la vista de lectura. Pendiente: extender la ayuda al resto de las páginas de Macro y a Energía.
+**Glosario (Macro AR):** página **Glosario** (la última, después de "Datos") con 63 términos agrupados en 7 bloques (conceptos generales, precios, actividad y empleo, dólar y reservas, tasas y dinero, externo y fiscal, deuda pública): qué significa cada indicador, sigla o concepto del tablero. Vive en una tabla calculada `Glosario` del modelo (`DATATABLE` con las columnas término, grupo y definición); no está en la planilla de datos, así que **solo existe en el modelo de Power BI**. Al escribirla en la vista TMDL de Power BI web, la tabla calculada tiene que llevar `source = ```` con las tres comillas invertidas en la **misma línea** que `source =`; si el bloque empieza en la línea siguiente, el modelo no valida. Respaldo del contenido: [`docs/glosario_macro.tmdl`](glosario_macro.tmdl) (script `createOrReplace` listo para pegar en la vista TMDL: Abrir modelo semántico → Vista TMDL → pegar → Aplicar). Para sacar una copia nueva: clic derecho en la tabla `Glosario` del panel Datos → Script de TMDL a → Pestaña Script. Si se agrega o cambia un término, actualizar el modelo y también este archivo.
+
+**Ayuda "?" en cada tarjeta, gráfico y tabla:** al pasar el mouse por el "?" del encabezado aparece un texto con tres partes: *Qué mide*, *Cómo leerlo* y *Comparación* (contra qué se compara el dato). Cobertura:
+
+| Tablero | Páginas con "?" |
+|---|---|
+| Macro AR | las 12 páginas de contenido (Resumen, Pulso, Precios, Actividad, Dólar, Convertibilidad, Monetario, Externo y fiscal, Deuda, Mapa, Explorador, Datos) |
+| Energía AR | las 7 (Resumen, Matriz eléctrica, Petróleo y gas, Empresas, Electricidad, Gas natural, Comercio exterior) |
+
+No llevan "?" los segmentadores, el navegador de páginas, los cuadros de texto y la tarjeta "Actualizado". Verificado en vista de lectura (pasando el mouse por el "?") en una muestra de cada tablero; el resto se cargó con el mismo procedimiento y se revisó en el editor.
+
+**Convención de los textos:** `Qué mide: … (fuente: …). Cómo leerlo: … Comparación: …`. No se escriben valores que se desactualicen (los números cambian con cada corrida del ETL); la fuente se cita al final de "Qué mide". Si cambia la definición de un indicador, hay que actualizar también su texto de ayuda y la entrada del Glosario.
+
+**Cómo se configura (a mano, en Power BI web):** seleccionar el visual → Formato → General → buscar "Información sobre" → activar **Íconos de encabezado** (si está apagado) → dentro de **Íconos**, activar **Información sobre herramientas** → en la sección "Información sobre herramientas" de esos íconos, cuadro **Texto de información en…** (triple clic dentro y escribir) → clic en otra parte del panel para confirmar → Ctrl+S. No confundir con la sección "Información sobre herramientas" de General de arriba (tooltip al pasar sobre los datos) ni con el campo "Información so…" de la sección Acción de las imágenes. El texto se guarda con el informe y se ve en la vista de lectura.
+
+**Trucos para hacerlo por automatización del navegador** (ventana de 1424 × 613, zoom 61 % en el editor):
+- El panel Selección (Vista → Panel de selección) lista los visuales de arriba hacia abajo en la pila (no en el orden de la página), a 24 px de separación desde y ≈ 206; sirve para elegir cada visual sin errores.
+- Gráficos y tablas (íconos de encabezado ya activos): clic en el visual del panel Selección → pestaña Formato → General → buscar "Información sobre" → activar el interruptor de **Información sobre herramientas** de la sección Íconos → colapsar Íconos → expandir la sección del texto → desplazar 2 pasos → triple clic en el cuadro y escribir.
+- Tarjetas: igual, pero primero hay que activar **Íconos de encabezado** y expandir **Íconos**.
+- Imágenes (por ejemplo el mapa): usan el panel "Formato de imagen", con otros controles; no tocar el campo de la sección Acción.
+- Si el texto escrito no se confirma, volver a escribirlo: poner el foco con JavaScript sobre el `textarea` (`t.scrollIntoView(); t.focus(); t.select()`), escribir y soltar el foco (`t.blur()`); después Ctrl+S. Verificar siempre en vista de lectura que el tooltip no salga vacío.
+- Si el visual ya tiene el ícono activado, el panel se ve distinto (el interruptor ya está en "Activado"): mirar antes de hacer clic para no apagarlo.
 
 ## Archivos locales y sincronización (24/11/2026)
 

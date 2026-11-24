@@ -1,0 +1,95 @@
+createOrReplace
+
+	table Glosario
+
+		column Orden
+			dataType: int64
+			summarizeBy: none
+			sourceColumn: [Orden]
+			isHidden
+
+		column Bloque
+			dataType: string
+			summarizeBy: none
+			sourceColumn: [Bloque]
+
+		column Término
+			dataType: string
+			summarizeBy: none
+			sourceColumn: [Término]
+			sortByColumn: Orden
+
+		column Significado
+			dataType: string
+			summarizeBy: none
+			sourceColumn: [Significado]
+
+		partition Glosario = calculated
+			mode: import
+			source =
+					DATATABLE("Orden", INTEGER, "Bloque", STRING, "Término", STRING, "Significado", STRING,
+					{
+					{1, "1. Conceptos generales", "Variación mensual (m/m)", "Cuánto cambió un dato respecto del mes inmediato anterior. Muestra el pulso más reciente, pero es más ruidosa que la interanual."},
+					{2, "1. Conceptos generales", "Variación interanual (i.a.)", "Cuánto cambió un dato respecto del mismo mes del año anterior. Compara contra la misma época del año, así que la estacionalidad no la distorsiona."},
+					{3, "1. Conceptos generales", "Variación acumulada en el año", "Cambio desde diciembre del año anterior hasta el último mes disponible."},
+					{4, "1. Conceptos generales", "Punto porcentual (p.p.)", "Diferencia entre dos porcentajes. Si la desocupación pasa de 6% a 7%, subió 1 p.p. (no 1%)."},
+					{5, "1. Conceptos generales", "Punto básico (pb)", "Centésima parte de un punto porcentual: 100 pb = 1 p.p. Se usa para el riesgo país y las tasas."},
+					{6, "1. Conceptos generales", "Serie desestacionalizada", "Serie a la que se le quitó el efecto de la época del año (vacaciones, cosecha, aguinaldo). Permite comparar un mes con el anterior sin que la estacionalidad distorsione."},
+					{7, "1. Conceptos generales", "Valores nominales y reales", "Nominal es el dato en pesos de cada fecha. Real es el mismo dato corregido por inflación (a pesos constantes): muestra el poder de compra."},
+					{8, "1. Conceptos generales", "Índice base 100", "Serie expresada tomando un período de referencia igual a 100. Un valor de 150 significa 50% más que en el período base."},
+					{9, "1. Conceptos generales", "Polaridad", "Define si que un indicador suba es bueno (+1, por ejemplo el empleo), malo (-1, por ejemplo la inflación) o neutro (0, por ejemplo el tipo de cambio). Se usa para pintar los semáforos."},
+					{10, "1. Conceptos generales", "Semáforo (verde, amarillo, rojo)", "Color de cada tarjeta que resume si el último dato es favorable (verde), neutro (amarillo) o desfavorable (rojo), teniendo en cuenta la polaridad del indicador."},
+					{11, "2. Precios", "IPC (Índice de Precios al Consumidor)", "Mide cómo cambian los precios de una canasta de bienes y servicios que consumen los hogares. Lo publica el INDEC y es la inflación oficial. Base: diciembre de 2016 = 100."},
+					{12, "2. Precios", "IPC Núcleo (inflación subyacente)", "IPC sin los precios estacionales ni los regulados. Muestra la tendencia de fondo de la inflación, sin los saltos puntuales."},
+					{13, "2. Precios", "IPC Regulados", "Bienes y servicios cuyo precio depende de decisiones del Estado o tiene alto componente impositivo, por ejemplo electricidad, gas y transporte público."},
+					{14, "2. Precios", "IPC Estacionales", "Precios que varían mucho según la época del año, como frutas, verduras, ropa de temporada y turismo."},
+					{15, "2. Precios", "Inflación esperada (REM)", "Inflación que los analistas esperan para los próximos 12 meses, según el Relevamiento de Expectativas de Mercado (REM) del BCRA. Permite comparar lo que el mercado espera con lo que efectivamente pasa."},
+					{16, "3. Actividad y empleo", "EMAE", "Estimador Mensual de Actividad Económica del INDEC. Aproxima mes a mes la evolución del PIB. Se muestra original y desestacionalizado (base 2004 = 100)."},
+					{17, "3. Actividad y empleo", "PIB real", "Producto Interno Bruto a precios constantes de 2004: el valor de todo lo que produce el país en un trimestre, sin el efecto de la inflación."},
+					{18, "3. Actividad y empleo", "EMAE por sector", "El EMAE se abre en sectores (industria, comercio, agro, minería, construcción, etc.). La variación interanual de cada uno muestra qué sectores empujan y cuáles frenan la economía."},
+					{19, "3. Actividad y empleo", "Impuestos netos de subsidios", "Componente del EMAE que suma los impuestos a los productos y resta los subsidios. No es un sector productivo: completa el paso del valor agregado al PIB."},
+					{20, "3. Actividad y empleo", "EPH (Encuesta Permanente de Hogares)", "Encuesta trimestral del INDEC en los principales aglomerados urbanos. De ahí salen la tasa de desocupación y la tasa de empleo."},
+					{21, "3. Actividad y empleo", "Tasa de desocupación", "Porcentaje de la población económicamente activa (la que trabaja o busca trabajo) que no tiene empleo y lo está buscando. Si sube, empeora el mercado laboral."},
+					{22, "3. Actividad y empleo", "Tasa de empleo", "Porcentaje de la población total que tiene un trabajo. Si sube, más gente está ocupada."},
+					{23, "3. Actividad y empleo", "Índice de salarios", "Índice del INDEC que sigue la evolución de los salarios del sector privado registrado, del no registrado y del público. Base: octubre de 2016 = 100."},
+					{24, "3. Actividad y empleo", "RIPTE", "Remuneración Imponible Promedio de los Trabajadores Estables: salario promedio de los trabajadores registrados, publicado por la Secretaría de Trabajo."},
+					{25, "3. Actividad y empleo", "Salario real", "Salario nominal corregido por inflación. Si crece más que el IPC, los salarios le ganan a los precios y mejora el poder de compra."},
+					{26, "3. Actividad y empleo", "Empleo privado registrado", "Cantidad de trabajadores asalariados del sector privado registrados en la seguridad social."},
+					{27, "4. Dólar y reservas", "Dólar mayorista (A3500)", "Tipo de cambio de referencia que publica el BCRA para el mercado mayorista (Comunicación A 3500). Es la base de muchos contratos y de los bonos atados al dólar."},
+					{28, "4. Dólar y reservas", "Dólar minorista", "Cotización a la que las personas compran y venden dólares en los bancos."},
+					{29, "4. Dólar y reservas", "Dólar blue", "Cotización del dólar en el mercado informal, fuera del circuito oficial."},
+					{30, "4. Dólar y reservas", "Dólar MEP (bolsa)", "Dólar que se obtiene de forma legal comprando un bono o una acción en pesos y vendiéndolo en dólares dentro del país."},
+					{31, "4. Dólar y reservas", "Dólar CCL (contado con liquidación)", "Similar al MEP, pero los dólares se liquidan en una cuenta del exterior."},
+					{32, "4. Dólar y reservas", "Brecha cambiaria", "Diferencia porcentual entre un dólar financiero (en este tablero, el MEP) y el dólar mayorista oficial. Cuanto mayor es, más tensión hay en el mercado cambiario."},
+					{33, "4. Dólar y reservas", "Banda cambiaria (piso y techo)", "Rango dentro del cual puede moverse el dólar mayorista. Si toca el techo o el piso, el BCRA interviene."},
+					{34, "4. Dólar y reservas", "Distancia al techo de la banda", "Cuánto tendría que subir el dólar mayorista, en porcentaje, para tocar el techo de la banda. Cuanto más chica, más cerca está de ese límite."},
+					{35, "4. Dólar y reservas", "Reservas internacionales brutas", "Dólares y otros activos en moneda extranjera que tiene el BCRA. Incluyen cosas que el BCRA no puede usar libremente, como los encajes y el swap con China."},
+					{36, "4. Dólar y reservas", "Reservas netas (estimación)", "Reservas brutas menos los encajes en dólares, el swap con China (USD 18.000 M) y los pasivos de corto plazo como repos, BOPREAL y organismos (USD 6.000 M). Es una estimación propia del tablero, no un dato oficial."},
+					{37, "4. Dólar y reservas", "Encajes", "Parte de los depósitos en dólares que los bancos deben dejar en el BCRA. Figuran en las reservas brutas, pero respaldan los depósitos de los ahorristas."},
+					{38, "4. Dólar y reservas", "Swap con China", "Acuerdo de intercambio de monedas entre el BCRA y el banco central chino (yuanes por pesos). Suma a las reservas brutas, pero no es de libre disponibilidad."},
+					{39, "4. Dólar y reservas", "Repos y BOPREAL", "Repos: préstamos de corto plazo de bancos internacionales al BCRA con garantía de títulos. BOPREAL: bonos en dólares que emite el BCRA. Ambos son deudas del BCRA en dólares."},
+					{40, "4. Dólar y reservas", "Dólar de convertibilidad", "Base monetaria dividida por las reservas netas: los pesos por cada dólar si toda la base se respaldara con reservas. Es una referencia teórica, no una cotización."},
+					{41, "5. Tasas y dinero", "Base monetaria", "Dinero que emite el BCRA: billetes y monedas en circulación más las cuentas corrientes de los bancos en el BCRA."},
+					{42, "5. Tasas y dinero", "M2 privado", "Dinero disponible del sector privado: billetes y monedas en poder del público más depósitos en cuenta corriente y caja de ahorro. Se muestra su variación interanual."},
+					{43, "5. Tasas y dinero", "TAMAR", "Tasa Mayorista de Argentina: promedio que pagan los bancos privados por plazos fijos de $1.000 millones o más a 30 a 35 días. La publica el BCRA desde diciembre de 2024."},
+					{44, "5. Tasas y dinero", "BADLAR", "Parecida a la TAMAR, pero toma plazos fijos de más de $1 millón a 30 a 35 días. Hoy refleja más el segmento minorista que el mayorista."},
+					{45, "5. Tasas y dinero", "TNA (tasa nominal anual)", "Tasa expresada en términos anuales, sin capitalizar. Para una colocación a 30 días, el rendimiento ronda TNA x 30 / 365."},
+					{46, "5. Tasas y dinero", "TAMAR real mensual", "Interés mensual que paga la TAMAR menos la inflación del mes. Si es positiva, el ahorrista en pesos le gana a la inflación; si es negativa, pierde poder de compra."},
+					{47, "5. Tasas y dinero", "Préstamos al sector privado", "Saldo del crédito en pesos que los bancos dieron a familias y empresas. Si crece, hay más financiamiento para consumo y producción."},
+					{48, "5. Tasas y dinero", "Depósitos a plazo", "Saldo de plazos fijos del sector privado: ahorro que personas y empresas dejan inmovilizado en los bancos por un tiempo."},
+					{49, "6. Externo y fiscal", "Exportaciones e importaciones", "Bienes que Argentina vende al exterior y compra del exterior, en millones de dólares (INDEC)."},
+					{50, "6. Externo y fiscal", "Saldo comercial", "Exportaciones menos importaciones. Si es positivo hay superávit comercial: entran más dólares por comercio de los que salen."},
+					{51, "6. Externo y fiscal", "Rubros de exportación (PP, MOA, MOI, CyE)", "Productos primarios, manufacturas de origen agropecuario, manufacturas de origen industrial y combustibles y energía."},
+					{52, "6. Externo y fiscal", "SPN (Sector Público Nacional)", "Administración nacional, empresas y fondos del Estado nacional. No incluye provincias ni municipios."},
+					{53, "6. Externo y fiscal", "Resultado primario (SPN)", "Ingresos menos gastos del Sector Público Nacional, sin contar los intereses de la deuda. Positivo es superávit primario."},
+					{54, "6. Externo y fiscal", "Resultado financiero (SPN)", "Resultado primario menos los intereses de la deuda. Es el resultado fiscal completo: si es negativo, el Estado gastó más de lo que recaudó y debe financiar la diferencia."},
+					{55, "6. Externo y fiscal", "Intereses netos de la deuda", "Lo que el Estado nacional paga por intereses de su deuda, neto de lo que cobra por intereses."},
+					{56, "6. Externo y fiscal", "Recaudación tributaria", "Total de impuestos y aportes que recauda el Estado nacional, en millones de pesos corrientes. Para saber si crece de verdad conviene compararla con la inflación."},
+					{57, "6. Externo y fiscal", "Riesgo país (EMBI)", "Sobretasa que pagan los bonos argentinos en dólares sobre los bonos del Tesoro de EE. UU., en puntos básicos (indicador EMBI de J.P. Morgan). Más alto significa más desconfianza y financiamiento más caro."},
+					{58, "7. Deuda pública", "Deuda bruta", "Total de lo que debe el Estado nacional a todos sus acreedores, sin descontar activos. Fuente: Boletín Mensual de la Secretaría de Finanzas."},
+					{59, "7. Deuda pública", "Deuda en situación de pago normal", "Parte de la deuda bruta que se está pagando en tiempo y forma. Es la que se abre por instrumento, moneda y tasa."},
+					{60, "7. Deuda pública", "Títulos públicos, Letras y organismos", "Instrumentos de la deuda: títulos (bonos), Letras del Tesoro (plazos más cortos) y préstamos de organismos internacionales (FMI, BID, Banco Mundial, etc.)."},
+					{61, "7. Deuda pública", "Moneda local y extranjera", "Deuda en pesos o en dólares y otras monedas. La deuda en moneda extranjera es más sensible a las subas del dólar."},
+					{62, "7. Deuda pública", "Con y sin intereses (tasa cero)", "Deuda que devenga intereses (a tasa fija o variable) y deuda que no los devenga (tasa cero)."},
+					{63, "7. Deuda pública", "Capital e intereses", "Capital es la devolución de lo prestado; intereses es el costo del préstamo. Los pagos se muestran por moneda (nacional o extranjera)."}
+					})
