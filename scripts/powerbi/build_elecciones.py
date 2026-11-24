@@ -134,13 +134,15 @@ def tarjeta(name, pos, medida, etiqueta, titulo=None, titulo_medida=None, size=2
                   contenedor(titulo=titulo, titulo_medida=titulo_medida, titulo_color=CAPTION, titulo_size=9, alineacion='center'))
 
 
-def tarjeta_texto(name, pos, medida, titulo=None, size=10, bold=False, color=INK, fondo='#FFFFFF', borde=True):
+def tarjeta_texto(name, pos, medida, titulo=None, size=10, bold=False, color=INK, fondo='#FFFFFF', borde=True, titulo_kpi=False):
     objects = {'labels': [{'properties': {'fontSize': L('%dD' % size), 'color': C(color), 'labelDisplayUnits': L('1D'),
                                           'fontFamily': S('Arial'), 'bold': L('true' if bold else 'false')}}],
                'categoryLabels': [{'properties': {'show': L('false'), 'fontSize': L('9D'), 'fontFamily': S('Arial'), 'color': C(INK2)}}],
                'wordWrap': [{'properties': {'show': L('true')}}]}
     q = {'queryState': {'Values': {'projections': [proj_m(medida)]}}}
-    return visual(name, pos, 'card', q, objects, contenedor(titulo=titulo, fondo=fondo, borde=borde, sombra=borde))
+    vco = (contenedor(titulo=titulo, titulo_color=CAPTION, titulo_size=9, alineacion='center', pad=(4, 4, 8, 8)) if titulo_kpi
+           else contenedor(titulo=titulo, fondo=fondo, borde=borde, sombra=borde))
+    return visual(name, pos, 'card', q, objects, vco)
 
 
 def imagen(name, pos, medida, titulo=None, titulo_medida=None):
@@ -528,12 +530,13 @@ def construir_reporte():
     seg_provincia(P, (16, 110, 300, 58))
     put(P, tarjeta_texto('pro_titulo', (324, 110, 940, 58, 330), 'Título provincia', size=14, bold=True, color=NAVY))
     tarjetas(P, 176, [('Gobernador actual', 'Gobernador/a', {'titulo': 'Gobierna hoy', 'size': 13}),
-                      ('Gobernador actual: espacio y mandato', 'Espacio y mandato', {'titulo': 'Espacio del gobernador', 'size': 11}),
-                      ('Balotaje 2023 en el ámbito', 'Fórmula más votada', {'titulo': 'Último balotaje', 'size': 11}),
-                      ('Última intermedia en el ámbito', 'Lista más votada', {'titulo': 'Última elección de diputados', 'size': 11}),
-                      ('Diputados hoy (por espacio)', 'Bancas vigentes según la lista que las ganó', {'titulo': 'Diputados', 'size': 10}),
-                      ('Senadores hoy (por espacio)', 'Bancas vigentes según la lista que las ganó', {'titulo': 'Senadores', 'size': 11})],
-             h=72, z0=340)
+                      ('Gobernador actual: espacio y mandato', 'Espacio y mandato', {'titulo': 'Espacio del gobernador', 'size': 11})],
+             ancho=412, h=72, z0=340)
+    for i, (m, t, sz) in enumerate([('Balotaje 2023 en el ámbito', 'Último balotaje', 10), ('Última intermedia en el ámbito', 'Última de diputados', 10),
+                                    ('Diputados hoy (por espacio)', 'Diputados hoy (por lista)', 9),
+                                    ('Senadores hoy (por espacio)', 'Senadores hoy (por lista)', 9)]):
+        put(P, tarjeta_texto('provincia_k%d' % (i + 2), (436 + i * 209, 176, 201, 72, 360 + 10 * i), m, titulo=t, size=sz, bold=True,
+                             color=NAVY, titulo_kpi=True))
     put(P, mapa_formas('pro_mapa', (16, 256, 300, 451, 400), 'Color gobernador actual', 'Color = espacio del gobernador · clic para elegir',
                        [('Gobernador actual', 'Gobierna'), ('Gobernador actual: espacio y mandato', 'Espacio y mandato')]))
     put(P, grafico('pro_dip', (324, 256, 470, 220, 500), 'lineChart', ('elecciones', 'anio'), SERIES_HIST[:7], None,
@@ -546,7 +549,7 @@ def construir_reporte():
                  [('M', 'Medidas', 'Avatar gobernador', ' '), ('C', 'gob_elecciones', 'anio', 'Año'), ('C', 'provincias', 'nombre_corto', 'Provincia'),
                   ('C', 'gob_elecciones', 'gobernador', 'Gobernador/a'), ('C', 'espacios', 'espacio_corto', 'Espacio'),
                   ('M', 'Medidas', '% gobernador electo', '%'), ('M', 'Medidas', 'Margen gobernador (pp)', 'Margen')],
-                 None, titulo_medida='Título historia gobernadores', anchos=[30, 38, 75, 125, 80, 45, 50],
+                 None, titulo_medida='Título historia gobernadores', anchos=[28, 40, 68, 104, 66, 50, 54],
                  orden=('C', 'gob_elecciones', 'anio', 'Descending'), alto_imagen=24))
     put(P, barras('pro_gob_ult', (804, 486, 460, 221, 800), ('gob_resultados', 'etiqueta'), '% última gobernación (top 6)',
                   'Color lista gobernador', None, '%', titulo_medida='Título última gobernación'))
@@ -573,7 +576,7 @@ def construir_reporte():
     put(P, tabla('con_tabla', (886, 426, 378, 281, 800),
                  [('C', 'provincias', 'nombre_corto', 'Distrito'), ('C', 'bancas', 'opcion', 'Lista'), ('C', 'espacios', 'espacio_corto', 'Espacio'),
                   ('M', 'Medidas', '% votos lista (con banca)', '%'), ('M', 'Medidas', 'Bancas ganadas', 'Bancas')],
-                 'Listas que obtuvieron bancas', anchos=[72, 140, 72, 45, 42], orden=('C', 'provincias', 'nombre_corto', 'Ascending')))
+                 'Listas que obtuvieron bancas', anchos=[68, 118, 66, 45, 44], orden=('C', 'provincias', 'nombre_corto', 'Ascending')))
 
     # ---------------------------------------------------------------- Gobernadores
     P = 'gobernadores'
@@ -597,7 +600,7 @@ def construir_reporte():
                   ('C', 'gob_elecciones', 'gobernador', 'Gobernador/a'), ('C', 'espacios', 'espacio_corto', 'Espacio'),
                   ('M', 'Medidas', '% gobernador electo', '%'), ('M', 'Medidas', 'Segundo gobernador', 'Segundo'),
                   ('M', 'Medidas', 'Margen gobernador (pp)', 'Margen')],
-                 None, titulo_medida='Título historia gobernadores', anchos=[28, 36, 70, 108, 70, 42, 95, 45],
+                 None, titulo_medida='Título historia gobernadores', anchos=[28, 40, 64, 96, 64, 50, 84, 50],
                  orden=('C', 'gob_elecciones', 'anio', 'Descending'), alto_imagen=22))
     put(P, grafico('gob_tendencia', (766, 486, 498, 221, 800), 'lineChart', ('gob_mapa', 'anio_corte'),
                    [('Gobernaciones Peronismo', 'Peronismo', COLOR_ESP['Peronismo']), ('Gobernaciones UCR y aliados', 'UCR y aliados', COLOR_ESP['UCR y aliados']),

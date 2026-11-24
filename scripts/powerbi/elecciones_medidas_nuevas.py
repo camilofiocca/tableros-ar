@@ -103,11 +103,11 @@ def registrar(med, PCT, PP, GRIS_VACIO):
     med('% gobernador electo', 'DIVIDE ( SUM ( gob_elecciones[ganador_pct] ), 100 )', PCT, 'Gobernadores')
     med('Margen gobernador (pp)', 'SUM ( gob_elecciones[margen_pp] )', PP, 'Gobernadores')
     med('Segundo gobernador', 'SELECTEDVALUE ( gob_elecciones[segundo] )', None, 'Gobernadores')
-    med('Año última gobernación', 'CALCULATE ( MAX ( gob_elecciones[anio] ), REMOVEFILTERS ( gob_resultados ) )', '0', 'Gobernadores',
+    med('Año última gobernación', 'MAX ( gob_elecciones[anio] )', '0', 'Gobernadores',
         hidden=True)
     med('Vuelta última gobernación', '''
         VAR a = [Año última gobernación]
-        RETURN CALCULATE ( MAX ( gob_elecciones[vuelta_final] ), REMOVEFILTERS ( gob_resultados ), gob_elecciones[anio] = a )''',
+        RETURN CALCULATE ( MAX ( gob_elecciones[vuelta_final] ), gob_elecciones[anio] = a )''',
         None, 'Gobernadores', hidden=True)
     med('% última elección a gobernador', '''
         VAR a = [Año última gobernación]
@@ -251,4 +251,4 @@ def registrar(med, PCT, PP, GRIS_VACIO):
                     & " · " & LOWER ( presidentes[instancia] ) & " " & presidentes[anio] & "</text></g>",
                 "", presidentes[orden], ASC )
         VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1244 300'>" & tarjetas & "</svg>"
-        RETURN "data:image/svg+xml;utf8," & SUBSTITUTE ( svg, "#", "%23" )""", None, 'Presidentes', data_category='ImageUrl')
+        RETURN "data:image/svg+xml;utf8," & SUBSTITUTE ( SUBSTITUTE ( svg, "%", "%25" ), "#", "%23" )""", None, 'Presidentes', data_category='ImageUrl')
