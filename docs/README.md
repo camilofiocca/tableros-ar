@@ -31,3 +31,24 @@ Deuda pública bruta de la Administración Central, externa e interna, con y sin
 - **Control:** a octubre de 2026 el total es USD 489,6 mil M (externa 162,9; interna 326,7; con intereses 348,4; sin intereses 138,7).
 - **Página (publicada y guardada el 24/11/2026, antes de "Mapa"):** 8 tarjetas (deuda total, % externa, % interna, % con intereses, % sin intereses, intereses pagados en 12 meses, % en moneda extranjera y variación interanual), 4 gráficos (interna vs. externa; por moneda y tasa; por instrumento; intereses pagados por mes), un cuadro de lectura automática (`Lectura de la deuda`) y las notas "Cómo leer esta página". Los botones de período (3 m / 1 año / 3 años / Todo) cambian los gráficos; las tarjetas muestran el último dato de la ventana elegida.
 - **Pendiente:** el PBIP local no es idéntico a la versión publicada (los respaldos están en `_respaldo\antes de Deuda 2026-11-24` en la carpeta local del tablero); Power BI Desktop muestra "Aplicar cambios externos" y conviene no aplicarlo hasta decidir cuál es la versión buena. Falta sumar el Boletín Mensual al texto de "Datos y fuentes".
+
+## Página Actividad con todos los sectores del EMAE (24/11/2026)
+
+La página Actividad muestra ahora los 16 sectores del EMAE (INDEC) y no solo industria, construcción y agro.
+
+- **ETL:** el notebook de Macro suma 13 series sectoriales (`emae_pesca`, `emae_minas`, `emae_electricidad`, `emae_comercio`, `emae_hoteles`, `emae_transporte`, `emae_financiero`, `emae_inmobiliario`, `emae_admin_publica`, `emae_ensenianza`, `emae_salud`, `emae_serv_comunitarios`, `emae_impuestos`) con sus rezagos tolerados (commit 1c25fa8). Se verificó que la hoja `kpis` de la planilla trae los 16 sectores (último dato: 2026-08-01).
+- **Modelo:** medida `'Var. interanual sectores' = AVERAGE ( kpis[var_interanual] )` en la carpeta "Actividad" de `Medidas`; columnas calculadas `indicadores['Grupo actividad']` ("Sector EMAE" u "Otro") e `indicadores['Sector EMAE corto']` (nombre sin el prefijo "EMAE "). Las columnas calculadas necesitan un refresco del modelo antes de poder usarse en un visual.
+- **Visual principal:** barras horizontales "¿Qué sectores crecen y cuáles caen?" con la variación interanual de cada sector, filtro de nivel de objeto visual `Grupo actividad = Sector EMAE`, etiquetas de datos, letra 10 y nombres completos (sin puntos suspensivos). Reemplaza al gráfico de 3 líneas (industria, construcción, agro), que se eliminó.
+- **Distribución:** a la izquierda el gráfico de sectores; a la derecha una grilla de 2 × 2 (EMAE desestacionalizado, EMAE interanual, mercado laboral EPH y salario real), cada uno de 340 × 244 px.
+
+## Ayuda "?" en cada indicador y gráfico (24/11/2026)
+
+Cada tarjeta y gráfico de las páginas **Deuda** y **Actividad** tiene un ícono "?" en el encabezado; al pasar el mouse muestra un texto con tres partes: *Qué mide*, *Cómo leerlo* y *Comparación* (contra qué se compara el dato). Se configura en Formato → General → Íconos de encabezado → Íconos → "Información sobre herramientas" (activar) y en la sección "Información sobre herramientas" de esos íconos → "Texto de información en…". No confundir con la sección "Información sobre herramientas" de General, que es el tooltip al pasar sobre los datos. El texto se guarda con el informe (hay que guardar con Ctrl+S) y se ve en la vista de lectura. Pendiente: extender la ayuda al resto de las páginas de Macro y a Energía.
+
+## Archivos locales y sincronización (24/11/2026)
+
+Carpeta única en la computadora de Camilo: `Documentos\BI INTELLIGENCE\POWER BI\Tableros Argentina` (01 Macro AR, 02 Energia AR, 03 Automatizacion GitHub y `LEEME.md`). Los `.pbix` son copias completas (informe y datos) de la versión publicada. La versión principal es la de Power BI web; web y Desktop no se sincronizan solos:
+
+- Si se edita en la web: descargar de nuevo el `.pbix` (Archivo → Descargar este archivo → copia con datos) y reemplazar el de la carpeta.
+- Si se edita en Desktop: abrir el `.pbix` de esa carpeta y publicar desde ahí.
+- No publicar nunca un archivo viejo. Las carpetas `Documentos\Tablero Macro Argentina` y `Documentos\Tablero Energia Argentina` son versiones viejas.
