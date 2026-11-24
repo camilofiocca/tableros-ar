@@ -1,6 +1,6 @@
 # Tablero Elecciones AR
 
-Tercer tablero de la serie (junto a Macro AR y Energía AR). Muestra las elecciones **presidenciales** (primera vuelta 1983-2023, balotajes 2015 y 2023, PASO 2011-2023) y las de **diputados nacionales** 1983-2025, con foco en las **elecciones intermedias**, por provincia y con mapas interactivos.
+Tercer tablero de la serie (junto a Macro AR y Energía AR). Muestra las elecciones **presidenciales** (primera vuelta 1983-2023, balotajes 2015 y 2023, PASO 2011-2023), las de **diputados nacionales** 1983-2025 (con foco en las **intermedias**), **senadores** 2003-2025 y **gobernadores** 1983-2025, por provincia y con mapas interactivos. Calcula además las **bancas** de cada elección y la **composición de las dos cámaras**.
 
 ```
 Fuentes (PolAr / Andy Tow, CNE, DINE, 257arg)
@@ -31,6 +31,8 @@ Google Sheets "Elecciones AR - Datos limpios"  ──►  Power BI (Tablero Elec
 | Diputados 2011-2025 | Dirección Nacional Electoral | Provisorio |
 | Diputados 2003-2009 | PolAr / Andy Tow (por mesa) | Provisorio |
 | Diputados 1983-1999 | Base de Ernesto Calvo | Sin corregir |
+| Senadores 2003-2025 | 257arg (DINE / Andy Tow) | Provisorio |
+| Gobernadores 1983-2025 | Atlas de Andy Tow vía PolAr (242 archivos) y 257arg; 2013-2025 faltantes en `data/elecciones/manual/gobernadores_manual.csv` (informes provinciales y prensa) | Definitivo o provisorio según la fuente |
 
 Las bases por departamento 1983-2025 se toman de la compilación `azha2005/257arg` (`MASTER_resultados.xlsx`, commit `573038a`, CC BY 4.0). Todas las descargas están fijadas a un commit para que el resultado sea reproducible.
 
@@ -48,11 +50,20 @@ El notebook compara el porcentaje del ganador con el resultado oficial (hoja `co
 
 Además, en GitHub Actions el notebook consulta la API pública de resultados de la DINE (último escrutinio, total del país) y deja la comparación en la hoja `control_dine`; si la API no responde, lo registra y sigue.
 
+## Bancas, composición y gobernadores
+
+- **Diputados:** las bancas de cada distrito se reparten por D'Hondt entre las listas que superan el 3% del padrón (Ley 19.945, art. 160). Bancas por provincia: 257 en total; la mitad A (127 bancas) se renueva en 1989, 1993, ..., 2021 y 2025, y la otra (130) en 1987, 1991, ..., 2023 (`MITAD_A` en el notebook). 1983 renovó toda la Cámara.
+- **Senado:** 2 bancas para la lista más votada y 1 para la segunda.
+- **Composición:** Diputados = bancas de las últimas 2 elecciones (desde 1987; no hay 2001 ni composición de 2001-2003); Senado = últimas 3 (desde 2007). Es la composición **según la lista que ganó la banca**, no según los bloques: puede diferir del conteo oficial de bloques (p. ej. 2025: LLA 98 y Peronismo 102 en Diputados). Control: las bancas repartidas son iguales a las bancas en juego en cada año.
+- **Gobernadores:** `gobernadores_electos.csv` fija el gobernador y el espacio de cada elección (colegios electorales 1983-87, intervención de Corrientes 1991, frentes de Cambiemos/JxC como PRO-JxC aunque el gobernador sea radical). `gob_mapa` dice quién gobernaba cada provincia al cierre de cada año (CABA con intendente designado hasta 1996, Tierra del Fuego como territorio hasta 1991).
+- **Fotos:** el tablero no trae fotos. Las hojas `presidentes`, `gob_elecciones` y `gob_mapa` tienen una columna `foto_url`: si se completa con un enlace a una imagen, el tablero la muestra en lugar del círculo con iniciales.
+
 ## Modelo de Power BI
 
 - Conexión a la planilla por enlace público (`UrlPlanilla` = export xlsx), como Macro y Energía. En Power BI web: credencial **Anónima**, privacidad **Pública**.
-- Tablas: `elecciones`, `provincias`, `espacios`, `resultados` (provincia × lista o fórmula), `prov_eleccion` (provincia × elección: participación, ganador, margen, NEP), `nacional` (país × espacio o fórmula), `kpis`, `resumen`, `control`, `info` y `Medidas` (77 medidas en carpetas: Base, Votos, Participación, Ganador, Colores, Mapa, Series por espacio, KPIs, Textos y Etiquetas).
-- Relaciones: `resultados`, `prov_eleccion` y `nacional` → `elecciones`; `resultados` y `prov_eleccion` → `provincias`; `resultados` y `nacional` → `espacios`.
+- Tablas: `elecciones`, `provincias`, `espacios`, `resultados` (provincia × lista o fórmula), `prov_eleccion` (provincia × elección: participación, ganador, margen, NEP), `nacional` (país × espacio o fórmula), `kpis`, `resumen`, `control`, `info`, `gob_elecciones`, `gob_resultados`, `gob_mapa`, `bancas`, `composicion`, `camara_anio`, `hemiciclo`, `presidentes` y `Medidas` (142 medidas; las nuevas están en `scripts/powerbi/elecciones_medidas_nuevas.py`).
+- Relaciones: `resultados`, `prov_eleccion` y `nacional` → `elecciones`; `resultados`, `prov_eleccion`, `gob_elecciones`, `gob_mapa` y `bancas` → `provincias`; `resultados`, `nacional`, `gob_elecciones`, `gob_mapa`, `bancas`, `composicion` y `presidentes` → `espacios`; `gob_resultados` → `gob_elecciones`; `bancas` y `composicion` → `camara_anio`.
+- **Segmentador de provincia** en Mapa, Provincia, Presidenciales, Intermedias, Congreso, Gobernadores, Por espacio, Evolución y Participación, sincronizado entre páginas (grupo `provincia`). Vacío = todo el país. Las series por espacio y la participación siguen a la provincia elegida (segmentador o clic en el mapa).
 - La elección elegida sale de `[Id elección]` (la de mayor `orden` dentro del filtro); los segmentadores son de selección única y arrancan en la última elección.
 - **Mapas interactivos:** mapa de formas con el TopoJSON del repo por URL (`shape.datasourceType = url`) y el color de cada provincia por medida (`[Color ganador]`, `[Color intensidad del espacio]`, `[Color participación]`). Al hacer clic en una provincia se filtra toda la página. La Ciudad de Buenos Aires se dibuja además ampliada en un recuadro sobre el Atlántico.
 - **Mapa SVG** (Resumen): medida `[SVG mapa ganadores]`, igual técnica que el mapa provincial de Macro; se ve siempre aunque el mapa de formas no cargue.
@@ -67,6 +78,12 @@ Además, en GitHub Actions el notebook consulta la API pública de resultados de
 6. **Evolución**: matriz provincia × elección coloreada por espacio ganador y cantidad de cambios.
 7. **Participación**: participación 1983-2025, blancos y nulos, mapa y tabla por provincia.
 8. **Datos**: fuentes, método, controles y definición de los espacios.
+9. **Provincia**: gobernador actual, último balotaje y última elección de diputados, diputados y senadores en ejercicio, evolución por espacio (diputados y presidente), historia de gobernadores y última elección a gobernador.
+10. **Congreso**: hemiciclo con la composición de la cámara (Diputados o Senado, año elegido), evolución de las bancas por espacio, mapa del espacio que más bancas ganó en cada distrito, bancas ganadas y listas que obtuvieron bancas.
+11. **Gobernadores**: mapa de quién gobernaba cada provincia en el año elegido, provincias por espacio, gobernadores en ejercicio, historia de las elecciones a gobernador y evolución 1983-2025.
+12. **Presidentes**: tarjetas de los diez mandatos surgidos de las urnas, detalle de cada uno y años de gobierno por espacio.
+
+Orden en el navegador: Resumen, Mapa, Provincia, Presidenciales, Intermedias, Congreso, Gobernadores, Presidentes, Por espacio, Evolución, Participación, Datos.
 
 Página oculta `tt_provincia`: información emergente del mapa (resultado de la provincia).
 
