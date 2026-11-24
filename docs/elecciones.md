@@ -70,6 +70,10 @@ Además, en GitHub Actions el notebook consulta la API pública de resultados de
 
 Página oculta `tt_provincia`: información emergente del mapa (resultado de la provincia).
 
+## Instalación y publicación
+
+Paso a paso en [elecciones_instalacion.md](elecciones_instalacion.md): carpeta `04 Elecciones AR` en la PC, abrir el PBIP, guardar como `.pbix`, publicar en Mi área de trabajo y configurar credenciales y actualización.
+
 ## Cómo regenerar
 
 ```bash
