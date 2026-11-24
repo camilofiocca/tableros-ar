@@ -94,7 +94,8 @@ def tabla_tmdl(nombre, cols):
          '    Libro = Excel.Workbook(Web.Contents(UrlPlanilla), true, true),',
          '    Hoja = Libro{[Item="%s",Kind="Sheet"]}[Data],' % nombre,
          '    Columnas = Table.SelectColumns(Hoja, {%s}, MissingField.UseNull),' % nombres,
-         '    Vacios = Table.ReplaceValue(Columnas, "", null, Replacer.ReplaceValue, {%s}),' % nombres]
+         '    SinBlancos = Table.ReplaceValue(Columnas, "", null, Replacer.ReplaceValue, {%s}),' % nombres,
+         '    Vacios = Table.SelectRows(SinBlancos, each Record.Field(_, "%s") <> null),' % cols[0][0]]
     if nombre in CON_ID_PROV:
         m.append('    Codigo = Table.TransformColumns(Vacios, {{"id_prov", each if _ = null then null else Text.PadStart(Text.From(_), 2, "0"), type text}}),')
         prev = 'Codigo'
