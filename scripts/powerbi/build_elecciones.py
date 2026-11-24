@@ -75,10 +75,16 @@ def proj_c(e, prop, display=None, active=False):
 WILD = {'data': [{'dataViewWildcard': {'matchingOption': 1}}]}
 
 
+def literal(v):
+    if isinstance(v, bool): return 'true' if v else 'false'
+    if isinstance(v, int): return '%dL' % v
+    return "'" + v.replace("'", "''") + "'"
+
+
 def filtro_in(entidad, prop, valores, alias='f'):
     return {'Version': 2, 'From': [{'Name': alias, 'Entity': entidad, 'Type': 0}],
             'Where': [{'Condition': {'In': {'Expressions': [{'Column': {'Expression': {'SourceRef': {'Source': alias}}, 'Property': prop}}],
-                                            'Values': [[{'Literal': {'Value': "'" + v.replace("'", "''") + "'"}}] for v in valores]}}}]}
+                                            'Values': [[{'Literal': {'Value': literal(v)}}] for v in valores]}}}]}
 
 
 def filtro_cfg(nombre, entidad, prop, valores):
@@ -137,11 +143,11 @@ def tarjeta_texto(name, pos, medida, titulo=None, size=10, bold=False, color=INK
     return visual(name, pos, 'card', q, objects, contenedor(titulo=titulo, fondo=fondo, borde=borde, sombra=borde))
 
 
-def imagen(name, pos, medida, titulo=None):
+def imagen(name, pos, medida, titulo=None, titulo_medida=None):
     objects = {'image': [{'properties': {'sourceType': S('imageData'), 'sourceField': {'expr': M(medida)},
                                          'transparency': L('0D'), 'effects': L('false')}}],
                'imageScaling': [{'properties': {'imageScalingType': S('Fit')}}]}
-    return visual(name, pos, 'image', None, objects, contenedor(titulo=titulo))
+    return visual(name, pos, 'image', None, objects, contenedor(titulo=titulo, titulo_medida=titulo_medida))
 
 
 def texto(name, pos, parrafos, fondo='#FFFFFF', borde=True):
@@ -165,7 +171,7 @@ def _ejes(columnas=False, mostrar_valor=True):
     return [{'properties': cat}], [{'properties': val}]
 
 
-def grafico(name, pos, tipo, eje, series, titulo, leyenda=None, filtros=None, marcadores=False):
+def grafico(name, pos, tipo, eje, series, titulo, leyenda=None, filtros=None, marcadores=False, titulo_medida=None):
     """tipo: lineChart | clusteredColumnChart. eje: (tabla, columna). series: [(medida, nombre, color)]."""
     cat, val = _ejes(tipo != 'lineChart')
     if leyenda is None: leyenda = len(series) > 1
@@ -177,17 +183,17 @@ def grafico(name, pos, tipo, eje, series, titulo, leyenda=None, filtros=None, ma
         objects['lineStyles'] = [{'properties': {'strokeWidth': L('2D'), 'showMarker': L('true' if marcadores else 'false')}}]
     q = {'queryState': {'Category': {'projections': [proj_c(eje[0], eje[1], active=True)]},
                         'Y': {'projections': [proj_m(m, n) for m, n, c in series]}}}
-    return visual(name, pos, tipo, q, objects, contenedor(titulo=titulo, header=True), filtros=filtros)
+    return visual(name, pos, tipo, q, objects, contenedor(titulo=titulo, titulo_medida=titulo_medida, header=True), filtros=filtros)
 
 
-def barras(name, pos, cat, medida, color_medida, titulo, nombre_valor=None, orden_medida=True, filtros=None, titulo_medida=None):
+def barras(name, pos, cat, medida, color_medida, titulo, nombre_valor=None, orden_medida=True, filtros=None, titulo_medida=None, decimales=1):
     """Barras horizontales con el color de cada barra tomado de una medida (color del espacio)."""
     c_ax, v_ax = _ejes(False, mostrar_valor=False)
     objects = {'categoryAxis': c_ax, 'valueAxis': v_ax,
                'legend': [{'properties': {'show': L('false')}}],
                'dataPoint': [{'properties': {'fill': CM(color_medida)}, 'selector': WILD}],
                'labels': [{'properties': {'show': L('true'), 'fontFamily': S('Arial'), 'fontSize': L('9D'), 'color': C(INK),
-                                          'labelDisplayUnits': L('1D'), 'labelPrecision': L('1L')}}]}
+                                          'labelDisplayUnits': L('1D'), 'labelPrecision': L('%dL' % decimales)}}]}
     q = {'queryState': {'Category': {'projections': [proj_c(cat[0], cat[1], active=True)]},
                         'Y': {'projections': [proj_m(medida, nombre_valor)]}}}
     if orden_medida:
@@ -195,7 +201,7 @@ def barras(name, pos, cat, medida, color_medida, titulo, nombre_valor=None, orde
     return visual(name, pos, 'clusteredBarChart', q, objects, contenedor(titulo=titulo, titulo_medida=titulo_medida, header=True), filtros=filtros)
 
 
-def tabla(name, pos, columnas, titulo, anchos=None, orden=None, titulo_medida=None):
+def tabla(name, pos, columnas, titulo, anchos=None, orden=None, titulo_medida=None, alto_imagen=None, filtros=None):
     """columnas: [('M'|'C', tabla, campo, nombre)]."""
     projs = [proj_m(c, n, t) if k == 'M' else proj_c(t, c, n) for k, t, c, n in columnas]
     q = {'queryState': {'Values': {'projections': projs}}}
@@ -210,10 +216,12 @@ def tabla(name, pos, columnas, titulo, anchos=None, orden=None, titulo_medida=No
                'grid': [{'properties': {'rowPadding': L('4D'), 'gridHorizontal': L('true'), 'gridHorizontalColor': C(GRILLA),
                                         'gridVertical': L('false'), 'outlineColor': C(GRILLA)}}],
                'total': [{'properties': {'totals': L('false')}}]}
+    if alto_imagen:
+        objects['grid'][0]['properties']['imageHeight'] = L('%dD' % alto_imagen)
     if anchos:
         objects['columnWidth'] = [{'properties': {'value': L('%dD' % w)}, 'selector': {'metadata': '%s.%s' % (t, c)}}
                                   for (k, t, c, n), w in zip(columnas, anchos)]
-    return visual(name, pos, 'tableEx', q, objects, contenedor(titulo=titulo, titulo_medida=titulo_medida, header=True))
+    return visual(name, pos, 'tableEx', q, objects, contenedor(titulo=titulo, titulo_medida=titulo_medida, header=True), filtros=filtros)
 
 
 def matriz(name, pos, filas, columnas, valor, color_fondo, titulo):
@@ -250,22 +258,39 @@ def mapa_formas(name, pos, color_medida, titulo, tooltips, tooltip_pagina=None, 
     return visual(name, pos, 'shapeMap', q, objects, vco)
 
 
-def segmentador(name, pos, entidad, prop, titulo, defecto, multiple=False, modo='Dropdown', orden_desc=True):
+def segmentador(name, pos, entidad, prop, titulo, defecto, multiple=False, modo='Dropdown', orden_desc=True, sync=None, obligatorio=True):
     objects = {'data': [{'properties': {'mode': S(modo)}}],
                'selection': [{'properties': {'singleSelect': L('false' if multiple else 'true'),
-                                             'strictSingleSelect': L('false' if multiple else 'true')}}],
+                                             'strictSingleSelect': L('true' if (obligatorio and not multiple) else 'false')}}],
                'header': [{'properties': {'show': L('false')}}],
-               'items': [{'properties': {'fontFamily': S('Arial'), 'fontColor': C(INK), 'textSize': L('10D'), 'background': C('#FFFFFF')}}],
-               'general': [{'properties': {'filter': {'filter': filtro_in(entidad, prop, defecto)}}}]}
+               'items': [{'properties': {'fontFamily': S('Arial'), 'fontColor': C(INK), 'textSize': L('10D'), 'background': C('#FFFFFF')}}]}
+    if defecto:
+        objects['general'] = [{'properties': {'filter': {'filter': filtro_in(entidad, prop, defecto)}}}]
     q = {'queryState': {'Values': {'projections': [proj_c(entidad, prop, active=True)]}}}
     if orden_desc:
         q['sortDefinition'] = {'sort': [{'field': COL(entidad, prop), 'direction': 'Descending'}], 'isDefaultSort': True}
-    return visual(name, pos, 'slicer', q, objects, contenedor(titulo=titulo, titulo_color=CAPTION, titulo_size=9, pad=(4, 4, 8, 8)))
+    vco = contenedor(titulo=titulo, titulo_color=CAPTION, titulo_size=9, pad=(4, 4, 8, 8))
+    extra = None
+    if sync:
+        # encabezado visible (botón de borrar selección) y selección compartida entre páginas
+        objects['header'] = [{'properties': {'show': L('true'), 'text': S(titulo), 'fontFamily': S('Arial'), 'fontColor': C(CAPTION),
+                                             'textSize': L('9D'), 'bold': L('true')}}]
+        vco = contenedor(titulo=None, pad=(2, 4, 8, 8))
+        vco['visualHeader'] = [{'properties': {'show': L('true')}}]
+        extra = {'syncGroup': {'groupName': sync, 'fieldChanges': True, 'filterChanges': True}}
+    return visual(name, pos, 'slicer', q, objects, vco, extra=extra)
+
+
+def seg_provincia(p, pos, z=320):
+    """Segmentador de provincia, el mismo en todas las páginas (sincronizado). Sin selección = total del país."""
+    put(p, segmentador(p + '_prov', pos + (z,), 'provincias', 'provincia', 'Provincia (vacío = todo el país)', None,
+                       orden_desc=False, sync='provincia', obligatorio=False))
 
 
 # ----------------------------------------------------------------------------------------------- páginas
-PAGINAS = [('resumen', 'Resumen'), ('mapa', 'Mapa'), ('fuerza', 'Por espacio'), ('presidenciales', 'Presidenciales'),
-           ('intermedias', 'Intermedias'), ('evolucion', 'Evolución'), ('participacion', 'Participación'), ('datos', 'Datos')]
+PAGINAS = [('resumen', 'Resumen'), ('mapa', 'Mapa'), ('provincia', 'Provincia'), ('presidenciales', 'Presidenciales'),
+           ('intermedias', 'Intermedias'), ('congreso', 'Congreso'), ('gobernadores', 'Gobernadores'), ('presidentes', 'Presidentes'),
+           ('fuerza', 'Por espacio'), ('evolucion', 'Evolución'), ('participacion', 'Participación'), ('datos', 'Datos')]
 ORDEN = [p for p, _ in PAGINAS] + ['tt_provincia']
 
 
@@ -348,7 +373,8 @@ def construir_reporte():
     pagina(P, 'Mapa', interacciones=[('map_mapa', 'map_barras', 'DataFilter')])
     encabezado(P, 'Mapa electoral interactivo', 'Elegí una elección y hacé clic en una provincia: toda la página pasa a mostrar esa provincia')
     put(P, segmentador('map_eleccion', (16, 110, 360, 58, 300), 'elecciones', 'etiqueta', 'Elección', ['2025 · Diputados (intermedia)']))
-    put(P, tarjeta_texto('map_nota', (386, 110, 878, 58, 310), 'Nota de la elección', size=9, color=INK2))
+    put(P, tarjeta_texto('map_nota', (386, 110, 618, 58, 310), 'Nota de la elección', size=9, color=INK2))
+    seg_provincia(P, (1012, 110, 252, 58))
     put(P, mapa_formas('map_mapa', (16, 176, 520, 531, 400), 'Color ganador', None, TT, 'tt_provincia', titulo_medida='Etiqueta elección'))
     tarjetas(P, 176, [('Ganador', 'Ganador', {'titulo_medida': 'Ámbito', 'size': 14}), ('% ganador', 'Votos positivos', {'titulo': 'Porcentaje del ganador'}),
                       ('Margen (pp)', 'Sobre el segundo', {'titulo': 'Margen'}), ('Participación', 'Del padrón', {'titulo': 'Participación'})],
@@ -367,7 +393,8 @@ def construir_reporte():
     encabezado(P, 'Dónde es fuerte cada espacio', 'Porcentaje de votos de un espacio en cada provincia · elegí la elección y el espacio')
     put(P, segmentador('fue_eleccion', (16, 110, 360, 58, 300), 'elecciones', 'etiqueta', 'Elección', ['2025 · Diputados (intermedia)']))
     put(P, segmentador('fue_espacio', (386, 110, 300, 58, 310), 'espacios', 'espacio_corto', 'Espacio', ['LLA'], orden_desc=False))
-    put(P, tarjeta_texto('fue_nota', (696, 110, 568, 58, 320), 'Etiqueta intensidad', size=10, bold=True, color=NAVY))
+    put(P, tarjeta_texto('fue_nota', (696, 110, 308, 58, 320), 'Etiqueta intensidad', size=10, bold=True, color=NAVY))
+    seg_provincia(P, (1012, 110, 252, 58), z=330)
     put(P, mapa_formas('fue_mapa', (16, 176, 520, 531, 400), 'Color intensidad del espacio', 'Más oscuro = más votos (escalones de 10 puntos)',
                        [('% votos', '% del espacio'), ('Votos', 'Votos')]))
     put(P, barras('fue_barras', (546, 176, 718, 531, 500), ('provincias', 'provincia'), '% votos', 'Color espacio',
@@ -376,10 +403,11 @@ def construir_reporte():
     # ---------------------------------------------------------------- Presidenciales
     P = 'presidenciales'
     pagina(P, 'Presidenciales', filtros=[filtro_cfg('f_pres', 'elecciones', 'cargo', ['Presidente'])],
-           interacciones=[('pre_eleccion', 'pre_hist'), ('pre_mapa', 'pre_hist'), ('pre_mapa', 'pre_barras', 'DataFilter')])
+           interacciones=[('pre_eleccion', 'pre_hist'), ('pre_mapa', 'pre_barras', 'DataFilter')])
     encabezado(P, 'Elecciones presidenciales', 'Primera vuelta 1983-2023, balotajes 2015 y 2023 y PASO 2011-2023 · hacé clic en el mapa para ver una provincia')
     put(P, segmentador('pre_eleccion', (16, 110, 360, 58, 300), 'elecciones', 'etiqueta', 'Elección', ['2023 · Presidente balotaje']))
-    put(P, tarjeta_texto('pre_nota', (386, 110, 878, 58, 310), 'Nota de la elección', size=9, color=INK2))
+    put(P, tarjeta_texto('pre_nota', (386, 110, 618, 58, 310), 'Nota de la elección', size=9, color=INK2))
+    seg_provincia(P, (1012, 110, 252, 58))
     tarjetas(P, 176, [('Ganador', 'Fórmula ganadora', {'titulo_medida': 'Ámbito', 'size': 13}), ('% ganador', 'Votos positivos', {'titulo': 'Porcentaje del ganador'}),
                       ('Segundo', 'Segunda fórmula', {'titulo': 'Segundo', 'size': 13}), ('Margen (pp)', 'Diferencia', {'titulo': 'Margen'}),
                       ('Distritos ganados', 'Distritos', {'titulo': 'Distritos ganados por el ganador'})])
@@ -392,16 +420,17 @@ def construir_reporte():
                  'Resultado por provincia', anchos=[105, 115, 45, 110, 45, 50], orden=('C', 'provincias', 'provincia', 'Ascending')))
     put(P, grafico('pre_hist', (786, 489, 478, 218, 900), 'lineChart', ('elecciones', 'anio'),
                    [s for s in SERIES_HIST if s[1] != 'Izquierda'],
-                   'Primera vuelta 1983-2023: % nacional por espacio',
+                   None, titulo_medida='Título hist presidencial',
                    filtros=[filtro_cfg('f_pre_hist', 'elecciones', 'categoria', ['Presidente 1ra vuelta'])], marcadores=True))
 
     # ---------------------------------------------------------------- Intermedias
     P = 'intermedias'
     pagina(P, 'Intermedias', filtros=[filtro_cfg('f_dip', 'elecciones', 'cargo', ['Diputados nacionales'])],
-           interacciones=[('int_eleccion', 'int_hist'), ('int_mapa', 'int_hist'), ('int_mapa', 'int_barras', 'DataFilter')])
+           interacciones=[('int_eleccion', 'int_hist'), ('int_mapa', 'int_barras', 'DataFilter')])
     encabezado(P, 'Elecciones intermedias y diputados nacionales', 'Legislativas 1985-2025 (y diputados de años presidenciales) · cada provincia elige su lista')
     put(P, segmentador('int_eleccion', (16, 110, 360, 58, 300), 'elecciones', 'etiqueta', 'Elección', ['2025 · Diputados (intermedia)']))
-    put(P, tarjeta_texto('int_nota', (386, 110, 878, 58, 310), 'Nota de la elección', size=9, color=INK2))
+    put(P, tarjeta_texto('int_nota', (386, 110, 618, 58, 310), 'Nota de la elección', size=9, color=INK2))
+    seg_provincia(P, (1012, 110, 252, 58))
     tarjetas(P, 176, [('Ganador', 'Espacio (país) o lista (provincia)', {'titulo_medida': 'Ámbito', 'size': 13}),
                       ('% ganador', 'Votos positivos', {'titulo': 'Porcentaje del más votado'}),
                       ('Segundo', 'Segundo', {'titulo': 'Segundo', 'size': 13}),
@@ -415,7 +444,7 @@ def construir_reporte():
                   ('M', 'Medidas', '% ganador', '%'), ('M', 'Medidas', 'Margen (pp)', 'Margen'), ('M', 'Medidas', 'Cambio de ganador', 'Vs. anterior')],
                  'Resultado por provincia', anchos=[100, 140, 75, 45, 50, 60], orden=('C', 'provincias', 'provincia', 'Ascending')))
     put(P, grafico('int_hist', (766, 489, 498, 218, 900), 'lineChart', ('elecciones', 'anio'), SERIES_HIST[:7],
-                   'Intermedias 1985-2025: % nacional por espacio',
+                   None, titulo_medida='Título hist intermedias',
                    filtros=[filtro_cfg('f_int_hist', 'elecciones', 'categoria', ['Diputados (intermedia)'])], marcadores=True))
 
     # ---------------------------------------------------------------- Evolución
@@ -424,6 +453,7 @@ def construir_reporte():
     encabezado(P, 'Quién ganó cada provincia, elección por elección', 'Color = espacio de la fórmula o lista más votada · elegí qué tipo de elecciones comparar')
     put(P, segmentador('evo_categoria', (16, 110, 600, 58, 300), 'elecciones', 'categoria', 'Tipo de elección',
                        ['Presidente 1ra vuelta', 'Diputados (intermedia)'], multiple=True, modo='Dropdown', orden_desc=False))
+    seg_provincia(P, (626, 110, 350, 58))
     put(P, matriz('evo_matriz', (16, 176, 960, 531, 400), ('provincias', 'nombre_corto'), ('elecciones', 'etiqueta_corta'),
                   'Ganador espacio (celda)', 'Color ganador (celda)', 'Espacio ganador por provincia y elección'))
     put(P, tabla('evo_cambios', (986, 110, 278, 330, 500),
@@ -439,18 +469,18 @@ def construir_reporte():
 
     # ---------------------------------------------------------------- Participación
     P = 'participacion'
-    pagina(P, 'Participación', interacciones=[('par_eleccion', 'par_hist'), ('par_eleccion', 'par_blancos'),
-                                              ('par_mapa', 'par_hist'), ('par_mapa', 'par_blancos')])
+    pagina(P, 'Participación', interacciones=[('par_eleccion', 'par_hist'), ('par_eleccion', 'par_blancos')])
     encabezado(P, 'Participación electoral', 'Votantes sobre electores habilitados (sin residentes en el exterior) · votos en blanco y nulos')
     put(P, grafico('par_hist', (16, 110, 620, 290, 300), 'lineChart', ('elecciones', 'anio'),
                    [('Participación presidencial (1ra vuelta)', 'Presidenciales (1ra vuelta)', INDIGO),
                     ('Participación intermedias', 'Intermedias', CELESTE)],
-                   'Participación 1983-2025 (% del padrón)', marcadores=True))
+                   None, titulo_medida='Título participación hist', marcadores=True))
     put(P, grafico('par_blancos', (16, 410, 620, 297, 400), 'clusteredColumnChart', ('elecciones', 'etiqueta_corta'),
-                   [('Blancos y nulos (%)', 'Blancos y nulos', LAVANDA)], 'Votos en blanco y nulos (% de los votantes)', leyenda=False,
+                   [('Blancos y nulos (%)', 'Blancos y nulos', LAVANDA)], None, titulo_medida='Título blancos hist', leyenda=False,
                    filtros=[filtro_cfg('f_par_bl', 'elecciones', 'categoria', ['Presidente 1ra vuelta', 'Diputados (intermedia)'])]))
-    put(P, segmentador('par_eleccion', (646, 110, 380, 58, 500), 'elecciones', 'etiqueta', 'Elección', ['2025 · Diputados (intermedia)']))
-    put(P, tarjeta('par_k0', (1036, 110, 228, 58, 510), 'Participación', 'Total del país o provincia', titulo='Participación', size=16))
+    put(P, segmentador('par_eleccion', (646, 110, 236, 58, 500), 'elecciones', 'etiqueta', 'Elección', ['2025 · Diputados (intermedia)']))
+    seg_provincia(P, (890, 110, 200, 58), z=505)
+    put(P, tarjeta('par_k0', (1098, 110, 166, 58, 510), 'Participación', 'Total del país o provincia', titulo='Participación', size=16))
     put(P, mapa_formas('par_mapa', (646, 176, 300, 531, 600), 'Color participación', 'Más oscuro = más participación',
                        [('Participación', 'Participación'), ('Blancos y nulos (%)', 'Blancos y nulos')]))
     put(P, tabla('par_tabla', (956, 176, 308, 531, 700),
@@ -469,6 +499,8 @@ def construir_reporte():
         [T_('• Presidenciales 2023: ', 9, True), T_('escrutinio definitivo de la Cámara Nacional Electoral por provincia.')],
         [T_('• Diputados 2011-2025 y PASO 2011-2023: ', 9, True), T_('escrutinio provisorio de la Dirección Nacional Electoral (DINE). Los totales quedan 1 a 4% debajo del definitivo.')],
         [T_('• Diputados 1983-2009: ', 9, True), T_('base de Ernesto Calvo (1983-1999) y PolAr/Andy Tow (2003-2009), compiladas por departamento en el repositorio 257arg. No hay datos de las legislativas de 2001.')],
+        [T_('• Gobernadores 1983-2025: ', 9, True), T_('Atlas de Andy Tow vía PolAr y 257arg; lo que falta (2013-2025) sale de informes oficiales provinciales y prensa, en data/elecciones/manual.')],
+        [T_('• Senado y bancas: ', 9, True), T_("senadores 2003-2025 (2 bancas a la primera lista, 1 a la segunda); diputados repartidos por D'Hondt con piso del 3% del padrón. Son bancas por lista, no por bloque: pueden diferir del conteo oficial de bloques.")],
         [T_('Espacios políticos', 12, True, NAVY)],
         [T_('Cada lista o fórmula se asigna a uno de diez espacios comparables en el tiempo (tabla de la derecha) con las reglas de data/elecciones/reglas_espacios.csv. '
             'En diputados, "ganador" es la lista más votada de cada provincia; a nivel país se suman las listas de cada espacio.')],
@@ -487,6 +519,107 @@ def construir_reporte():
     put(P, tabla('dat_espacios', (646, 420, 618, 287, 500),
                  [('C', 'espacios', 'espacio', 'Espacio'), ('C', 'espacios', 'descripcion', 'Qué incluye')],
                  'Los diez espacios políticos', anchos=[150, 430], orden=('C', 'espacios', 'espacio', 'Ascending')))
+
+    # ---------------------------------------------------------------- Provincia
+    P = 'provincia'
+    pagina(P, 'Provincia', interacciones=[('pro_mapa', 'pro_gob_ult', 'DataFilter')])
+    encabezado(P, 'Una provincia, todas sus elecciones',
+               'Elegí la provincia en el segmentador (queda elegida en todas las páginas) o hacé clic en el mapa · vacío = todo el país')
+    seg_provincia(P, (16, 110, 300, 58))
+    put(P, tarjeta_texto('pro_titulo', (324, 110, 940, 58, 330), 'Título provincia', size=14, bold=True, color=NAVY))
+    tarjetas(P, 176, [('Gobernador actual', 'Gobernador/a', {'titulo': 'Gobierna hoy', 'size': 13}),
+                      ('Gobernador actual: espacio y mandato', 'Espacio y mandato', {'titulo': 'Espacio del gobernador', 'size': 11}),
+                      ('Balotaje 2023 en el ámbito', 'Fórmula más votada', {'titulo': 'Último balotaje', 'size': 11}),
+                      ('Última intermedia en el ámbito', 'Lista más votada', {'titulo': 'Última elección de diputados', 'size': 11}),
+                      ('Diputados hoy (por espacio)', 'Bancas vigentes según la lista que las ganó', {'titulo': 'Diputados', 'size': 10}),
+                      ('Senadores hoy (por espacio)', 'Bancas vigentes según la lista que las ganó', {'titulo': 'Senadores', 'size': 11})],
+             h=72, z0=340)
+    put(P, mapa_formas('pro_mapa', (16, 256, 300, 451, 400), 'Color gobernador actual', 'Color = espacio del gobernador · clic para elegir',
+                       [('Gobernador actual', 'Gobierna'), ('Gobernador actual: espacio y mandato', 'Espacio y mandato')]))
+    put(P, grafico('pro_dip', (324, 256, 470, 220, 500), 'lineChart', ('elecciones', 'anio'), SERIES_HIST[:7], None,
+                   titulo_medida='Título hist diputados', marcadores=True,
+                   filtros=[filtro_cfg('f_pro_dip', 'elecciones', 'cargo', ['Diputados nacionales'])]))
+    put(P, grafico('pro_pres', (324, 486, 470, 221, 600), 'lineChart', ('elecciones', 'anio'),
+                   [s for s in SERIES_HIST if s[1] != 'Izquierda'], None, titulo_medida='Título hist presidencial', marcadores=True,
+                   filtros=[filtro_cfg('f_pro_pres', 'elecciones', 'categoria', ['Presidente 1ra vuelta'])]))
+    put(P, tabla('pro_gob', (804, 256, 460, 220, 700),
+                 [('M', 'Medidas', 'Avatar gobernador', ' '), ('C', 'gob_elecciones', 'anio', 'Año'), ('C', 'provincias', 'nombre_corto', 'Provincia'),
+                  ('C', 'gob_elecciones', 'gobernador', 'Gobernador/a'), ('C', 'espacios', 'espacio_corto', 'Espacio'),
+                  ('M', 'Medidas', '% gobernador electo', '%'), ('M', 'Medidas', 'Margen gobernador (pp)', 'Margen')],
+                 None, titulo_medida='Título historia gobernadores', anchos=[30, 38, 75, 125, 80, 45, 50],
+                 orden=('C', 'gob_elecciones', 'anio', 'Descending'), alto_imagen=24))
+    put(P, barras('pro_gob_ult', (804, 486, 460, 221, 800), ('gob_resultados', 'etiqueta'), '% última gobernación (top 6)',
+                  'Color lista gobernador', None, '%', titulo_medida='Título última gobernación'))
+
+    # ---------------------------------------------------------------- Congreso
+    P = 'congreso'
+    pagina(P, 'Congreso', interacciones=[('con_anio', 'con_hist'), ('con_mapa', 'con_barras', 'DataFilter')])
+    encabezado(P, 'Congreso: bancas de diputados y senadores',
+               "Diputados por D'Hondt (piso del 3% del padrón) y Senado 2+1 · bancas según la lista que las ganó, no según el bloque")
+    put(P, segmentador('con_camara', (16, 110, 170, 58, 300), 'camara_anio', 'camara', 'Cámara', ['Diputados'], orden_desc=False))
+    put(P, segmentador('con_anio', (194, 110, 130, 58, 310), 'camara_anio', 'anio', 'Año de la elección', None))
+    seg_provincia(P, (332, 110, 240, 58))
+    put(P, tarjeta_texto('con_lectura', (580, 110, 684, 58, 330), 'Lectura congreso', size=9, color=INK))
+    put(P, imagen('con_hemiciclo', (16, 176, 520, 330, 400), 'SVG hemiciclo', titulo_medida='Título composición'))
+    put(P, grafico('con_hist', (16, 516, 520, 191, 500), 'lineChart', ('camara_anio', 'anio'),
+                   [('Bancas Peronismo', 'Peronismo', COLOR_ESP['Peronismo']), ('Bancas UCR y aliados', 'UCR y aliados', COLOR_ESP['UCR y aliados']),
+                    ('Bancas PRO-JxC', 'PRO-JxC', COLOR_ESP['PRO-JxC']), ('Bancas LLA', 'LLA', COLOR_ESP['LLA']),
+                    ('Bancas Terceras vías', 'Terceras vías', COLOR_ESP['Terceras vías']), ('Bancas Provinciales', 'Provinciales', COLOR_ESP['Provinciales'])],
+                   None, titulo_medida='Título historia cámara', marcadores=True))
+    put(P, mapa_formas('con_mapa', (546, 176, 330, 531, 600), 'Color bancas provincia', 'Espacio que más bancas ganó en cada distrito',
+                       [('Reparto de bancas', 'Bancas'), ('Bancas en juego', 'En juego')]))
+    put(P, barras('con_barras', (886, 176, 378, 240, 700), ('espacios', 'espacio_corto'), 'Bancas ganadas', 'Color espacio', None, 'Bancas',
+                  titulo_medida='Título bancas ganadas', decimales=0))
+    put(P, tabla('con_tabla', (886, 426, 378, 281, 800),
+                 [('C', 'provincias', 'nombre_corto', 'Distrito'), ('C', 'bancas', 'opcion', 'Lista'), ('C', 'espacios', 'espacio_corto', 'Espacio'),
+                  ('M', 'Medidas', '% votos lista (con banca)', '%'), ('M', 'Medidas', 'Bancas ganadas', 'Bancas')],
+                 'Listas que obtuvieron bancas', anchos=[72, 140, 72, 45, 42], orden=('C', 'provincias', 'nombre_corto', 'Ascending')))
+
+    # ---------------------------------------------------------------- Gobernadores
+    P = 'gobernadores'
+    pagina(P, 'Gobernadores', interacciones=[('gob_anio', 'gob_tendencia'), ('gob_mapa', 'gob_tendencia'), ('gob_prov', 'gob_tendencia'),
+                                             ('gob_mapa', 'gob_barras', 'DataFilter')])
+    encabezado(P, 'Gobernadores 1983-2025', 'Quién gobernó cada provincia y con qué espacio · elegí el año y hacé clic en una provincia para ver su historia')
+    put(P, segmentador('gob_anio', (16, 110, 180, 58, 300), 'gob_mapa', 'anio_corte', 'Año (a fin de año)', None))
+    seg_provincia(P, (204, 110, 260, 58))
+    put(P, tarjeta_texto('gob_lectura', (472, 110, 792, 58, 330), 'Lectura gobernadores', size=10, color=INK))
+    put(P, mapa_formas('gob_mapa', (16, 176, 400, 531, 400), 'Color gobernador', None,
+                       [('Gobernador', 'Gobernador/a'), ('Espacio del gobernador', 'Espacio'), ('Mandato del gobernador', 'Mandato')],
+                       titulo_medida='Título mapa gobernadores'))
+    put(P, barras('gob_barras', (426, 176, 330, 230, 500), ('espacios', 'espacio_corto'), 'Provincias gobernadas', 'Color espacio',
+                  'Provincias gobernadas por espacio', 'Provincias', decimales=0))
+    put(P, tabla('gob_actuales', (426, 416, 330, 291, 600),
+                 [('M', 'Medidas', 'Avatar gobernador (mapa)', ' '), ('C', 'provincias', 'nombre_corto', 'Provincia'),
+                  ('C', 'gob_mapa', 'gobernador', 'Gobernador/a'), ('C', 'espacios', 'espacio_corto', 'Espacio')],
+                 'En ejercicio en el año elegido', anchos=[30, 85, 125, 75], orden=('C', 'provincias', 'nombre_corto', 'Ascending'), alto_imagen=24))
+    put(P, tabla('gob_historia', (766, 176, 498, 300, 700),
+                 [('M', 'Medidas', 'Avatar gobernador', ' '), ('C', 'gob_elecciones', 'anio', 'Año'), ('C', 'provincias', 'nombre_corto', 'Provincia'),
+                  ('C', 'gob_elecciones', 'gobernador', 'Gobernador/a'), ('C', 'espacios', 'espacio_corto', 'Espacio'),
+                  ('M', 'Medidas', '% gobernador electo', '%'), ('M', 'Medidas', 'Segundo gobernador', 'Segundo'),
+                  ('M', 'Medidas', 'Margen gobernador (pp)', 'Margen')],
+                 None, titulo_medida='Título historia gobernadores', anchos=[28, 36, 70, 108, 70, 42, 95, 45],
+                 orden=('C', 'gob_elecciones', 'anio', 'Descending'), alto_imagen=22))
+    put(P, grafico('gob_tendencia', (766, 486, 498, 221, 800), 'lineChart', ('gob_mapa', 'anio_corte'),
+                   [('Gobernaciones Peronismo', 'Peronismo', COLOR_ESP['Peronismo']), ('Gobernaciones UCR y aliados', 'UCR y aliados', COLOR_ESP['UCR y aliados']),
+                    ('Gobernaciones PRO-JxC', 'PRO-JxC', COLOR_ESP['PRO-JxC']), ('Gobernaciones Provinciales', 'Provinciales', COLOR_ESP['Provinciales']),
+                    ('Gobernaciones Terceras vías', 'Terceras vías', COLOR_ESP['Terceras vías']),
+                    ('Gobernaciones Centroizquierda', 'Centroizquierda', COLOR_ESP['Centroizquierda'])],
+                   'Provincias gobernadas por espacio, 1983-2025'))
+
+    # ---------------------------------------------------------------- Presidentes
+    P = 'presidentes'
+    pagina(P, 'Presidentes')
+    encabezado(P, 'Presidentes electos desde 1983',
+               'Fórmula ganadora, porcentaje y mandato · para mostrar fotos, completá la columna foto_url de la hoja presidentes')
+    put(P, imagen('prs_tarjetas', (16, 110, 1248, 330, 300), 'SVG presidentes', 'Los diez mandatos presidenciales surgidos de las urnas'))
+    put(P, tabla('prs_tabla', (16, 450, 830, 257, 400),
+                 [('M', 'Medidas', 'Avatar presidente', ' '), ('C', 'presidentes', 'mandato', 'Mandato'), ('C', 'presidentes', 'presidente', 'Presidente/a'),
+                  ('C', 'presidentes', 'formula', 'Fórmula'), ('C', 'espacios', 'espacio_corto', 'Espacio'), ('M', 'Medidas', '% presidente', '% votos'),
+                  ('C', 'presidentes', 'instancia', 'Definida en'), ('C', 'presidentes', 'nota', 'Nota')],
+                 'Detalle de cada mandato', anchos=[30, 72, 140, 165, 80, 52, 80, 190], orden=('C', 'presidentes', 'mandato', 'Ascending'),
+                 alto_imagen=26))
+    put(P, barras('prs_barras', (856, 450, 408, 257, 500), ('espacios', 'espacio_corto'), 'Años de gobierno', 'Color espacio',
+                  'Años de gobierno por espacio (presidentes electos)', 'Años'))
 
     # ---------------------------------------------------------------- Tooltip del mapa
     P = 'tt_provincia'

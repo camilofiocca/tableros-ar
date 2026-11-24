@@ -49,8 +49,35 @@ TABLAS = {
     'resumen': [('tema', T), ('texto', T)],
     'control': [('id_eleccion', T), ('control', T), ('oficial_pct', F), ('tablero_pct', F), ('diferencia_pp', F), ('estado', T)],
     'info': [('ultima_actualizacion', T), ('cobertura', T), ('fuentes', T), ('mapa', T), ('errores', T)],
+    # --- Gobernadores ---
+    'gob_elecciones': [
+        ('id_gob', T), ('anio', I), ('id_prov', T), ('gobernador', T), ('id_espacio', T), ('mandato', T), ('hasta', I),
+        ('vuelta_final', T), ('hubo_balotaje', B), ('lista_ganadora', T), ('ganador_pct', F), ('segundo', T),
+        ('segundo_espacio', T), ('segundo_pct', F), ('margen_pp', F), ('participacion', F), ('electores', F), ('cambio', T),
+        ('reelecto', B), ('gobernador_anterior', T), ('espacio_anterior', T), ('nota', T), ('fuente', T),
+        ('foto_url', T, {'cat': 'ImageUrl'}), ('etiqueta', T), ('iniciales', T)],
+    'gob_resultados': [
+        ('id_gob', T), ('anio', I), ('id_prov', T), ('vuelta', T), ('vuelta_txt', T), ('etiqueta', T), ('lista', T),
+        ('candidato', T), ('id_espacio', T), ('votos', F), ('pct', F), ('posicion', I), ('fuente', T)],
+    'gob_mapa': [
+        ('anio_corte', I), ('id_prov', T), ('id_gob', T), ('gobernador', T), ('id_espacio', T), ('electo_en', I),
+        ('mandato', T), ('etiqueta_anio', T), ('iniciales', T), ('foto_url', T, {'cat': 'ImageUrl'})],
+    # --- Congreso ---
+    'camara_anio': [('id_camara_anio', T), ('camara', T), ('anio', I), ('etiqueta', T, {'sort': 'orden'}), ('orden', I),
+                    ('tiene_composicion', B)],
+    'bancas': [
+        ('camara', T), ('id_eleccion', T), ('anio', I), ('id_prov', T), ('opcion', T), ('id_espacio', T), ('votos', F),
+        ('pct', F), ('posicion', I), ('bancas', I), ('id_camara_anio', T), ('vigente', B)],
+    'composicion': [('camara', T), ('anio', I), ('id_espacio', T), ('bancas', I), ('total_bancas', I), ('pct', F),
+                    ('mayoria', I), ('id_camara_anio', T)],
+    'hemiciclo': [('camara', T), ('asiento', I), ('x', I), ('y', I), ('r', I)],
+    # --- Presidentes ---
+    'presidentes': [
+        ('orden', I), ('anio', I), ('id_eleccion', T), ('presidente', T), ('formula', T), ('id_espacio', T),
+        ('pct', F), ('instancia', T), ('desde', D), ('hasta', D), ('mandato', T, {'sort': 'orden'}), ('nota', T),
+        ('foto_url', T, {'cat': 'ImageUrl'}), ('iniciales', T)],
 }
-CON_ID_PROV = {'provincias', 'resultados', 'prov_eleccion'}
+CON_ID_PROV = {'provincias', 'resultados', 'prov_eleccion', 'gob_elecciones', 'gob_resultados', 'gob_mapa', 'bancas'}
 
 RELACIONES = [
     ('resultados', 'id_eleccion', 'elecciones', 'id_eleccion'),
@@ -60,6 +87,17 @@ RELACIONES = [
     ('prov_eleccion', 'id_prov', 'provincias', 'id_prov'),
     ('nacional', 'id_eleccion', 'elecciones', 'id_eleccion'),
     ('nacional', 'id_espacio', 'espacios', 'id_espacio'),
+    ('gob_elecciones', 'id_prov', 'provincias', 'id_prov'),
+    ('gob_elecciones', 'id_espacio', 'espacios', 'id_espacio'),
+    ('gob_resultados', 'id_gob', 'gob_elecciones', 'id_gob'),     # sin relación directa a provincias/espacios: evita caminos ambiguos
+    ('gob_mapa', 'id_prov', 'provincias', 'id_prov'),
+    ('gob_mapa', 'id_espacio', 'espacios', 'id_espacio'),
+    ('bancas', 'id_prov', 'provincias', 'id_prov'),
+    ('bancas', 'id_espacio', 'espacios', 'id_espacio'),
+    ('bancas', 'id_camara_anio', 'camara_anio', 'id_camara_anio'),
+    ('composicion', 'id_espacio', 'espacios', 'id_espacio'),
+    ('composicion', 'id_camara_anio', 'camara_anio', 'id_camara_anio'),
+    ('presidentes', 'id_espacio', 'espacios', 'id_espacio'),
 ]
 
 
@@ -238,8 +276,9 @@ med('Etiqueta intensidad', '"Votos de " & [Espacio elegido] & " por provincia ·
 ESPACIOS_SERIE = [('PJ', 'Peronismo'), ('PF', 'Terceras vías'), ('UCR', 'UCR y aliados'), ('PRO', 'PRO-JxC'),
                   ('LLA', 'LLA'), ('CD', 'Centroderecha'), ('CI', 'Centroizquierda'), ('IZQ', 'Izquierda'),
                   ('PROV', 'Provinciales')]
-for cod, nom in ESPACIOS_SERIE:
-    med('%% %s' % nom, 'DIVIDE ( CALCULATE ( SUM ( nacional[pct] ), nacional[nivel] = "espacio", nacional[id_espacio] = "%s" ), 100 )' % cod,
+for cod, nom in ESPACIOS_SERIE:   # país, o la provincia elegida (segmentador o clic en el mapa)
+    med('%% %s' % nom, 'IF ( [Hay provincia], CALCULATE ( [%% votos], espacios[id_espacio] = "%s" ), '
+        'DIVIDE ( CALCULATE ( SUM ( nacional[pct] ), nacional[nivel] = "espacio", nacional[id_espacio] = "%s" ), 100 ) )' % (cod, cod),
         PCT, 'Series por espacio')
 
 # --- KPIs de la portada (hoja kpis) ---
@@ -331,6 +370,10 @@ med('SVG mapa última intermedia', '''
     VAR e = [Id última intermedia]
     RETURN CALCULATE ( [SVG mapa ganadores], REMOVEFILTERS ( elecciones ), elecciones[id_eleccion] = e )''', None, 'Mapa', data_category='ImageUrl')
 
+
+# Provincia, gobernadores, Congreso y presidentes
+import elecciones_medidas_nuevas  # noqa: E402
+elecciones_medidas_nuevas.registrar(med, PCT, PP, GRIS_VACIO)
 
 def medida_tmdl(m):
     lines = [l.rstrip() for l in m['expr'].split('\n') if l.strip()]

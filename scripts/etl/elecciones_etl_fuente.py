@@ -357,7 +357,7 @@ ge["gobernador_anterior"] = ge.groupby("id_prov").gobernador.shift(1)
 ge["espacio_anterior"] = ge.groupby("id_prov").id_espacio.shift(1)
 ge["cambio"] = np.where(ge.espacio_anterior.isna(), "", np.where(ge.id_espacio == ge.espacio_anterior, "Continuidad", "Alternancia"))
 ge["reelecto"] = ge.gobernador.eq(ge.gobernador_anterior)
-ge["hasta"] = ge.groupby("id_prov").anio.shift(-1)
+ge["hasta"] = ge.groupby("id_prov").anio.shift(-1).astype("Int64")
 ge["mandato"] = ge.anio.astype(str) + "–" + ge.hasta.map(lambda x: str(int(x)) if pd.notna(x) else "hoy")
 ge["foto_url"] = ""   # opcional: link a una foto (lo completa el usuario; el tablero la muestra si existe)
 ge["etiqueta"] = ge.gobernador + " (" + ge.mandato + ")"
@@ -376,6 +376,7 @@ for a in range(1983, int(max(el.anio.max(), ge.anio.max())) + 1):
         else:
             filas.append((a, p, None, "Sin gobernador electo" if p != "94" else "Territorio nacional", None, None, ""))
 gob_mapa = pd.DataFrame(filas, columns=["anio_corte", "id_prov", "id_gob", "gobernador", "id_espacio", "electo_en", "mandato"])
+gob_mapa["electo_en"] = gob_mapa.electo_en.astype("Int64")
 gob_mapa.loc[(gob_mapa.id_prov == "02") & gob_mapa.id_gob.isna(), "gobernador"] = "Intendente designado"
 # Corrientes 1991-1993: intervención federal
 gob_mapa.loc[gob_mapa.id_gob.eq("1991-18"), ["gobernador", "id_espacio"]] = ["Intervención federal", None]
@@ -441,6 +442,8 @@ for cam, ventana, total in (("Diputados", 2, 257), ("Senado", 3, 72)):
         previos = [a - 2 * k for k in range(ventana)]
         if not all(x in anios for x in previos):
             continue      # falta una elección de la ventana (2001, o 1983 para diputados)
+        if 1983 in previos and a > 1983:
+            continue      # en 1983 se renovó toda la Cámara y la mitad sorteó mandato de 2 años: no se puede reconstruir 1985
         x = b[b.anio.isin(previos)].groupby("id_espacio").bancas.sum()
         for esp, n in x.items():
             if n > 0:
@@ -449,6 +452,39 @@ composicion = pd.DataFrame(comp, columns=["camara", "anio", "id_espacio", "banca
 composicion["pct"] = composicion.bancas / composicion.total_bancas * 100
 composicion["mayoria"] = np.where(composicion.camara == "Diputados", 129, 37)
 composicion["id_camara_anio"] = composicion.camara + " " + composicion.anio.astype(str)
+
+# Bancas que siguen en la cámara hoy (diputados: últimas 2 elecciones; senado: últimas 3)
+ult = bancas.groupby("camara").anio.max()
+bancas["vigente"] = [a > ult[c] - (4 if c == "Diputados" else 6) for c, a in zip(bancas.camara, bancas.anio)]
+
+# Dimensión cámara-año (la usan los segmentadores de la página Congreso)
+camara_anio = (pd.concat([bancas[["camara", "anio"]], composicion[["camara", "anio"]]]).drop_duplicates()
+               .sort_values(["camara", "anio"]).reset_index(drop=True))
+camara_anio["id_camara_anio"] = camara_anio.camara + " " + camara_anio.anio.astype(str)
+camara_anio["etiqueta"] = camara_anio.id_camara_anio
+camara_anio["orden"] = range(1, len(camara_anio) + 1)
+camara_anio["tiene_composicion"] = camara_anio.id_camara_anio.isin(composicion.id_camara_anio)
+camara_anio = camara_anio[["id_camara_anio", "camara", "anio", "etiqueta", "orden", "tiene_composicion"]]
+
+# Posiciones de las bancas en el hemiciclo (dibujo SVG de la composición): x, y, radio en píxeles enteros
+def hemiciclo_pos(n, filas, ancho=600, r_min=0.38):
+    radios = [r_min + (1 - r_min) * i / (filas - 1) for i in range(filas)]
+    por_fila = [round(n * r / sum(radios)) for r in radios]
+    por_fila[-1] += n - sum(por_fila)
+    R = ancho / 2 - 20
+    paso = min([R * (1 - r_min) / (filas - 1)] + [np.pi * R * r / (k - 1) for r, k in zip(radios, por_fila) if k > 1])
+    radio = max(3, int(paso * 0.42))
+    pts = []
+    for r, k in zip(radios, por_fila):
+        for j in range(k):
+            t = np.pi * (1 - j / (k - 1)) if k > 1 else np.pi / 2
+            pts.append((t, r, ancho / 2 + R * r * np.cos(t), R + 20 - R * r * np.sin(t)))
+    pts.sort(key=lambda q: (-round(q[0], 6), q[1]))
+    return [(i + 1, int(round(x)), int(round(y)), radio) for i, (t, r, x, y) in enumerate(pts)]
+
+hemiciclo = pd.DataFrame(
+    [("Diputados",) + q for q in hemiciclo_pos(257, 9)] + [("Senado",) + q for q in hemiciclo_pos(72, 5)],
+    columns=["camara", "asiento", "x", "y", "r"])
 
 def iniciales(nombre):
     if nombre == "Cristina Fernández de Kirchner":
@@ -464,7 +500,7 @@ PRESIDENTES = [  # (id_eleccion donde se define, fórmula como figura en la base
     ("1999-PRES-1V", "De la Rúa - Álvarez", "Fernando de la Rúa", "1999-12-10", "2001-12-21", "Renunció en la crisis de 2001; lo sucedieron Puerta, Rodríguez Saá, Camaño y Duhalde (designados por el Congreso)."),
     ("2003-PRES-1V", "Kirchner - Scioli", "Néstor Kirchner", "2003-05-25", "2007-12-10", "Segundo en primera vuelta (22,2%); asumió porque Menem no se presentó al balotaje."),
     ("2007-PRES-1V", "Fernández de Kirchner - Cobos", "Cristina Fernández de Kirchner", "2007-12-10", "2011-12-10", ""),
-    ("2011-PRES-1V", "Fernández de Kirchner - Boudou", "Cristina Fernández de Kirchner", "2011-12-10", "2015-12-10", "Reelecta con el 54,1%, el mayor porcentaje desde 1983."),
+    ("2011-PRES-1V", "Fernández de Kirchner - Boudou", "Cristina Fernández de Kirchner", "2011-12-10", "2015-12-10", "Reelecta con más del 54%, el mayor porcentaje en primera vuelta desde 1983."),
     ("2015-PRES-BAL", "Macri - Michetti", "Mauricio Macri", "2015-12-10", "2019-12-10", "Primer balotaje presidencial de la historia."),
     ("2019-PRES-1V", "Fernández - Fernández de Kirchner", "Alberto Fernández", "2019-12-10", "2023-12-10", ""),
     ("2023-PRES-BAL", "Milei - Villarruel", "Javier Milei", "2023-12-10", "", "Ganó el balotaje con el 55,7%."),
@@ -483,6 +519,7 @@ for i, (ide, formula, nombre, desde, hasta, nota) in enumerate(PRESIDENTES, star
                  "iniciales": iniciales(nombre)})
 presidentes = pd.DataFrame(pres)
 gob_el = gob_el.assign(iniciales=gob_el.gobernador.map(iniciales))
+gob_mapa = gob_mapa.merge(gob_el[["id_gob", "iniciales", "foto_url"]], on="id_gob", how="left")
 
 print(f"gobernadores: {len(gob_el)} elecciones · senado: {sen.groupby(['id_eleccion', 'id_prov']).ngroups} distritos · "
       f"bancas diputados por año: {dip.groupby('anio').bancas.sum().to_dict()}")
@@ -659,7 +696,8 @@ HOJAS = {"elecciones": el_out, "provincias": prov_out, "espacios": espacios, "re
          "prov_eleccion": pe_out, "nacional": nac_out, "kpis": kpis, "resumen": resumen, "control": control,
          "control_dine": control_dine, "clasificacion": clasificacion, "info": info,
          "gob_elecciones": gob_el, "gob_resultados": gob_res, "gob_mapa": gob_mapa, "bancas": bancas,
-         "composicion": composicion, "presidentes": presidentes}
+         "composicion": composicion, "presidentes": presidentes,
+         "camara_anio": camara_anio, "hemiciclo": hemiciclo}
 
 def preparar(data):
     d_ = data.copy()
